@@ -23,4 +23,38 @@ class CoursesTest extends TestCase
         $this->assertDatabaseHas('courses', $attributes);
     }
 
+    /** @test */
+    public function a_course_requires_a_title()
+    {
+        $attributes = Course::factory()->raw([
+            'title' => ''
+        ]);
+
+        $this->post('/courses', $attributes)->assertSessionHasErrors(['title']);
+    }
+
+    /** @test */
+    public function a_course_requires_a_description()
+    {
+        $attributes = Course::factory()->raw([
+            'description' => ''
+        ]);
+
+        $this->post('/courses', $attributes)->assertSessionHasErrors(['description']);
+    }
+
+    /** @test */
+    public function a_course_requires_a_valid_rate_or_default()
+    {
+        $attributes = Course::factory()->raw([
+            'rate' => ''
+        ]);
+        $this->post('/courses', $attributes)->assertSessionHasNoErrors();
+
+        $attributes['rate'] = 6;
+        $this->post('/courses', $attributes)->assertSessionHasErrors(['rate']);
+
+        $attributes['rate'] = 5;
+        $this->post('/courses', $attributes)->assertSessionHasNoErrors();
+    }
 }
