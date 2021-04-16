@@ -8,11 +8,17 @@ class CoursesController extends Controller
 {
     public function store()
     {
-        Course::create(request()->validate([
+        $this->authorize('create', Course::class);
+
+        $attributes = request()->validate([
             'title' => 'required',
             'description' => 'required',
             'rate' => 'nullable|numeric|between:0,5'
-        ]));
+        ]);
+
+        $attributes['professor_id'] = auth()->id();
+
+        Course::create($attributes);
 
         return redirect('/courses');
     }

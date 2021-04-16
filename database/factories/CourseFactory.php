@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CourseFactory extends Factory
@@ -24,7 +25,10 @@ class CourseFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
-            'rate' => $this->faker->numberBetween(0, 5)
+            'rate' => $this->faker->numberBetween(0, 5),
+            'professor_id' => User::factory()->create([
+                'role' => 'professor'
+            ])
         ];
     }
 }

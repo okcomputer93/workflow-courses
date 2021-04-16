@@ -18,5 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/courses', [CoursesController::class, 'store']);
+Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')->name('courses.store');
 Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
