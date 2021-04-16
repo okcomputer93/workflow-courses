@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -14,12 +15,16 @@ class CoursesTest extends TestCase
     /** @test */
     public function a_course_can_be_created()
     {
+        $this->withoutExceptionHandling();
         $attributes = [
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'rate' => $this->faker->numberBetween(0, 5)
         ];
-        $this->post('/courses', $attributes)->assertRedirect('/courses');
+
+        $this->actingAs(User::factory()->create([
+            'role' => 'professor'
+        ]))->post('/courses', $attributes)->assertRedirect('/courses');
         $this->assertDatabaseHas('courses', $attributes);
     }
 
@@ -30,7 +35,9 @@ class CoursesTest extends TestCase
             'title' => ''
         ]);
 
-        $this->post('/courses', $attributes)->assertSessionHasErrors(['title']);
+        $this->actingAs(User::factory()->create([
+            'role' => 'professor'
+        ]))->post('/courses', $attributes)->assertSessionHasErrors(['title']);
     }
 
     /** @test */
@@ -40,7 +47,9 @@ class CoursesTest extends TestCase
             'description' => ''
         ]);
 
-        $this->post('/courses', $attributes)->assertSessionHasErrors(['description']);
+        $this->actingAs(User::factory()->create([
+            'role' => 'professor'
+        ]))->post('/courses', $attributes)->assertSessionHasErrors(['description']);
     }
 
     /** @test */
@@ -49,17 +58,22 @@ class CoursesTest extends TestCase
         $attributes = Course::factory()->raw([
             'rate' => ''
         ]);
-        $this->post('/courses', $attributes)->assertSessionHasNoErrors();
+
+        $user =  User::factory()->create([
+                    'role' => 'professor'
+                ]);
+
+        $this->actingAs($user)->post('/courses', $attributes)->assertSessionHasNoErrors();
 
         $attributes['rate'] = 6;
-        $this->post('/courses', $attributes)->assertSessionHasErrors(['rate']);
+        $this->actingAs($user)->post('/courses', $attributes)->assertSessionHasErrors(['rate']);
 
         $attributes['rate'] = 5;
-        $this->post('/courses', $attributes)->assertSessionHasNoErrors();
+        $this->actingAs($user)->post('/courses', $attributes)->assertSessionHasNoErrors();
     }
 
     /** @test */
-    public function a_user_can_view_a_project()
+    public function a_user_can_view_a_course()
     {
         $this->withoutExceptionHandling();
         $course = Course::factory()->create();
@@ -68,5 +82,17 @@ class CoursesTest extends TestCase
             ->assertSee($course->description)
             ->assertSee($course->rate);
     }
+
+    /** @test */
+    public function users_or_visitors_cannot_create_courses()
+    {
+        $attributes = Course::factory()->raw([
+            'professor_id' => null
+        ]);
+        $this->post('/courses', $attributes)->assertRedirect('login');
+
+        $this->actingAs(User::factory()->create())->post('/courses', $attributes)->assertStatus(403);
+    }
+
 
 }
