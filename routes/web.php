@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::post('/courses', [CoursesController::class, 'store']);
+Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');

@@ -8,5 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     use HasFactory;
+
     protected $fillable = ['title', 'description', 'rate'];
+
+    public function path()
+    {
+        return route('courses.show', $this);
+    }
 }

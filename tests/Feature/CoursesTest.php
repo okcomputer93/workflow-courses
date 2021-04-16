@@ -57,4 +57,16 @@ class CoursesTest extends TestCase
         $attributes['rate'] = 5;
         $this->post('/courses', $attributes)->assertSessionHasNoErrors();
     }
+
+    /** @test */
+    public function a_user_can_view_a_project()
+    {
+        $this->withoutExceptionHandling();
+        $course = Course::factory()->create();
+
+        $this->get($course->path())->assertSee($course->title)
+            ->assertSee($course->description)
+            ->assertSee($course->rate);
+    }
+
 }
