@@ -15,4 +15,9 @@ class Course extends Model
     {
         return route('courses.show', $this);
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'professor_id');
+    }
 }
