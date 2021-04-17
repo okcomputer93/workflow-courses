@@ -10,15 +10,13 @@ class CoursesController extends Controller
     {
         $this->authorize('create', Course::class);
 
-        $attributes = request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'rate' => 'nullable|numeric|between:0,5'
-        ]);
-
-        $attributes['professor_id'] = auth()->id();
-
-        Course::create($attributes);
+        auth()->user()->courses()
+            ->create(request()->validate([
+                'title' => 'required',
+                'description' => 'required',
+                'rate' => 'nullable|numeric|between:0,5'
+            ])
+        );
 
         return redirect('/courses');
     }
