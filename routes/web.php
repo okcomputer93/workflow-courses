@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout.app');
 });
 
 Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')->name('courses.store');
