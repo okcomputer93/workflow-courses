@@ -12,7 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-{{--    <script src="https://kit.fontawesome.com/df1c4e8a69.js" crossorigin="anonymous"></script>--}}
+    <script src="https://kit.fontawesome.com/df1c4e8a69.js" crossorigin="anonymous"></script>
 
 
     <!-- Styles -->
@@ -79,13 +79,13 @@
     </main>
     <footer class="bg-white font-sans py-10">
         <div class="flex flex-col justify-center items-center">
-            <div class="flex my-6 mt-6">
-                <a class="px-4 text-gray-400 font-normal hover:text-gray-600" href="#">Nosotros</a>
-                <a class="px-4 text-gray-400 font-normal hover:text-gray-600" href="#">Cursos</a>
-                <a class="px-4 text-gray-400 font-normal hover:text-gray-600" href="#">Accesibilidad</a>
-                <a class="px-4 text-gray-400 font-normal hover:text-gray-600" href="#">Promociones</a>
+            <div class="flex flex-col items-center sm:flex-row my-3 sm:my-6 mt-3 sm:mt-6">
+                <a class="px-4 text-gray-400 text-sm sm:text-base py-3 sm:py-0 font-normal hover:text-gray-600" href="#">Nosotros</a>
+                <a class="px-4 text-gray-400 text-sm sm:text-base py-3 sm:py-0 font-normal hover:text-gray-600" href="#">Cursos</a>
+                <a class="px-4 text-gray-400 text-sm sm:text-base py-3 sm:py-0 font-normal hover:text-gray-600" href="#">Accesibilidad</a>
+                <a class="px-4 text-gray-400 text-sm sm:text-base py-3 sm:py-0 font-normal hover:text-gray-600" href="#">Promociones</a>
             </div>
-            <div class="flex my-6">
+            <div class="flex my-3 sm:my-6">
                 <a href="#">
                     <i class="fab fa-facebook fa-lg text-gray-400 px-4 hover:text-blue-400"></i>
                 </a>
@@ -100,7 +100,7 @@
                 </a>
             </div>
             <div>
-                <p class="mt-6 text-gray-400 font-normal">&copy; Workflow, Inc, All rights reserved</p>
+                <p class="mt-3 text-sm sm:text-base sm:mt-6 text-gray-400 font-normal">&copy; Workflow, Inc, All rights reserved</p>
             </div>
         </div>
     </footer>
