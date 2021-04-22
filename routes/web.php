@@ -15,8 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout.app');
-});
+    return view('welcome');
+})->name('home');
+
+Route::get('/courses', function () {
+    return view('wip');
+})->name('courses');
+
+Route::get('/aboutus', function () {
+    return view('wip');
+})->name('aboutus');
 
 Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')->name('courses.store');
 Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
