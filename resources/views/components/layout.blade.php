@@ -23,17 +23,27 @@
     @endif
 </head>
 <body>
-    <x-header auth="true">
-        <x-nav-link route="home">Home</x-nav-link>
-        <x-nav-link route="courses">Cursos</x-nav-link>
-        <x-nav-link route="aboutus">Nosotros</x-nav-link>
-    </x-header>
+
+    @props([
+            'header' => 'true',
+            'footer' => 'true'
+        ])
+
+    @if ($header !== 'true')
+        <x-header auth="true">
+            <x-nav-link route="home">Home</x-nav-link>
+            <x-nav-link route="courses">Cursos</x-nav-link>
+            <x-nav-link route="aboutus">Nosotros</x-nav-link>
+        </x-header>
+    @endif
         {{ $slot }}
-    <x-footer>
-        <x-nav-link-footer route="aboutus">Nosotros</x-nav-link-footer>
-        <x-nav-link-footer route="courses">Cursos</x-nav-link-footer>
-        <x-nav-link-footer route="accesibility">Accesibilidad</x-nav-link-footer>
-        <x-nav-link-footer route="sale">Promociones</x-nav-link-footer>
-    </x-footer>
+    @if ($footer !== 'true')
+        <x-footer>
+            <x-nav-link-footer route="aboutus">Nosotros</x-nav-link-footer>
+            <x-nav-link-footer route="courses">Cursos</x-nav-link-footer>
+            <x-nav-link-footer route="accesibility">Accesibilidad</x-nav-link-footer>
+            <x-nav-link-footer route="sale">Promociones</x-nav-link-footer>
+        </x-footer>
+    @endif
 </body>
 </html>
