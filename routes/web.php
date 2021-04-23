@@ -27,4 +27,5 @@ Route::get('/aboutus', function () {
 })->name('aboutus');
 
 Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')->name('courses.store');
+Route::get('/courses/create', [CoursesController::class, 'create'])->middleware('auth')->name('courses.create');
 Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');

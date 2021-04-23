@@ -19,6 +19,9 @@ class ManageCoursesTest extends TestCase
 
         $professor = $this->signIn($role = 'professor');
 
+        $this->get(route('courses.create'))
+            ->assertStatus(200);
+
         $course = Course::factory()->raw([
             'professor_id' => $professor->id
         ]);
@@ -89,14 +92,20 @@ class ManageCoursesTest extends TestCase
     }
 
     /** @test */
-    public function users_or_visitors_cannot_create_courses()
+    public function students_or_visitors_cannot_create_courses()
     {
         $course = Course::factory()->raw();
+
+        $this->get(route('courses.create'))
+            ->assertRedirect('login');
 
         $this->post('/courses', $course)
             ->assertRedirect('login');
 
         $this->signIn($role = 'student');
+
+        $this->get(route('courses.create'))
+            ->assertStatus(403);
 
         $this->post('/courses', $course)
             ->assertStatus(403);
