@@ -6,6 +6,14 @@ use App\Models\Course;
 
 class CoursesController extends Controller
 {
+    public function create()
+    {
+        $this->authorize('create', Course::class);
+
+        return view('courses.create');
+
+    }
+
     public function store()
     {
         $this->authorize('create', Course::class);
