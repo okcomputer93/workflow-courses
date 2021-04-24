@@ -10,8 +10,8 @@
                 <x-form.input type="email" name="email">Email Address</x-form.input>
                 <x-form.input type="password" name="password">Password</x-form.input>
                 <div>
-                    <div class="flex items-center justify-between w-full">
-                        <div class="flex items-center">
+                    <div class="flex flex-col sm:flex-row items-center justify-between w-full">
+                        <div class="flex items-center pb-4 sm:pb-0">
                             <input class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" id="remember" name="remember" type="checkbox">
                             <label class="ml-2 block text-sm text-gray-900" for="remember">Remember me</label>
                         </div>
