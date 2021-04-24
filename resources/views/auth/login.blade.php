@@ -3,7 +3,7 @@
         <title>Workflow | Login</title>
     </x-slot>
         <div class="min-h-screen flex items-center justify-center bg-gray-100">
-            <x-form.form method="post" action="/login" >
+            <x-form.form class="h-screen" method="post" action="/login" >
                 <x-slot name="title">
                     Sign in to your account
                 </x-slot>
