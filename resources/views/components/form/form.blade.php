@@ -5,10 +5,10 @@
     'class' => '',
 ])
 
-<div {{ $attributes->merge(['class' => 'max-w-md w-full space-y-4 bg-white p-10 rounded-md shadow-md space-y-8 ' .  $class]) }}>
+<div {{ $attributes->merge(['class' => 'max-w-md h-screen sm:h-auto w-full space-y-4 bg-white p-6 sm:p-10 rounded-md shadow-md space-y-8 ' .  $class]) }}>
     <div>
         <img class="mx-auto h-12 w-auto" src="/images/workflow-mark.svg" alt="Workflow">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 class="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-gray-900">
             {{ $title }}
         </h2>
     </div>
@@ -20,7 +20,7 @@
             @method($method)
         @endif
 
-        <div class="rounded-md space-y-8">
+        <div class="rounded-md space-y-14 sm:space-y-8">
            {{ $slot }}
         </div>
     </form>
