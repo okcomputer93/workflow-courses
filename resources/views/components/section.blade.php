@@ -6,7 +6,7 @@
     ],
     'class' => ''
 ])
-<section {{ $attributes->merge(['class' => "py-8 $background[$type] shadow-inner"]) }}>
+<section {{ $attributes->merge(['class' => "py-8 $background[$type] shadow-inner " . $class]) }}>
     <div class="mx-auto max-w-7xl px-6">
         {{ $slot }}
     </div>
