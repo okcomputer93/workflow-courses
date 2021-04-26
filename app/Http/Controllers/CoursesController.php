@@ -22,7 +22,8 @@ class CoursesController extends Controller
             ->create(request()->validate([
                 'title' => 'required',
                 'description' => 'required',
-                'rate' => 'nullable|numeric|between:0,5'
+                'rate' => 'nullable|numeric|between:0,5',
+                'video_url' => 'required|url'
             ])
         );
 
