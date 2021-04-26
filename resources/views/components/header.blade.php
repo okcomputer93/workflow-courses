@@ -31,12 +31,12 @@
                                 </a>
                             @endif
                         @else
-                            <a href="#" class="inline-block">
+                            <a href="#" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-900 hover:border-indigo-500 hover:border-b-4">
                                 {{ Auth::user()->name }}
                             </a>
-                            <a href="{{ route('logout') }}" class="inline-block">
+                            <x-form-button action="{{ route('logout') }}" method="POST" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-900 hover:border-indigo-500 hover:border-b-4">
                                 {{ __('Logout') }}
-                            </a>
+                            </x-form-button>
                     @endguest
                 @endif
             </div>
