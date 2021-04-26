@@ -6,7 +6,7 @@
     'logo' => 'true'
 ])
 
-<div {{ $attributes->merge(['class' => 'max-w-md  sm:h-full w-full space-y-4 bg-white p-6 py-16 sm:p-10 rounded-md shadow-md sm:space-y-8 ' .  $class]) }}>
+<div {{ $attributes->merge(['class' => 'max-w-md sm:h-full w-full space-y-4 bg-white p-6 py-16 sm:p-10 rounded-md shadow-md sm:space-y-8 ' .  $class]) }}>
    <div>
        <div>
            @if($logo === 'true')
