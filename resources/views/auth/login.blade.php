@@ -9,9 +9,6 @@
                 </x-slot>
                 <x-form.input type="email" name="email">Email Address</x-form.input>
                 <x-form.input type="password" name="password">Password</x-form.input>
-                <div class="flex items-center justify-center w-full">
-                    <a class="text-sm font-medium text-indigo-600 hover:text-indigo-500" href="/register">Don't have an account?</a>
-                </div>
                 <div class="flex flex-col sm:flex-row items-center justify-between w-full">
                     <div class="flex items-center pb-4 sm:pb-0">
                         <input class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" id="remember" name="remember" type="checkbox">
@@ -25,6 +22,9 @@
                         <x-icon.lock></x-icon.lock>
                     </x-slot>
                 </x-form.button>
+                <div class="flex items-center justify-center w-full">
+                    <a class="text-sm font-medium text-indigo-600 hover:text-indigo-500" href="/register">Don't have an account?</a>
+                </div>
             </x-form.form>
         </div>
 </x-layout>
