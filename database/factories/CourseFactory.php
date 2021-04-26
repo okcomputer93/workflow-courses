@@ -25,6 +25,7 @@ class CourseFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
+            'video_url' => $this->faker->url,
             'rate' => $this->faker->numberBetween(0, 5),
             'professor_id' => User::factory()->create([
                 'role' => 'professor'

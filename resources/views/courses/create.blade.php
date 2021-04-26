@@ -9,7 +9,7 @@
                     Upload a new video course
                 </x-slot>
                 <x-form.input type="text" name="title">Title</x-form.input>
-                <x-form.input type="url" name="url">URL</x-form.input>
+                <x-form.input type="url" name="video_url">Video Url</x-form.input>
                 <x-form.textarea type="text" name="description">Description</x-form.textarea>
                 <x-form.button>
                     Upload

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Course;
-use App\Models\User;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -43,6 +43,19 @@ class ManageCoursesTest extends TestCase
 
         $this->post('/courses', $attributes)
             ->assertSessionHasErrors(['title']);
+    }
+
+    /** @test */
+    public function a_course_requires_a_video_url()
+    {
+        $this->signIn($role = 'professor');
+
+        $attributes = Course::factory()->raw([
+            'video_url' => ''
+        ]);
+
+        $this->post('/courses', $attributes)
+            ->assertSessionHasErrors(['video_url']);
     }
 
     /** @test */
