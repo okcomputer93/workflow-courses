@@ -2,7 +2,7 @@
     'auth' => 'false'
 ])
 
-<nav class="bg-white font-sans">
+<nav class="bg-blue-dark font-sans">
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between px-6">
             <h1 class="flex-1 visible sm:hidden">Me</h1>
@@ -21,20 +21,20 @@
                 @if($auth !== 'false')
                         @guest
                             @if (Route::has('login'))
-                                <a href="{{ route('login') }}" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-900 hover:border-indigo-500 hover:border-b-4">
+                                <a href="{{ route('login') }}" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
                                     {{ __('Login') }}
                                 </a>
                             @endif
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-900 hover:border-indigo-500 hover:border-b-4">
+                                <a href="{{ route('register') }}" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
                                     {{ __('Register') }}
                                 </a>
                             @endif
                         @else
-                            <a href="#" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-900 hover:border-indigo-500 hover:border-b-4">
+                            <a href="#" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
                                 {{ Auth::user()->name }}
                             </a>
-                            <x-form-button action="{{ route('logout') }}" method="POST" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-2 border-transparent hover:text-gray-900 hover:border-indigo-500 hover:border-b-4">
+                            <x-form-button action="{{ route('logout') }}" method="POST" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
                                 {{ __('Logout') }}
                             </x-form-button>
                     @endguest

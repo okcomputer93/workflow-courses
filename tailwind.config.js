@@ -10,6 +10,11 @@ module.exports = {
         extend: {
             height: {
                 medium: '90vh'
+            },
+            colors: {
+                blue: {
+                    dark: '#1f2937',
+                }
             }
         },
     },

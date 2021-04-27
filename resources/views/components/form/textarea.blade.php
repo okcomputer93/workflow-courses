@@ -1,8 +1,8 @@
 @props([
-'name' => '',
-'type' => 'text',
-'placeholder' => '',
-'class' => '',
+    'name' => '',
+    'type' => 'text',
+    'placeholder' => '',
+    'class' => '',
 ])
 
 <div class="{{ $class }}">
