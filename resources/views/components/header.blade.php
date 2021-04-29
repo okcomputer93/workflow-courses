@@ -21,14 +21,12 @@
                 @if($auth !== 'false')
                         @guest
                             @if (Route::has('login'))
-                                <a href="{{ route('login') }}" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
+                                <a href="{{ route('login') }}" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-400 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
                                     {{ __('Login') }}
                                 </a>
                             @endif
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
-                                    {{ __('Register') }}
-                                </a>
+                                <x-button class="m-4" href="/register">Regístrate</x-button>
                             @endif
                         @else
                             <a href="#" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
