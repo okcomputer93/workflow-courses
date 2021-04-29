@@ -2,7 +2,8 @@
     'type' => 'base',
     'background' => [
         'base' => 'bg-gray-100',
-        'clean' => 'bg-white'
+        'clean' => 'bg-white',
+        'dark' => 'bg-blue-dark'
     ],
     'class' => ''
 ])
