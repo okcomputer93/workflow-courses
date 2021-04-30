@@ -93,6 +93,20 @@ class ManageCoursesTest extends TestCase
     }
 
     /** @test */
+    public function anybody_can_view_all_the_courses()
+    {
+        $this->withoutExceptionHandling();
+
+        $courses = Course::factory()->count(3)->create();
+
+        $titles = $courses->pluck('title');
+
+        $this->get(route('courses.index'))
+            ->assertSee($titles->toArray());
+    }
+
+
+    /** @test */
     public function anybody_can_view_a_course()
     {
         $this->withoutExceptionHandling();

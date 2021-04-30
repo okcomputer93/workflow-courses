@@ -18,14 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/courses', function () {
-    return view('wip');
-})->name('courses');
-
 Route::get('/aboutus', function () {
     return view('wip');
 })->name('aboutus');
 
+Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')->name('courses.store');
 Route::get('/courses/create', [CoursesController::class, 'create'])->middleware('auth')->name('courses.create');
 Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
