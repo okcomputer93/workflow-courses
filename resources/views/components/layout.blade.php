@@ -32,7 +32,7 @@
     @if ($header === 'true')
         <x-header auth="true">
             <x-nav-link route="home">Home</x-nav-link>
-            <x-nav-link route="courses">Cursos</x-nav-link>
+            <x-nav-link route="courses.index">Cursos</x-nav-link>
             <x-nav-link route="aboutus">Nosotros</x-nav-link>
         </x-header>
     @endif
