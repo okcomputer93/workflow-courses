@@ -6,7 +6,9 @@ use App\Models\Course;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use Facades\Tests\Setup\CourseFactory;
 
 class ManageCoursesTest extends TestCase
 {
@@ -15,21 +17,15 @@ class ManageCoursesTest extends TestCase
     /** @test */
     public function a_course_can_be_created()
     {
-        $this->withoutExceptionHandling();
-
         $professor = $this->signIn($role = 'professor');
 
         $this->get(route('courses.create'))
             ->assertStatus(200);
 
-        $course = Course::factory()->raw([
-            'professor_id' => $professor->id
-        ]);
+        $course = CourseFactory::ownedBy($professor)->raw();
 
         $this->post('/courses', $course)
             ->assertRedirect('/courses');
-
-        $this->assertDatabaseHas('courses', $course);
     }
 
     /** @test */
@@ -42,7 +38,7 @@ class ManageCoursesTest extends TestCase
         ]);
 
         $this->post('/courses', $attributes)
-            ->assertSessionHasErrors(['title']);
+            ->assertSessionHasErrors('title');
     }
 
     /** @test */
@@ -55,7 +51,7 @@ class ManageCoursesTest extends TestCase
         ]);
 
         $this->post('/courses', $attributes)
-            ->assertSessionHasErrors(['video_url']);
+            ->assertSessionHasErrors('video_url');
     }
 
     /** @test */
@@ -68,24 +64,40 @@ class ManageCoursesTest extends TestCase
         ]);
 
         $this->post('/courses', $attributes)
-            ->assertSessionHasErrors(['description']);
+            ->assertSessionHasErrors('description');
+    }
+
+    /** @test */
+    public function a_course_requires_a_miniature()
+    {
+        $this->signIn($role = 'professor');
+
+        $attributes = CourseFactory::withStorage('public')->raw();
+
+        $this->post('/courses', $attributes)
+            ->assertSessionHasNoErrors();
+
+        Storage::disk('public')->assertExists('/miniatures/' . $attributes['miniature']->hashName());
+
+        $attributes['miniature'] = '';
+
+        $this->post('/courses', $attributes)
+            ->assertSessionHasErrors('miniature');
     }
 
     /** @test */
     public function a_course_requires_a_valid_rate_or_default()
     {
-        $this->signIn($role = 'professor');
+        $professor = $this->signIn($role = 'professor');
 
-        $course = Course::factory()->raw([
-            'rate' => ''
-        ]);
+        $course = CourseFactory::withStorage('public')->ownedBy($professor)->raw();
 
         $this->post('/courses', $course)
             ->assertSessionHasNoErrors();
 
         $course['rate'] = 6;
         $this->post('/courses', $course)
-            ->assertSessionHasErrors(['rate']);
+            ->assertSessionHasErrors('rate');
 
         $course['rate'] = 5;
         $this->post('/courses', $course)
@@ -119,7 +131,7 @@ class ManageCoursesTest extends TestCase
     }
 
     /** @test */
-    public function students_or_visitors_cannot_create_courses()
+    public function students_or_visitors_cannot_manage_courses()
     {
         $course = Course::factory()->raw();
 

@@ -26,6 +26,7 @@ class CourseFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'video_url' => $this->faker->url,
+            'miniature' => 'path/to/file.jpg',
             'rate' => $this->faker->numberBetween(0, 5),
             'professor_id' => User::factory()->create([
                 'role' => 'professor'
