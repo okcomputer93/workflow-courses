@@ -23,14 +23,20 @@ class CoursesController extends Controller
     {
         $this->authorize('create', Course::class);
 
+        $attributes = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'miniature' => 'required|dimensions:max_width=200,max_height=200',
+            'rate' => 'nullable|numeric|between:0,5',
+            'video_url' => 'required|url'
+        ]);
+
+        $path = request()->file('miniature')->store('miniatures', 'public');
+
+        $attributes['miniature'] = $path;
+
         auth()->user()->courses()
-            ->create(request()->validate([
-                'title' => 'required',
-                'description' => 'required',
-                'rate' => 'nullable|numeric|between:0,5',
-                'video_url' => 'required|url'
-            ])
-        );
+            ->create($attributes);
 
         return redirect('/courses');
     }

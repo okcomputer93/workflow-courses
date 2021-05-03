@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('description');
             $table->unsignedInteger('rate')->default(3);
             $table->string('video_url');
+            $table->string('miniature');
             $table->foreignId('professor_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
