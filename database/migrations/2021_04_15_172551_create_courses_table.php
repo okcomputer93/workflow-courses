@@ -21,6 +21,7 @@ class CreateCoursesTable extends Migration
             $table->string('video_url');
             $table->string('miniature');
             $table->foreignId('professor_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

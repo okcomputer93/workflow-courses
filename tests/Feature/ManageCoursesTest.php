@@ -22,7 +22,7 @@ class ManageCoursesTest extends TestCase
         $this->get(route('courses.create'))
             ->assertStatus(200);
 
-        $course = CourseFactory::ownedBy($professor)->raw();
+        $course = CourseFactory::withStorage('public')->ownedBy($professor)->raw();
 
         $this->post('/courses', $course)
             ->assertRedirect('/courses');
@@ -84,6 +84,23 @@ class ManageCoursesTest extends TestCase
         $this->post('/courses', $attributes)
             ->assertSessionHasErrors('miniature');
     }
+
+    /** @test */
+    public function a_course_requires_a_category()
+    {
+        $this->signIn($role = 'professor');
+
+        $attributes = CourseFactory::withStorage('public')->raw();
+
+        $this->post('/courses', $attributes)
+            ->assertRedirect('/courses');
+
+        $attributes['category_id'] = '';
+
+        $this->post('/courses', $attributes)
+            ->assertSessionHasErrors('category_id');
+    }
+
 
     /** @test */
     public function a_course_requires_a_valid_rate_or_default()

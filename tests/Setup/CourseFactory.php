@@ -4,6 +4,7 @@
 namespace Tests\Setup;
 
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -15,6 +16,7 @@ class CourseFactory
     protected $professor;
     protected $storage;
     protected $faker;
+    protected $category;
 
     public function __construct(Faker $faker) {
         $this->faker = $faker;
@@ -32,17 +34,26 @@ class CourseFactory
         return $this;
     }
 
+    public function category(Category $category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
     public function raw()
     {
         return Course::factory()->raw([
-            'miniature' => UploadedFile::fake()->image('lesson-1.jpg', 200, 200)
+            'miniature' => UploadedFile::fake()->image('lesson-1.jpg', 200, 200),
+            'category_id' => $this->category ?? Category::factory()->create()
         ]);
 
     }
 
     public function create()
     {
-        return Course::factory()->create();
+        return Course::factory()->create([
+            'category_id' => $this->category ?? Category::factory()->create()
+        ]);
     }
 
 }

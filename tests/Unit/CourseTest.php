@@ -2,8 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\User;
+use Facades\Tests\Setup\CourseFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -23,5 +25,18 @@ class CourseTest extends TestCase
     {
         $course = Course::factory()->create();
         $this->assertInstanceOf(User::class, $course->owner);
+    }
+
+    /** @test */
+    public function it_belongs_to_a_category()
+    {
+        $category = Category::factory()
+            ->create();
+
+        $course = CourseFactory::withStorage('public')
+            ->category($category)
+            ->create();
+
+        $this->assertEquals($course->category->id, $category->id);
     }
 }
