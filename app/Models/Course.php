@@ -9,7 +9,7 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'rate', 'professor_id', 'video_url', 'miniature'];
+    protected $fillable = ['title', 'description', 'rate', 'professor_id', 'video_url', 'miniature', 'category_id'];
 
     public function path()
     {
@@ -19,5 +19,10 @@ class Course extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, 'professor_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

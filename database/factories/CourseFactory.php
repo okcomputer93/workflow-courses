@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,6 +29,7 @@ class CourseFactory extends Factory
             'video_url' => $this->faker->url,
             'miniature' => 'path/to/file.jpg',
             'rate' => $this->faker->numberBetween(0, 5),
+            'category_id' => Category::factory()->create(),
             'professor_id' => User::factory()->create([
                 'role' => 'professor'
             ])
