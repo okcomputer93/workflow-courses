@@ -1,26 +1,26 @@
 <?php
 
 namespace Tests\Unit;
-
-use App\Models\Category;
+use App\Models\Course;
+use App\Models\Level;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Facades\Tests\Setup\CourseFactory;
 
-class CategoryTest extends TestCase
+
+class LevelTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     public function it_has_projects()
     {
-        $category = Category::factory()
-            ->create();
+        $level = Level::factory()->create();
 
         $course = CourseFactory::withStorage('public')
-            ->category($category)
+            ->level($level)
             ->create();
 
-        $this->assertEquals($course->id, $category->courses->first()->id);
+        $this->assertEquals($course->id, $level->courses->first()->id);
     }
 }
