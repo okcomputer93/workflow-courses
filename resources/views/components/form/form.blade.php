@@ -3,7 +3,8 @@
     'method' => 'POST',
     'action' => '',
     'class' => '',
-    'logo' => 'true'
+    'logo' => 'true',
+    'enctype' => 'false'
 ])
 
 <div {{ $attributes->merge(['class' => 'max-w-md sm:h-full w-full space-y-4 bg-white p-6 py-16 sm:p-10 rounded-md shadow-md sm:space-y-8 ' .  $class]) }}>
@@ -19,6 +20,9 @@
        </div>
        <form class="mt-8" action="{{ $action }}"
              method="{{ ucwords($method) === 'GET' ? 'GET' : 'POST'  }}"
+             @if ($enctype !== 'false')
+                 enctype="multipart/form-data"
+             @endif
        >
            @csrf
            @if (! in_array($method, ['GET', 'POST']))

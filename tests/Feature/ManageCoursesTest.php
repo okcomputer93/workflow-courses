@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Course;
 
+use App\Models\Level;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
@@ -19,10 +21,18 @@ class ManageCoursesTest extends TestCase
     {
         $professor = $this->signIn($role = 'professor');
 
-        $this->get(route('courses.create'))
-            ->assertStatus(200);
+        $category = Category::factory()->create();
 
-        $course = CourseFactory::withStorage('public')->ownedBy($professor)->raw();
+        $level = Level::factory()->create();
+
+        $this->get(route('courses.create'))
+            ->assertStatus(200)
+            ->assertSee($category->name)
+            ->assertSee($level->name);
+
+        $course = CourseFactory::withStorage('public')
+            ->ownedBy($professor)
+            ->raw();
 
         $this->post('/courses', $course)
             ->assertRedirect('/courses');

@@ -4,12 +4,17 @@
     </x-slot>
     <x-section type="base">
         <div class="flex items-center justify-center">
-            <x-form.form method="post" action="/courses" logo="false" class="max-w-lg">
+            <x-form.form method="post" enctype="true" action="/courses" logo="false" class="max-w-lg">
                 <x-slot name="title">
                     Upload a new video course
                 </x-slot>
                 <x-form.input type="text" name="title">Title</x-form.input>
                 <x-form.input type="url" name="video_url">Video Url</x-form.input>
+                <x-form.select :items="$categories" name="category_id">Selecciona una categoría</x-form.select>
+                <x-form.select :items="$levels" name="level_id">Selecciona un nivel</x-form.select>
+                <div>
+                    <x-form.input type="file" name="miniature">Miniature</x-form.input>
+                </div>
                 <x-form.textarea type="text" name="description">Description</x-form.textarea>
                 <x-form.button>
                     Upload
