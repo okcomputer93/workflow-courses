@@ -28,6 +28,7 @@ class CoursesController extends Controller
             'description' => 'required',
             'miniature' => 'required|dimensions:max_width=200,max_height=200',
             'category_id' => 'required',
+            'level_id' => 'required',
             'rate' => 'nullable|numeric|between:0,5',
             'video_url' => 'required|url'
         ]);

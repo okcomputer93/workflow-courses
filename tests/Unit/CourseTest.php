@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Level;
 use App\Models\User;
 use Facades\Tests\Setup\CourseFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,4 +40,18 @@ class CourseTest extends TestCase
 
         $this->assertEquals($course->category->id, $category->id);
     }
+
+    /** @test */
+    public function it_belongs_to_a_level()
+    {
+        $level = Level::factory()
+            ->create();
+
+        $course = CourseFactory::withStorage('public')
+            ->level($level)
+            ->create();
+
+        $this->assertEquals($course->level->id, $level->id);
+    }
+
 }

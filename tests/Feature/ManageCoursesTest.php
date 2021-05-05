@@ -101,6 +101,23 @@ class ManageCoursesTest extends TestCase
             ->assertSessionHasErrors('category_id');
     }
 
+    /** @test */
+    public function a_course_requires_a_level()
+    {
+        $this->signIn($role = 'professor');
+
+        $attributes = CourseFactory::withStorage('public')
+            ->raw();
+
+        $this->post('/courses', $attributes)
+            ->assertRedirect('/courses');
+
+        $attributes['level_id'] = '';
+
+        $this->post('/courses', $attributes)
+            ->assertSessionHasErrors('level_id');
+    }
+
 
     /** @test */
     public function a_course_requires_a_valid_rate_or_default()
