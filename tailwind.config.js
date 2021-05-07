@@ -14,6 +14,11 @@ module.exports = {
             colors: {
                 blue: {
                     dark: '#1f2937',
+                },
+                category: {
+                    1:    '#13315C',
+                    2: '#8DA9C4',
+                    3: '#0B2545'
                 }
             }
         },
