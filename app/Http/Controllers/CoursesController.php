@@ -50,4 +50,11 @@ class CoursesController extends Controller
     {
         return view('courses.show', compact('course'));
     }
+
+    public function edit(Course $course)
+    {
+        $this->authorize('update', $course);
+
+        return view('courses.edit', compact('course'));
+    }
 }
