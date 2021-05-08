@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Course;
 
 use App\Models\Level;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
@@ -27,8 +28,8 @@ class ManageCoursesTest extends TestCase
 
         $this->get(route('courses.create'))
             ->assertStatus(200)
-            ->assertSee($category->name)
-            ->assertSee($level->name);
+            ->assertSee(ucwords($category->name))
+            ->assertSee(ucwords($level->name));
 
         $course = CourseFactory::withStorage('public')
             ->ownedBy($professor)
@@ -36,6 +37,64 @@ class ManageCoursesTest extends TestCase
 
         $this->post('/courses', $course)
             ->assertRedirect('/courses');
+    }
+
+    /** @test */
+    public function a_course_can_be_updated()
+    {
+        $professor = $this->signIn($role = 'professor');
+
+        $course = CourseFactory::withStorage('public')
+            ->ownedBy($professor)
+            ->create();
+
+        $this->get($course->path() . '/edit')
+            ->assertStatus(200)
+            ->assertSee($course->title);
+    }
+
+    /** @test */
+    public function only_the_owner_of_a_course_can_update_it()
+    {
+        $this->signIn($role = 'professor');
+
+        $course = CourseFactory::withStorage('public')
+            ->create();
+
+        $this->get($course->path() . '/edit')
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function a_course_can_be_updated_by_its_owner()
+    {
+        $professor = $this->signIn($role = 'professor');
+
+        $jhon = User::factory()
+            ->create([
+               'role' => 'professor'
+            ]);
+
+        $sally = User::factory()
+            ->create([
+                'role' => 'student'
+            ]);
+
+        $course = CourseFactory::withStorage('public')
+            ->ownedBy($professor)
+            ->create();
+
+        $this->get($course->path())
+            ->assertSee( $button = 'Actualizar Información');
+
+        $this->actingAs($jhon)
+            ->get($course->path())
+            ->assertDontSee($button);
+
+        $this->actingAs($sally)
+            ->get($course->path())
+            ->assertDontSee($button);
+
     }
 
     /** @test */

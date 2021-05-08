@@ -53,7 +53,7 @@ class CoursesPolicy
      */
     public function update(User $user, Course $course)
     {
-        //
+        return $course->owner->id === $user->id;
     }
 
     /**

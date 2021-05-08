@@ -16,6 +16,9 @@
                         <p class="mt-6 font-light text-base text-white">{{ $course->description }}</p>
                         <div class="mt-3">
                             <x-button href="#">Tomar este curso</x-button>
+                            @can('update', $course)
+                                <x-button href="{{ $course->path() . '/edit' }}">Actualizar Información</x-button>
+                            @endcan
                         </div>
                     </div>
                 </div>

@@ -53,6 +53,9 @@ class CourseFactory
         return Course::factory()->raw([
             'miniature' => UploadedFile::fake()->image('lesson-1.jpg', 200, 200),
             'category_id' => $this->category ?? Category::factory()->create(),
+            'professor_id' => $this->professor ?? User::factory()->create([
+                    'role' => 'professor'
+                ]),
             'level_id' => $this->level ?? Level::factory()->create()
         ]);
 
@@ -62,6 +65,9 @@ class CourseFactory
     {
         return Course::factory()->create([
             'category_id' => $this->category ?? Category::factory()->create(),
+            'professor_id' => $this->professor ?? User::factory()->create([
+                    'role' => 'professor'
+                ]),
             'level_id' => $this->level ?? Level::factory()->create()
         ]);
     }
