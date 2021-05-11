@@ -55,6 +55,13 @@ class CoursesController extends Controller
     {
         $this->authorize('update', $course);
 
-        return view('courses.edit', compact('course'));
+        $categories = Category::all();
+        $levels = Level::all();
+
+        return view('courses.edit', compact(
+            'course',
+            'categories',
+            'levels'
+        ));
     }
 }

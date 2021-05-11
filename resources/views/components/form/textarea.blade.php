@@ -3,6 +3,7 @@
     'type' => 'text',
     'placeholder' => '',
     'class' => '',
+    'value' => ''
 ])
 
 <div class="{{ $class }}">
@@ -14,7 +15,7 @@
               placeholder="{{ $slot }}"
               autofocus
               rows="8"
-    >{{ old($name) }}</textarea>
+    >{{ old($name) ?? $value }}</textarea>
     @error($name)
         <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
     @enderror
