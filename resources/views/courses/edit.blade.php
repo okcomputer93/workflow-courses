@@ -5,9 +5,9 @@
     <x-section type="base">
         <div class="flex items-center justify-center">
 
-            <x-form.form method="post"
+            <x-form.form method="patch"
                          enctype="true"
-                         action="{{ $course->path() . '/update' }}"
+                         action="{{ $course->path() }}"
                          logo="false"
                          class="max-w-lg"
             >
@@ -71,5 +71,3 @@
         </div>
     </x-section>
 </x-layout>
-
-{{--TODO: Show the miniature--}}
