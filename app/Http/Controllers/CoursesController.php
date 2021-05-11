@@ -26,22 +26,8 @@ class CoursesController extends Controller
     {
         $this->authorize('create', Course::class);
 
-        $attributes = request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'miniature' => 'required|image',
-            'category_id' => 'required',
-            'level_id' => 'required',
-            'rate' => 'nullable|numeric|between:0,5',
-            'video_url' => 'required|url'
-        ]);
-
-        $path = request()->file('miniature')->store('miniatures', 'public');
-
-        $attributes['miniature'] = $path;
-
         auth()->user()->courses()
-            ->create($attributes);
+            ->create($this->validateRequest('store'));
 
         return redirect('/courses');
     }
@@ -63,5 +49,39 @@ class CoursesController extends Controller
             'categories',
             'levels'
         ));
+    }
+
+    public function update(Course $course)
+    {
+        $this->authorize('update', $course);
+
+        $course->update($this->validateRequest('update'));
+
+        return redirect($course->path());
+    }
+
+    public function validateRequest(String $type)
+    {
+        $attributes = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'miniature' => $type === 'update'
+                ? 'sometimes'
+                : ''
+                . 'required|image',
+            'category_id' => 'required|exists:App\Models\Category,id',
+            'level_id' => 'required|exists:App\Models\Level,id',
+            'rate' => 'nullable|numeric|between:0,5',
+            'video_url' => 'required|url',
+        ]);
+
+        if (request()->file('miniature')) {
+            $path = request()->file('miniature')
+                ->store('miniatures', 'public');
+
+            $attributes['miniature'] = $path;
+        }
+
+        return $attributes;
     }
 }

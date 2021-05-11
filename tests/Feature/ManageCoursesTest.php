@@ -72,7 +72,7 @@ class ManageCoursesTest extends TestCase
     }
 
     /** @test */
-    public function only_the_owner_of_a_course_can_update_it()
+    public function only_the_owner_of_a_course_can_handle_it()
     {
         $this->signIn($role = 'professor');
 
@@ -84,7 +84,7 @@ class ManageCoursesTest extends TestCase
     }
 
     /** @test */
-    public function a_course_can_be_updated_by_its_owner()
+    public function a_course_can_be_handled_by_its_owner()
     {
         $professor = $this->signIn($role = 'professor');
 
@@ -114,6 +114,53 @@ class ManageCoursesTest extends TestCase
             ->assertDontSee($button);
 
     }
+
+    /** @test */
+    public function an_owner_can_update_its_course()
+    {
+        $professor = $this->signIn($role = 'professor');
+
+        Storage::fake('public');
+
+        $course = CourseFactory::ownedBy($professor)
+            ->create();
+
+        $attributes = CourseFactory::ownedBy($professor)
+            ->raw();
+
+        $this->patch($course->path(), $attributes)
+            ->assertRedirect($course->path());
+
+        Storage::disk('public')->assertExists('/miniatures/' . $attributes['miniature']->hashName());
+
+        unset($attributes['miniature']);
+
+        $this->assertDatabaseHas('courses', $attributes);
+    }
+
+    /** @test */
+    public function an_image_is_not_required_when_updating_a_course()
+    {
+        $this->withoutExceptionHandling();
+
+        $professor = $this->signIn($role = 'professor');
+
+        $course = CourseFactory::withStorage('public')
+            ->ownedBy($professor)
+            ->create();
+
+        $attributes = CourseFactory::ownedBy($professor)
+            ->raw();
+
+        unset($attributes['miniature']);
+
+        $this->patch($course->path(), $attributes)
+            ->assertRedirect($course->path());
+
+        $this->assertDatabaseHas('courses', $attributes);
+    }
+
+
 
     /** @test */
     public function a_course_requires_a_title()

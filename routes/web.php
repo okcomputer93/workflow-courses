@@ -27,3 +27,4 @@ Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')
 Route::get('/courses/create', [CoursesController::class, 'create'])->middleware('auth')->name('courses.create');
 Route::get('/courses/{course}/edit', [CoursesController::class, 'edit'])->middleware('auth')->name('courses.edit');
 Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
+Route::patch('/courses/{course}', [CoursesController::class, 'update'])->name('courses.update');
