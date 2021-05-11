@@ -42,15 +42,33 @@ class ManageCoursesTest extends TestCase
     /** @test */
     public function a_course_can_be_updated()
     {
+        $this->withoutExceptionHandling();
+
         $professor = $this->signIn($role = 'professor');
+
+        $firstCategory = Category::factory()->create();
+        $secondCategory = Category::factory()->create();
+
+        $firstLevel = Level::factory()->create();
+        $secondLevel = Level::factory()->create();
 
         $course = CourseFactory::withStorage('public')
             ->ownedBy($professor)
+            ->category($firstCategory)
+            ->level($firstLevel)
             ->create();
 
         $this->get($course->path() . '/edit')
             ->assertStatus(200)
-            ->assertSee($course->title);
+            ->assertSee($course->title)
+            ->assertSeeInOrder([
+               ucwords($firstCategory->name),
+               ucwords($secondCategory->name)
+            ], false)
+            ->assertSeeInOrder([
+                ucwords($firstLevel->name),
+                ucwords($secondLevel->name)
+            ], false);
     }
 
     /** @test */

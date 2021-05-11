@@ -14,10 +14,10 @@
                     <div class="w-2/3">
                         <h2 class="font-bold text-3xl text-white">{{ $course->title }}</h2>
                         <p class="mt-6 font-light text-base text-white">{{ $course->description }}</p>
-                        <div class="mt-3">
+                        <div class="mt-3 flex justify-between items-center">
                             <x-button href="#">Tomar este curso</x-button>
                             @can('update', $course)
-                                <x-button href="{{ $course->path() . '/edit' }}">Actualizar Información</x-button>
+                                <x-button class="bg-white" href="{{ $course->path() . '/edit' }}">Actualizar Información</x-button>
                             @endcan
                         </div>
                     </div>
