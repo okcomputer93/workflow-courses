@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tests\Setup;
-
 
 use App\Models\Category;
 use App\Models\Course;
