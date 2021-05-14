@@ -68,7 +68,7 @@ class CoursesController extends Controller
             'miniature' => $type === 'update'
                 ? 'sometimes'
                 : ''
-                . 'required|image',
+                . '|required|image',
             'category_id' => 'required|exists:App\Models\Category,id',
             'level_id' => 'required|exists:App\Models\Level,id',
             'rate' => 'nullable|numeric|between:0,5',
