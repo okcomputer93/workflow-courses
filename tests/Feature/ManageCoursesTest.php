@@ -4,14 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Course;
-
 use App\Models\Level;
-use App\Models\User;
+use Facades\Tests\Setup\CourseFactory;
+use Facades\Tests\Setup\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
-use Facades\Tests\Setup\CourseFactory;
 
 class ManageCoursesTest extends TestCase
 {
@@ -62,8 +61,8 @@ class ManageCoursesTest extends TestCase
             ->assertStatus(200)
             ->assertSee($course->title)
             ->assertSeeInOrder([
-               ucwords($firstCategory->name),
-               ucwords($secondCategory->name)
+                ucwords($firstCategory->name),
+                ucwords($secondCategory->name)
             ], false)
             ->assertSeeInOrder([
                 ucwords($firstLevel->name),
@@ -88,22 +87,19 @@ class ManageCoursesTest extends TestCase
     {
         $professor = $this->signIn($role = 'professor');
 
-        $jhon = User::factory()
-            ->create([
-               'role' => 'professor'
-            ]);
+        $jhon = UserFactory::role('professor')
+            ->create();
 
-        $sally = User::factory()
-            ->create([
-                'role' => 'student'
-            ]);
+        $sally = UserFactory::role('professor')
+            ->create();
+
 
         $course = CourseFactory::withStorage('public')
             ->ownedBy($professor)
             ->create();
 
         $this->get($course->path())
-            ->assertSee( $button = 'Actualizar Información');
+            ->assertSee($button = 'Actualizar Información');
 
         $this->actingAs($jhon)
             ->get($course->path())
@@ -131,7 +127,9 @@ class ManageCoursesTest extends TestCase
         $this->patch($course->path(), $attributes)
             ->assertRedirect($course->path());
 
-        Storage::disk('public')->assertExists('/miniatures/' . $attributes['miniature']->hashName());
+        Storage::disk('public')->assertExists(
+            '/miniatures/' . $attributes['miniature']->hashName()
+        );
 
         unset($attributes['miniature']);
 
@@ -159,7 +157,6 @@ class ManageCoursesTest extends TestCase
 
         $this->assertDatabaseHas('courses', $attributes);
     }
-
 
 
     /** @test */
@@ -277,7 +274,8 @@ class ManageCoursesTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $courses = Course::factory()->count(3)->create();
+        $courses = Course::factory()->count(3)
+            ->create();
 
         $titles = $courses->pluck('title');
 
