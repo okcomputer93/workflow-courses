@@ -57,6 +57,7 @@ class ManageUsersTest extends TestCase
             'schooling' => $student['schooling'],
             'birthday' => $student['birthday'],
         ]);
+
         Storage::disk('public')->assertExists('/avatars/' . $student['avatar']->hashName());
 
         $user = User::latest()->first();
