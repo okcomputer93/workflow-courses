@@ -18,7 +18,6 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_user_can_be_register_as_a_professor()
     {
-        $this->withoutExceptionHandling();
         $professor = UserFactory::withStorage('public')
             ->role('professor')->raw();
 
@@ -32,10 +31,6 @@ class ManageUsersTest extends TestCase
             'twitter_user' => $professor['twitter_user']
         ]);
 
-        Storage::disk('public')->assertExists(
-            '/avatars/' . $professor['avatar']->hashName()
-        );
-
         $user = User::latest()->first();
         $role = Professor::latest()->first();
 
@@ -45,8 +40,6 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_user_can_be_register_as_a_student()
     {
-        $this->withoutExceptionHandling();
-
         $student = UserFactory::withStorage('public')
             ->role('student')->raw();
 
@@ -57,13 +50,21 @@ class ManageUsersTest extends TestCase
             'schooling' => $student['schooling'],
             'birthday' => $student['birthday'],
         ]);
-
-        Storage::disk('public')->assertExists('/avatars/' . $student['avatar']->hashName());
-
+        
         $user = User::latest()->first();
         $role = Student::latest()->first();
 
         $this->assertEquals($user->role, $role);
     }
 
+    /** @test */
+    public function a_user_can_upload_its_avatar_as_profile_settings()
+    {
+        $student = UserFactory::withStorage('public')
+            ->role('student')->raw();
+
+        $this->post('/register', $student);
+
+        Storage::disk('public')->assertExists('/avatars/' . $student['avatar']->hashName());
+    }
 }
