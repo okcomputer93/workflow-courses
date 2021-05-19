@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Student;
 use App\Models\User;
 use Facades\Tests\Setup\UserFactory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\Professor;
@@ -16,20 +17,38 @@ class ManageUsersTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
+    public function a_student_can_be_registered_without_role_info()
+    {
+        $user = User::factory()->raw([
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        unset($user['avatar']);
+
+        $this->post('/register', $user)
+            ->assertRedirect('/');
+
+        $columns = ['name', 'email'];
+
+        $lastUser = User::latest()->first();
+
+        foreach ($columns as $column) {
+            $this->assertEquals($lastUser->$column, $user[$column]);
+        }
+        $this->assertTrue(Hash::check($user['password'], $lastUser->password));
+    }
+
+    /** @test */
     public function a_user_can_be_register_as_a_professor()
     {
         $professor = UserFactory::withStorage('public')
-            ->role('professor')->raw();
+            ->role('professor');
 
-        $this->post('/register', $professor)
+        $this->post('/register', $professor->raw())
             ->assertRedirect('/');
 
-        $this->assertDatabaseHas('professors', [
-            'career' => $professor['career'],
-            'about' => $professor['about'],
-            'github_user' => $professor['github_user'],
-            'twitter_user' => $professor['twitter_user']
-        ]);
+        $this->assertDatabaseHas('professors', $professor->roleAttributeS());
 
         $user = User::latest()->first();
         $role = Professor::latest()->first();
@@ -41,16 +60,13 @@ class ManageUsersTest extends TestCase
     public function a_user_can_be_register_as_a_student()
     {
         $student = UserFactory::withStorage('public')
-            ->role('student')->raw();
+            ->role('student');
 
-        $this->post('/register', $student)
+        $this->post('/register', $student->raw())
             ->assertRedirect('/');
 
-        $this->assertDatabaseHas('students', [
-            'schooling' => $student['schooling'],
-            'birthday' => $student['birthday'],
-        ]);
-        
+        $this->assertDatabaseHas('students', $student->roleAttributes());
+
         $user = User::latest()->first();
         $role = Student::latest()->first();
 

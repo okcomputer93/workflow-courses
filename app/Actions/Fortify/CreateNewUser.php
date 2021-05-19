@@ -18,6 +18,7 @@ class CreateNewUser implements CreatesNewUsers
     protected $studentRules = [];
     protected $roleRules = [];
     protected $defaultAvatar = 'avatars/default-avatar.png';
+    protected $defaultRole = 'student';
     protected $role;
 
     /**
@@ -46,15 +47,15 @@ class CreateNewUser implements CreatesNewUsers
         ];
 
         $this->studentRules = [
-            'schooling' => ['required', 'string', 'max:255'],
-            'birthday' => ['required', 'date']
+            'schooling' => ['sometimes', 'required', 'string', 'max:255']
         ];
 
         $this->roleRules = [
             'role' => [
+                'sometimes',
                 'required',
                 'string',
-                Rule::in(['professor', 'student']),
+                Rule::in(['student', 'professor']),
             ]
         ];
     }
@@ -82,7 +83,7 @@ class CreateNewUser implements CreatesNewUsers
     }
 
     /**
-     * Validate the input type for role field.
+     * Validate the input type for role field or assign a default.
      * @param array $input
      * @throws ValidationException
      */
@@ -92,7 +93,7 @@ class CreateNewUser implements CreatesNewUsers
             $input,
             $this->roleRules
         )->validate();
-        $this->role = $input['role'];
+        $this->role = $input['role'] ?? $this->defaultRole;
     }
 
     /**
@@ -142,7 +143,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function userAvatar(array $input)
     {
-        if ($input['avatar']) {
+        if (key_exists('avatar', $input)) {
             return $input['avatar']
                 ->store('avatars', 'public');
         }

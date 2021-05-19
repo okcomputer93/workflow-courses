@@ -24,8 +24,7 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            'schooling' => $this->faker->randomElement(['Elementary', 'High School', 'University', 'Degree']),
-            'birthday' => Date::now(),
+            'schooling' => $this->faker->randomElement(['Elementary', 'High School', 'University', 'Degree'])
         ];
     }
 }
