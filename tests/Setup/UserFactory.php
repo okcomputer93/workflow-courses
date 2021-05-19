@@ -13,6 +13,7 @@ class UserFactory
 {
     protected $role;
     protected $user;
+    protected $roleAttributes;
 
     /**
      * UserFactory constructor.
@@ -71,7 +72,7 @@ class UserFactory
             'avatar' => UploadedFile::fake()->image('my-avatar.jpg', 100, 100)
         ]);
 
-        $attributes += RoleFactory::raw($this->role);
+        $attributes += $this->roleAttributes = RoleFactory::raw($this->role);
 
         return $attributes;
     }
@@ -86,6 +87,11 @@ class UserFactory
         return $role->user()->create(
             $this->user ?? User::factory()->raw()
         );
+    }
+
+    public function roleAttributes()
+    {
+        return $this->roleAttributes;
     }
 
 }
