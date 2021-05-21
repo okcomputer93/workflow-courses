@@ -12,10 +12,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/df1c4e8a69.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-    <!-- Use push and endpush to stack specific scripts here -->
-    @stack('scripts')
+    <!-- Use push and endpush to stack specific styles here -->
+    @stack('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @if ($head->isEmpty())
@@ -47,5 +46,9 @@
             <x-nav-link-footer route="sale">Promociones</x-nav-link-footer>
         </x-footer>
     @endif
+
+    <!-- Use push and endpush to stack specific scripts here -->
+    @stack('scripts')
+
 </body>
 </html>
