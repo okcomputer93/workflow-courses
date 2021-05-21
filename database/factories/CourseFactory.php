@@ -31,8 +31,12 @@ class CourseFactory extends Factory
             'video_url' => $this->faker->url,
             'miniature' => 'path/to/file.jpg',
             'rate' => $this->faker->numberBetween(0, 5),
-            'category_id' => Category::factory()->create(),
-            'level_id' => Level::factory()->create(),
+            'category_id' => function() {
+                return Category::factory()->create()->id;
+            },
+            'level_id' => function() {
+                return Level::factory()->create()->id;
+            },
             'professor_id' => Professor::factory()->create()
                                 ->user()
                                 ->create(User::factory()->raw())
