@@ -21,7 +21,7 @@ class CourseSeeder extends Seeder
        $levels = Level::factory(3)->count(3)->create();
 
         Course::factory()
-            ->count(20)
+            ->count(100)
             ->state(
                 new Sequence(
                     function () use($categories, $levels) {
