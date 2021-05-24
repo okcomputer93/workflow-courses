@@ -10,7 +10,8 @@ class CoursesController extends Controller
 {
     public function index()
     {
-        return view('courses.index');
+        $totalCourses = Course::all()->count();
+        return view('courses.index', compact('totalCourses'));
     }
 
     public function create()
