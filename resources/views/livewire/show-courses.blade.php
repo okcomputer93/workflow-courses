@@ -2,7 +2,6 @@
     <div class="mb-10 p-6 bg-white shadow-md rounded-lg"
          x-data="onScrolling()"
          x-ref="searchbar"
-         @search-updated.window="top()"
          @scroll.window.passive="toggleButton()"
     >
         <div class="flex justify-between items-center">
@@ -94,10 +93,13 @@
         @endforeach
     </div>
 
-    <div wire:loading.class.remove="hidden" class="hidden flex justify-center items-center py-8">
-        <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"></div>
+    <div class="hidden grid justify-items-center grid-rows-1 grid-flow-row grid-cols-3 gap-y-16"
+         wire:loading.class.remove="hidden"
+    >
+        @for ($i = 1; $i <= $resultsPerPage; $i++)
+            <x-skeleton-card></x-skeleton-card>
+        @endfor
     </div>
-
 
     @if (count($courses) <= 0)
         <div class="flex justify-center items-center">
@@ -132,7 +134,6 @@
                 }
             }
         }
-
     </script>
 
 

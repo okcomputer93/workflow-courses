@@ -19,12 +19,12 @@ class ShowCourses extends Component
     public $search;
     public $category;
     public $level;
+    public $resultsPerPage = 12;
     protected $queryString = [
         'search' => ['except' => ''],
         'category' => ['except' => ''],
         'level' => ['except' => '']
     ];
-    protected $resultsPerPage = 12;
 
     public function mount()
     {
