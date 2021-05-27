@@ -1,31 +1,46 @@
 @props([
     'data' => ''
 ])
-<article class="max-w-xs bg-white rounded-md shadow-md overflow-hidden">
-    <div class="relative">
-        <img class="w-80 bg-gray-200 h-80"
-             src="{{ asset($data->miniature) }}"
-             alt="{{ $data->title .  "'s miniature" }}">
-        <span class="absolute rounded-md text-xs font-bold text-white top-2 left-2 p-2 bg-category-{{ $data->category->id }}"
-        >
-            {{ ucwords(str_replace('_', ' ', $data->category->name)) }}
-        </span>
+@php
+    $grades = [3, 6, 12];
+    $rotation = array_rand($grades);
+    $rotation_class = "-rotate-$grades[$rotation]";
+@endphp
 
-        <div class="absolute right-2 bottom-2">
-            <x-level-icon level="{{ $data->level->scale }}"></x-level-icon>
+<article class="bg-white rounded-sm shadow-lg rounded-md w-full transform hover:-translate-y-0.5 hover:shadow-xl transition-transform duration-300"
+         style="max-width: 36rem;"
+>
+    <div class="flex items-center">
+        <img class="w-44 h-44 transform {{ $rotation_class }} shadow-md"
+             src="{{ asset($data->miniature) }}"
+             alt="{{ $data->title .  "'s miniature" }}"
+        >
+        <div class="flex flex-col justify-between items-start h-72 w-full p-6">
+            <div class="flex flex-wrap justify-between items-center">
+                <p class="flex-shrink-0 text-xs font-light uppercase p-1 m-1 border border-category-{{ $data->category->id }} text-category-{{ $data->category->id }} rounded-lg"
+                >
+                    {{ ucwords(str_replace('_', ' ', $data->category->name)) }}
+                </p>
+                <p class="flex-shrink-0 text-xs font-light uppercase p-1 m-1 border border-level-{{ $data->level->id }} text-level-{{ $data->level->id }} rounded-lg"
+                >
+                    {{ ucwords(str_replace('_', ' ', $data->level->name)) }}
+                </p>
+            </div>
+            <h2 class="text-2xl font-bold">{{ $data->title }}</h2>
+            <div>
+                <x-rate :rate="$data->rate"
+                        max="5"
+                >
+                </x-rate>
+            </div>
+            <p class="text-xs text-gray-500">{{ $data->owner->name }}</p>
+            <div class="self-end">
+                <x-button href="{{ $data->path() }}"
+                          class="text-center"
+                >
+                    Detalles
+                </x-button>
+            </div>
         </div>
-    </div>
-    <div class="p-6 flex flex-col h-56 justify-between">
-        <h4 class="flex-1 pb-2 text-md font-bold">{{ $data->title }}</h4>
-        <p class="flex-1 font-medium text-gray-600 text-sm">Profesor: {{ $data->owner->name }}</p>
-        <x-rate :rate="$data->rate"
-            max="5"
-        >
-        </x-rate>
-        <x-button href="{{ $data->path() }}"
-                  class="w-full text-center"
-        >
-            Más información
-        </x-button>
     </div>
 </article>
