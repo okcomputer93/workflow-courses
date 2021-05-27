@@ -15,17 +15,20 @@ module.exports = {
                 blue: {
                     dark: '#1f2937',
                 },
-                category: {
-                    1: '#119DA4',
-                    2: '#80DED9',
-                    3: '#F5B0CB'
-                },
                 level: {
-                    1: '#00A6FB',
-                    2: '#0582CA',
-                    3: '#006494'
+                    1: '#60A5FA',
+                    2: '#2563EB',
+                    3: '#1E3A8A'
+                },
+                category: {
+                    1: '#5659F0',
+                    2: '#1013BC',
+                    3: '#07084B'
                 }
-            }
+            },
+            backgroundImage: theme => ({
+                'bg-boost': "url('/images/bg-boost.svg')"
+            })
         },
     },
     variants: {
