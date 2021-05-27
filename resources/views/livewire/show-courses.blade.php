@@ -85,7 +85,7 @@
 
     </div>
 
-    <div class="grid justify-items-center grid-rows-1 grid-flow-row grid-cols-3 gap-y-16"
+    <div class="grid justify-items-center grid-rows-1 grid-flow-row grid-cols-2 gap-y-12"
          wire:loading.remove
     >
         @foreach ($courses as $course)
@@ -93,7 +93,7 @@
         @endforeach
     </div>
 
-    <div class="hidden grid justify-items-center grid-rows-1 grid-flow-row grid-cols-3 gap-y-16"
+    <div class="hidden grid justify-items-center grid-rows-1 grid-flow-row grid-cols-2 gap-y-12"
          wire:loading.class.remove="hidden"
     >
         @for ($i = 1; $i <= $resultsPerPage; $i++)
@@ -105,7 +105,7 @@
         <div class="flex justify-center items-center">
             <div class="p-10 text-center bg-white w-1/2 shadow rounded-md">
                 <h2 class="text-xl font-bold text-gray-800">La búsqueda no arrojó ningún resultado</h2>
-                <p class="pt-2 text-base text-indigo-500">Intenta con otros términos...</p>
+                <p class="pt-2 text-base text-indigo-500">Intenta con otros términos</p>
             </div>
         </div>
     @endif
