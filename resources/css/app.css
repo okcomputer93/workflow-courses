@@ -46,3 +46,34 @@
         transform: translateX(100%);
     }
 }
+
+.course-presentation {
+    position: relative;
+}
+
+.course-presentation::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    @apply bg-blue-light;
+    z-index: -2;
+}
+
+.user-card {
+    position: relative;
+}
+
+.user-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    @apply bg-blue-light;
+    clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+    z-index: -2;
+}
