@@ -14,7 +14,9 @@ module.exports = {
             colors: {
                 blue: {
                     dark: '#1f2937',
-                    light: '#ADD7F6'
+                    medium: '#6290c8',
+                    light: '#ADD7F6',
+                    lighter: '#cde8f8'
                 },
                 level: {
                     1: '#60A5FA',
