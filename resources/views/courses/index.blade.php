@@ -13,8 +13,6 @@
 
     <x-section type="base">
 
-        <livewire:show-courses />
-
         @if($totalCourses <= 0)
             <div class="py-12 flex justify-center items-center text-center text-gray-900">
                 <div class="card bg-white p-16 shadow rounded-md">
@@ -23,6 +21,8 @@
                     <img class="mt-8 m-auto block h-96" src="/images/confused-person.svg" alt="confused person">
                 </div>
             </div>
+        @else
+            <livewire:show-courses />
         @endif
 
     </x-section>

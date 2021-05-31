@@ -8,6 +8,7 @@ use App\Models\Level;
 use App\Models\User;
 use Facades\Tests\Setup\CourseFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CourseTest extends TestCase
@@ -19,6 +20,13 @@ class CourseTest extends TestCase
     {
         $course = Course::factory()->create();
         $this->assertEquals($course->path(), route('courses.show', $course));
+    }
+
+    /** @test */
+    public function it_has_a_slug()
+    {
+        $course = Course::factory()->create();
+        $this->assertEquals(Str::slug($course->title), $course->slug);
     }
 
     /** @test */
