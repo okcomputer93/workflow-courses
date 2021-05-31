@@ -23,6 +23,7 @@ class CreateCoursesTable extends Migration
             $table->foreignId('professor_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('level_id')->constrained()->cascadeOnDelete();
+            $table->text('slug');
             $table->timestamps();
         });
     }

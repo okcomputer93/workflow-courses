@@ -8,6 +8,7 @@ use App\Models\Level;
 use App\Models\Professor;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class CourseFactory extends Factory
 {
@@ -26,8 +27,9 @@ class CourseFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
+            'title' => $title = $this->faker->sentence,
+            'slug' => Str::slug($title),
+            'description' => $this->faker->text,
             'video_url' => $this->faker->url,
             'miniature' => 'path/to/file.jpg',
             'rate' => $this->faker->numberBetween(0, 5),

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Level;
+use Illuminate\Support\Str;
 
 class CoursesController extends Controller
 {
@@ -57,7 +58,7 @@ class CoursesController extends Controller
 
         $course->update($this->validateRequest('update'));
 
-        return redirect($course->path());
+        return redirect($course->refresh()->path());
     }
 
     public function validateRequest(String $type)
@@ -74,6 +75,8 @@ class CoursesController extends Controller
             'rate' => 'nullable|numeric|between:0,5',
             'video_url' => 'required|url',
         ]);
+
+        $attributes['slug'] = Str::slug($attributes['title']);
 
         if (request()->file('miniature')) {
             $path = request()->file('miniature')

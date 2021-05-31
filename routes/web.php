@@ -25,6 +25,6 @@ Route::get('/aboutus', function () {
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')->name('courses.store');
 Route::get('/courses/create', [CoursesController::class, 'create'])->middleware('auth')->name('courses.create');
-Route::get('/courses/{course}/edit', [CoursesController::class, 'edit'])->middleware('auth')->name('courses.edit');
-Route::get('/courses/{course}', [CoursesController::class, 'show'])->name('courses.show');
-Route::patch('/courses/{course}', [CoursesController::class, 'update'])->name('courses.update');
+Route::get('/courses/{course:slug}/edit', [CoursesController::class, 'edit'])->middleware('auth')->name('courses.edit');
+Route::get('/courses/{course:slug}', [CoursesController::class, 'show'])->name('courses.show');
+Route::patch('/courses/{course:slug}', [CoursesController::class, 'update'])->name('courses.update');

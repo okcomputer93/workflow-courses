@@ -17,12 +17,13 @@ class Course extends Model
         'video_url',
         'miniature',
         'category_id',
-        'level_id'
+        'level_id',
+        'slug'
     ];
 
-    public function path()
+    public function path($route = 'show')
     {
-        return route('courses.show', $this);
+        return route("courses.$route", $this);
     }
 
     public function owner()

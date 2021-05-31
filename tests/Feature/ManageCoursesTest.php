@@ -9,6 +9,7 @@ use Facades\Tests\Setup\CourseFactory;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -41,8 +42,6 @@ class ManageCoursesTest extends TestCase
     /** @test */
     public function a_course_can_be_updated()
     {
-        $this->withoutExceptionHandling();
-
         $professor = $this->signIn($role = 'professor');
 
         $firstCategory = Category::factory()->create();
@@ -57,7 +56,9 @@ class ManageCoursesTest extends TestCase
             ->level($firstLevel)
             ->create();
 
-        $this->get($course->path() . '/edit')
+//        dd($course->path());
+
+        $this->get($course->path('edit'))
             ->assertStatus(200)
             ->assertSee($course->title)
             ->assertSeeInOrder([
@@ -78,7 +79,7 @@ class ManageCoursesTest extends TestCase
         $course = CourseFactory::withStorage('public')
             ->create();
 
-        $this->get($course->path() . '/edit')
+        $this->get($course->path('edit'))
             ->assertStatus(403);
     }
 
@@ -124,8 +125,8 @@ class ManageCoursesTest extends TestCase
         $attributes = CourseFactory::ownedBy($professor)
             ->raw();
 
-        $this->patch($course->path(), $attributes)
-            ->assertRedirect($course->path());
+        $this->patch($course->path('update'), $attributes)
+            ->assertRedirect($course->refresh()->path());
 
         Storage::disk('public')->assertExists(
             '/miniatures/' . $attributes['miniature']->hashName()
@@ -152,8 +153,8 @@ class ManageCoursesTest extends TestCase
 
         unset($attributes['miniature']);
 
-        $this->patch($course->path(), $attributes)
-            ->assertRedirect($course->path());
+        $this->patch($course->path('update'), $attributes)
+            ->assertRedirect($course->refresh()->path());
 
         $this->assertDatabaseHas('courses', $attributes);
     }

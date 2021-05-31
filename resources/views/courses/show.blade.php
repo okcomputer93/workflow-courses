@@ -39,7 +39,7 @@
                     <div class="flex justify-between items-center">
                         <x-button class="text-sm px-8 rounded-full py-3 transition-colors duration-300" href="#">Tomar este curso</x-button>
                         @can('update', $course)
-                            <x-button class="bg-white" href="{{ $course->path() . '/edit' }}">Actualizar Información</x-button>
+                            <x-button class="bg-white" href="{{ $course->path('edit')}}">Actualizar Información</x-button>
                         @endcan
                     </div>
                 </div>
