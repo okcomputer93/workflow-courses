@@ -1,17 +1,12 @@
 @props([
     'data' => ''
 ])
-@php
-    $grades = [3, 6, 12];
-    $rotation = array_rand($grades);
-    $rotation_class = "-rotate-$grades[$rotation]";
-@endphp
 
-<article class="bg-white rounded-sm shadow-lg rounded-md w-full hover:shadow-xl transition-shadow duration-300"
+<article class="bg-white rounded-sm shadow-lg rounded-md w-full hover:shadow-xl transition-shadow duration-300 z-10 overflow-hidden course-card"
          style="max-width: 36rem;"
 >
     <div class="flex items-center">
-        <img class="w-44 h-44 transform {{ $rotation_class }} shadow-lg hover:shadow-xl transition-shadow duration-300"
+        <img class="w-44 h-44 shadow-lg hover:shadow-xl transition-shadow duration-300"
              src="{{ asset($data->miniature) }}"
              alt="{{ $data->title .  "'s miniature" }}"
         >
