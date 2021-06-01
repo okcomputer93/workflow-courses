@@ -59,9 +59,16 @@
                              src="{{ asset($course->owner->avatar) }}"
                              alt="{{ $course->owner->name . ' avatar' }}"
                         >
-                        <h3 class="font-bold absolute bottom-10 text-right w-3/5 right-0 text-white">
-                            <a class="bg-blue-medium bg-opacity-75 px-4 text-4xl decoration-clone" href="#">{{ $course->owner->name }}</a>
-                            <span class="font-light bg-blue-medium bg-opacity-75 px-2 py-0.5 uppercase text-xl text-white">{{ $course->owner->role->career }}</span>
+                        <h3 class="font-bold absolute bottom-10 text-right w-3/5 right-0 text-white mr-1">
+                            <a class="decoration-clone"
+                                href="#"
+                            >
+                                <span class="text-4xl bg-blue-medium bg-opacity-50 px-4">{{ $course->owner->name }}</span>
+                                <span class="bg-blue-medium bg-opacity-50 font-light uppercase text-base px-2"
+                                >
+                                    {{ $course->owner->role->career }}
+                                </span>
+                            </a>
                         </h3>
                     </div>
                     <div class="flex-1 p-4">
