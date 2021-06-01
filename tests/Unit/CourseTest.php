@@ -22,6 +22,14 @@ class CourseTest extends TestCase
         $this->assertEquals($course->path(), route('courses.show', $course));
     }
 
+    public function it_has_a_dynamic_path()
+    {
+        $course = Course::factory()->create();
+        $this->assertEquals($course->path('edit'), route('courses.edit', $course));
+        $this->assertEquals($course->path(), route('courses.show', $course));
+        $this->assertEquals($course->path('update'), route('courses.update', $course));
+    }
+
     /** @test */
     public function it_has_a_slug()
     {
