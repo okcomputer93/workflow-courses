@@ -30,7 +30,7 @@
 
                     @foreach ($categories as $category)
                         <option class="text-gray-700 hover:bg-indigo-500"
-                                value="{{ $category->id }}"
+                                value="{{ $category->name }}"
                         >
                             {{ ucwords(str_replace('_', ' ', $category->name)) }}
                         </option>
@@ -53,7 +53,7 @@
 
                     @foreach ($levels as $level)
                         <option class="text-gray-700 hover:bg-indigo-500"
-                                value="{{ $level->id }}"
+                                value="{{ $level->name }}"
                         >
                             {{ ucwords(str_replace('_', ' ', $level->name)) }}
                         </option>
