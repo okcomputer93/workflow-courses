@@ -58,8 +58,20 @@
     left: 0;
     width: 100%;
     height: 100%;
-    clip-path: circle(50% at left);
+    clip-path: circle(35% at left);
     @apply bg-blue-light;
+    z-index: -1;
+}
+
+.course-presentation::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: circle(50% at left);
+    @apply bg-blue-lighter;
     z-index: -2;
 }
 

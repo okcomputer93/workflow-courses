@@ -28,7 +28,7 @@
                     <p class="font-light text-sm text-gray-600 mb-3">{{ $course->description }}</p>
                     <div>
                         <p class="text-xs font-bold">Tópicos a tratar</p>
-                        <div class="mt-4 grid justify-items-start grid-flow-row grid-cols-2 gap-y-2 gap-x-4 text-xs font-light">
+                        <div class="mt-4 grid justify-items-start grid-flow-row grid-cols-4 gap-y-2 gap-x-4 text-xs font-light">
                             <p>Consectetur</p>
                             <p>Lorem</p>
                             <p>Ipsum</p>
@@ -59,12 +59,12 @@
                              src="{{ asset($course->owner->avatar) }}"
                              alt="{{ $course->owner->name . ' avatar' }}"
                         >
-                        <h3 class="font-bold absolute bottom-10 text-right w-3/5 right-0 text-white mr-1">
-                            <a class="decoration-clone"
+                        <h3 class="font-bold absolute bottom-10 text-right w-5/6 right-0 text-white mr-1">
+                            <a class=""
                                 href="#"
                             >
-                                <span class="text-4xl bg-blue-medium bg-opacity-50 px-4">{{ $course->owner->name }}</span>
-                                <span class="bg-blue-medium bg-opacity-50 font-light uppercase text-base px-2"
+                                <span class="text-4xl bg-blue-medium bg-opacity-50 pl-4 decoration-clone">{{ $course->owner->name }}</span>
+                                <span class="bg-blue-medium bg-opacity-50 font-bold uppercase text-base px-2 relative w-2/5 block left-40"
                                 >
                                     {{ $course->owner->role->career }}
                                 </span>
