@@ -65,12 +65,13 @@ class ShowCourses extends Component
                 });
         })->when($this->category, function (Builder $query) {
             $query->whereHas('category', function (Builder $query) {
-                $query->whereId($this->category);
+                $query->whereName($this->category);
             });
         })->when($this->level, function (Builder $query) {
             $query->whereHas('level', function (Builder $query) {
-                $query->whereId($this->level);
+                $query->whereName($this->level);
             });
-        })->paginate($this->resultsPerPage);
+        })->with('owner')
+            ->paginate($this->resultsPerPage);
     }
 }
