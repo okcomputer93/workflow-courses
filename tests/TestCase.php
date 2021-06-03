@@ -10,15 +10,10 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function signIn(String $role = 'student', User $user = null)
+    public function signIn(?String $role = 'student', User $baseUser = null)
     {
-        $user = UserFactory::role($role)
-            ->baseOn($user)
+        $user = $baseUser ??  UserFactory::role($role)
             ->create();
-
-//        $user = $user ?? User::factory()->create([
-//                'role' => $role
-//            ]);
 
         $this->actingAs(
             $user
