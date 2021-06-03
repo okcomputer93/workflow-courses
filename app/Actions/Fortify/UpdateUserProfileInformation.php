@@ -2,37 +2,41 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\User;
+use App\Validation\UserValidateInput;
+use App\Validation\UserValidation;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
+    protected UserValidateInput $userValidation;
+
+    public function __construct()
+    {
+        $this->userValidation = new UserValidation('update');
+    }
+
     /**
      * Validate and update the given user's profile information.
      *
-     * @param  mixed  $user
-     * @param  array  $input
+     * @param mixed $user
+     * @param array $input
      * @return void
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update($user, array $input)
     {
-        Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+        $this->userValidation
+            ->validateInput($input, $user);
 
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore($user->id),
-            ],
-        ])->validateWithBag('updateProfileInformation');
+        $this->updateAvatarIfExists($input, $user);
+
+        $this->updateRole($input, $user);
 
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
+            $this->updateVerifiedUser($input, $user);
         } else {
             $user->forceFill([
                 'name' => $input['name'],
@@ -48,7 +52,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      * @param  array  $input
      * @return void
      */
-    protected function updateVerifiedUser($user, array $input)
+    protected function updateVerifiedUser(array $input, User $user)
     {
         $user->forceFill([
             'name' => $input['name'],
@@ -57,5 +61,24 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ])->save();
 
         $user->sendEmailVerificationNotification();
+    }
+
+    protected function updateRole(array $input, $user)
+    {
+        $attributes = $this->userValidation
+            ->getAttributesBasedOnRole($input, $user);
+
+        $user->role()->update($attributes);
+    }
+
+    protected function updateAvatarIfExists(array $input, User $user)
+    {
+        if (key_exists('avatar', $input)) {
+            $path = $input['avatar']->store('avatars', 'public');
+
+            $user->forceFill([
+                'avatar' => $path
+            ])->save();
+        }
     }
 }
