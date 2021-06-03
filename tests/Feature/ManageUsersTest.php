@@ -126,8 +126,6 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_registered_student_can_update_its_profile_information()
     {
-        $this->withoutExceptionHandling();
-
         $this->signIn();
 
         $userAttributes = [
@@ -190,4 +188,29 @@ class ManageUsersTest extends TestCase
         );
     }
 
+    /** @test */
+    public function a_registered_student_cannot_update_itself_to_professor()
+    {
+        $this->signIn();
+
+        $userAttributes = [
+            'name' => 'Jhon Doe Edited',
+            'email' => 'jhonedited@example.com',
+            'role' => 'professor'
+        ];
+
+        $roleAttributes = [
+            'career' => 'Hacked',
+            'about' => 'You just been hacked HAHA!',
+            'twitter_user' => 'hacked',
+            'github_user' => 'hacked'
+        ];
+
+        $attributes = array_merge($userAttributes, $roleAttributes);
+
+        $this->put(route('user-profile-information.update'), $attributes);
+
+        $this->assertDatabaseMissing('users', $userAttributes);
+        $this->assertDatabaseMissing('professors', $roleAttributes);
+    }
 }

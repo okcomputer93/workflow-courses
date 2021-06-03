@@ -32,7 +32,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
         $this->updateAvatarIfExists($input, $user);
 
-        $this->updateRole($input, $user);
+        $this->updateRoleInformation($input, $user);
 
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
@@ -63,7 +63,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->sendEmailVerificationNotification();
     }
 
-    protected function updateRole(array $input, $user)
+    protected function updateRoleInformation(array $input, $user)
     {
         $attributes = $this->userValidation
             ->getAttributesBasedOnRole($input, $user);
