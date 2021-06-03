@@ -23,7 +23,10 @@ Route::get('/aboutus', function () {
     return view('wip');
 })->name('aboutus');
 
-Route::get('/user/profile', [UserProfileController::class, 'index'])->middleware('auth')->name('profile.show');
+Route::get('/user/{any?}', [UserProfileController::class, 'index'])
+    ->where('any', '.*')
+    ->middleware('auth')
+    ->name('profile.show');
 
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::post('/courses', [CoursesController::class, 'store'])->middleware('auth')->name('courses.store');
