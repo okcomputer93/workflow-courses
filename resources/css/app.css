@@ -101,7 +101,7 @@
     bottom: 0;
     right: -50%;
     width: 100%;
-    height: 50%;
+    height: 100%;
     @apply bg-blue-light;
     clip-path: circle(25% at bottom);
     z-index: -1;
