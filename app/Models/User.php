@@ -32,6 +32,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'role_id',
+        'role_type',
     ];
 
     /**
@@ -46,6 +48,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->morphTo();
+    }
+
+    public function roleName()
+    {
+        return $this->role->name();
     }
 
     public function courses()
