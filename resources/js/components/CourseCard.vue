@@ -19,8 +19,8 @@
                 <h2 class="text-2xl font-bold">{{ course.title | shortener }}</h2>
                 <p class="text-xs text-gray-500">{{ course.owner.name }}</p>
                 <div class="self-end">
-                    <a :href="course.path"
-                              class="text-center text-xs px-8 rounded-full py-3 bg-indigo-500 text-white transition-colors duration-300"
+                    <a :href="coursePath" target="_blank" rel="noopener noreferrer"
+                              class="text-center text-xs px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300"
                     >
                         Detalles
                     </a>
@@ -35,13 +35,17 @@
 export default {
     name: "CourseCard.vue",
     props: ['course'],
+    computed: {
+      coursePath() {
+          return `/courses/${this.course.slug}`
+      }
+    },
     filters: {
         format(value) {
             if (!value) return;
             value = value.toString();
-            return value.replaceAll('_', '' ).replace(/\b[a-z]/g, function(letter) {
-                return letter.toUpperCase();
-            });
+            return value.replaceAll('_', '' )
+                .replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
         },
         shortener(value) {
             const MAX_STRING = 40;

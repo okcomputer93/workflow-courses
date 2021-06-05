@@ -25,7 +25,7 @@ Route::get('/aboutus', function () {
 })->name('aboutus');
 
 Route::get('/user/{any?}', [UserProfileController::class, 'index'])
-    ->where('any', '.*')
+    ->where('any', '(\W|profile)')
     ->middleware('auth')
     ->name('profile.show');
 

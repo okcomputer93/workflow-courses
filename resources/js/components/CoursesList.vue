@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-for="course in courses" class="pt-10">
+    <div class="space-y-5 mt-5">
+        <div v-for="course in courses">
             <course-card :course="course" :key="course.id"></course-card>
         </div>
     </div>

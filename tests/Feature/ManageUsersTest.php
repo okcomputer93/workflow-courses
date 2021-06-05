@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\User;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\Professor;
@@ -122,6 +123,37 @@ class ManageUsersTest extends TestCase
             ->assertSee($user->email)
             ->assertSee($user->avatar);
     }
+
+    /** @test */
+    public function a_registered_user_can_update_just_its_name()
+    {
+        $user = $this->signIn();
+
+        $attributes = [
+            'name' => 'Edited',
+            'email' => $user->email
+        ];
+
+        $this->put(route('user-profile-information.update'), $attributes);
+
+        $this->assertDatabaseHas('users', $attributes);
+    }
+
+    /** @test */
+    public function a_registered_user_can_update_just_its_email()
+    {
+        $user = $this->signIn();
+
+        $attributes = [
+            'name' => $user->name,
+            'email' => 'somerandomemail@example.com'
+        ];
+
+        $this->put(route('user-profile-information.update'), $attributes);
+
+        $this->assertDatabaseHas('users', $attributes);
+    }
+
 
     /** @test */
     public function a_registered_student_can_update_its_profile_information()
