@@ -32,7 +32,7 @@
         </nav>
     </aside>
 
-    <div class="flex-1" style="margin-left: 270px;">
+    <div class="flex-1 ml-72">
         <keep-alive>
             <router-view></router-view>
         </keep-alive>

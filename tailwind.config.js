@@ -37,6 +37,8 @@ module.exports = {
     variants: {
         extend: {
             padding: ['hover'],
+            opacity: ['disabled'],
+            cursor: ['disabled']
         },
     },
     plugins: [],

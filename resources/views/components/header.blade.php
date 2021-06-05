@@ -29,7 +29,7 @@
                                 <x-button class="m-4" href="/register">Regístrate</x-button>
                             @endif
                         @else
-                            <a href="#" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
+                            <a href="/user" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
                                 {{ Auth::user()->name }}
                             </a>
                             <x-form-button action="{{ route('logout') }}" method="POST" class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-500 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">

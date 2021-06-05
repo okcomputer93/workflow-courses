@@ -19,7 +19,6 @@ class UserValidation implements UserValidateInput
     private string $action;
     private array $input;
     private User $user;
-    private array $userRules;
 
     private array $professorRules;
     private array $studentRules;
@@ -41,13 +40,11 @@ class UserValidation implements UserValidateInput
             ]
         ];
 
-        $this->userRules = $this->createUserRulesWithAction();
-
         $this->professorRules = [
-            'career' => ['required', 'string', 'max:255'],
+            'career' => ['sometimes', 'required', 'string', 'max:255'],
             'about' => ['sometimes', 'required', 'string'],
-            'github_user' => ['required', 'string', 'max:255'],
-            'twitter_user' => ['required', 'string', 'max:255'],
+            'github_user' => ['sometimes', 'required', 'string', 'max:255'],
+            'twitter_user' => ['sometimes', 'required', 'string', 'max:255'],
         ];
 
         $this->studentRules = [
@@ -90,7 +87,7 @@ class UserValidation implements UserValidateInput
     public function validateInput(array $input, ?User $user = null)
     {
         $rules = array_merge(
-            $this->userRules,
+            $this->createUserRulesWithAction($user),
             $this->specificRules($input, $user)
         );
         Validator::make($input, $rules)->validate();
@@ -107,7 +104,7 @@ class UserValidation implements UserValidateInput
         return $this->$rules;
     }
 
-    private function createUserRulesWithAction(): array
+    private function createUserRulesWithAction(?User $user): array
     {
         $baseRules = [
             'name' => ['required', 'string', 'max:255'],
@@ -117,7 +114,10 @@ class UserValidation implements UserValidateInput
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')
+                $this->action === 'update'
+                    ? Rule::unique('users')->ignore($user->id)
+                    : Rule::unique('users'),
+
             ]
         ];
 
