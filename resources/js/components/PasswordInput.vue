@@ -18,6 +18,7 @@
           <button class="m-3 border-2 p-1 rounded-lg border-gray-200 bg-gray-100"
                   type="button"
                   @click="toggleType"
+                  tabindex="-1"
           >
               <img class="h-6 w-6"
                    :src="eyeIcon"

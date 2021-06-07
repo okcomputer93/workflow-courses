@@ -2113,6 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PasswordInput.vue",
   props: ['id', 'value', 'required', 'classError', 'errorMessage'],
@@ -21880,7 +21881,7 @@ var render = function() {
         {
           staticClass:
             "m-3 border-2 p-1 rounded-lg border-gray-200 bg-gray-100",
-          attrs: { type: "button" },
+          attrs: { type: "button", tabindex: "-1" },
           on: { click: _vm.toggleType }
         },
         [
