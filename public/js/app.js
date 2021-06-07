@@ -2267,6 +2267,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "UpdateUserForm.vue",
@@ -2292,8 +2306,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
-    hasInputChanged: function hasInputChanged() {
-      return this.form.name !== this.newName || this.form.email !== this.newEmail;
+    haveInputsChanged: function haveInputsChanged() {
+      return this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail;
+    },
+    areInputsEmpty: function areInputsEmpty() {
+      return this.form.name === '' || this.form.email === '';
+    },
+    isSubmitable: function isSubmitable() {
+      return !this.haveInputsChanged || this.form.errors.any() || this.areInputsEmpty;
     }
   },
   methods: {
@@ -2312,8 +2332,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 _this.form.successMessage = 'Se ha actualizado la información';
-                _this.newName = _this.form.name;
-                _this.newEmail = _this.form.email;
+                _this.newName = _this.form.name.trim();
+                _this.newEmail = _this.form.email.trim();
                 setTimeout(function () {
                   _this.form.successMessage = '';
                 }, 5000);
@@ -21658,6 +21678,9 @@ var render = function() {
         submit: function($event) {
           $event.preventDefault()
           return _vm.onSubmit.apply(null, arguments)
+        },
+        keydown: function($event) {
+          return _vm.form.errors.clear($event.target.id)
         }
       }
     },
@@ -21670,92 +21693,121 @@ var render = function() {
         attrs: { src: _vm.user.avatar, alt: _vm.user.name + "'s avatar" }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "w-1/3 space-y-10" }, [
-        _c("div", [
-          _c(
-            "label",
-            {
-              staticClass: "block text-sm font-bold text-gray-400 mb-2",
-              attrs: { for: "name" }
-            },
-            [_vm._v("\n                Nombre\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
+      _c("div", { staticClass: "w-2/5 relative" }, [
+        _c("div", { staticClass: "flex flex-col justify-center items-start" }, [
+          _c("div", { staticClass: "w-full" }, [
+            _c(
+              "label",
               {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.name,
-                expression: "form.name"
-              }
-            ],
-            staticClass:
-              "w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base",
-            attrs: { type: "text", id: "name" },
-            domProps: { value: _vm.form.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+                staticClass: "block text-sm font-bold text-gray-400 mb-2",
+                attrs: { for: "name" }
+              },
+              [_vm._v("\n                    Nombre\n                ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.name,
+                  expression: "form.name"
                 }
-                _vm.$set(_vm.form, "name", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c(
-            "label",
-            {
-              staticClass: "block text-sm font-bold text-gray-400 mb-2",
-              attrs: { for: "email" }
-            },
-            [_vm._v("\n                Correo Electrónico\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.email,
-                expression: "form.email"
-              }
-            ],
-            staticClass:
-              "w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base",
-            attrs: { type: "email", id: "email" },
-            domProps: { value: _vm.form.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              ],
+              staticClass:
+                "w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base",
+              class: _vm.form.errors.get("name") ? "ring-red-600" : "",
+              attrs: { type: "text", id: "name", required: "" },
+              domProps: { value: _vm.form.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "name", $event.target.value)
                 }
-                _vm.$set(_vm.form, "email", $event.target.value)
               }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _vm.form.successMessage
-          ? _c(
+            }),
+            _vm._v(" "),
+            _c(
               "span",
-              { staticClass: "relative text-green-800 text-xs font-light" },
-              [_vm._v(_vm._s(_vm.form.successMessage))]
+              { staticClass: "text-xs font-light text-red-800 absolute mt-2" },
+              [_vm._v(_vm._s(_vm.form.errors.get("name")))]
             )
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "text-center my-4 text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed",
-            attrs: { disabled: !_vm.hasInputChanged }
-          },
-          [_vm._v("\n            Guardar Cambios\n        ")]
-        )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-10 w-full" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-sm font-bold text-gray-400 mb-2",
+                attrs: { for: "email" }
+              },
+              [
+                _vm._v(
+                  "\n                    Correo Electrónico\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.email,
+                  expression: "form.email"
+                }
+              ],
+              staticClass:
+                "w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base",
+              class: _vm.form.errors.get("email") ? "ring-red-600" : "",
+              attrs: { type: "email", id: "email", required: "" },
+              domProps: { value: _vm.form.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "email", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              { staticClass: "text-xs font-light text-red-800 absolute mt-2" },
+              [_vm._v(_vm._s(_vm.form.errors.get("email")))]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.form.successMessage
+            ? _c(
+                "span",
+                {
+                  staticClass:
+                    "absolute bottom-16 text-green-800 text-xs font-light"
+                },
+                [_vm._v(_vm._s(_vm.form.successMessage))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-14" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed",
+                attrs: { disabled: _vm.isSubmitable }
+              },
+              [
+                _vm._v(
+                  "\n                    Guardar Cambios\n                "
+                )
+              ]
+            )
+          ])
+        ])
       ])
     ]
   )
