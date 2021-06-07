@@ -107,13 +107,17 @@ export default {
         async onSubmit() {
             try {
                 this.isLoading = true;
+
                 await this.form.submit('put', '/user/profile-information');
                 this.form.successMessage = 'Se ha actualizado la información';
+
                 this.newName = this.form.name.trim();
                 this.newEmail = this.form.email.trim();
+
                 setTimeout(() => {
                     this.form.successMessage = '';
                 }, 5000);
+
             } catch (error) {
                 console.log(error);
             }

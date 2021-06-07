@@ -32,7 +32,7 @@ class Errors {
                 delete this.errors[field];
                 return;
 
-                // If you're not using a preprocessor you'll have probles with this part, it will be not reactive.
+                // If you're not using a preprocessor you'll have problem with this part, it will be not reactive.
                 // Use Vue.delete(this.errors, field);
             }
         } else this.errors = {};
@@ -64,16 +64,14 @@ export class Form {
     }
 
     async submit(requestType, url) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const response = await axios[requestType](url, this.data());
-                this.onSuccess(response.data);
-                resolve(response.data);
-            } catch (error) {
-                this.onFail(error.response.data.errors);
-                reject(error.response.data.errors);
-            }
-        });
+        try {
+            const response = await axios[requestType](url, this.data());
+            this.onSuccess(response.data);
+            return response.data;
+        } catch (error) {
+            this.onFail(error.response.data.errors);
+            throw new Error(error.response.data.errors);
+        }
     }
 
     onSuccess() {
