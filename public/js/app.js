@@ -2485,7 +2485,7 @@ var Errors = /*#__PURE__*/function () {
       if (field) {
         if (this.errors[field]) {
           delete this.errors[field];
-          return; // If you're not using a preprocessor you'll have probles with this part, it will be not reactive.
+          return; // If you're not using a preprocessor you'll have problem with this part, it will be not reactive.
           // Use Vue.delete(this.errors, field);
         }
       } else this.errors = {};
@@ -2531,60 +2531,33 @@ var Form = /*#__PURE__*/function () {
   }, {
     key: "submit",
     value: function () {
-      var _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(requestType, url) {
-        var _this4 = this;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      var _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(requestType, url) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
-                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(resolve, reject) {
-                    var response;
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            _context.prev = 0;
-                            _context.next = 3;
-                            return (axios__WEBPACK_IMPORTED_MODULE_1___default())[requestType](url, _this4.data());
+                _context.prev = 0;
+                _context.next = 3;
+                return (axios__WEBPACK_IMPORTED_MODULE_1___default())[requestType](url, this.data());
 
-                          case 3:
-                            response = _context.sent;
+              case 3:
+                response = _context.sent;
+                this.onSuccess(response.data);
+                return _context.abrupt("return", response.data);
 
-                            _this4.onSuccess(response.data);
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                this.onFail(_context.t0.response.data.errors);
+                throw new Error(_context.t0.response.data.errors);
 
-                            resolve(response.data);
-                            _context.next = 12;
-                            break;
-
-                          case 8:
-                            _context.prev = 8;
-                            _context.t0 = _context["catch"](0);
-
-                            _this4.onFail(_context.t0.response.data.errors);
-
-                            reject(_context.t0.response.data.errors);
-
-                          case 12:
-                          case "end":
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee, null, [[0, 8]]);
-                  }));
-
-                  return function (_x3, _x4) {
-                    return _ref.apply(this, arguments);
-                  };
-                }()));
-
-              case 1:
+              case 12:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee, this, [[0, 8]]);
       }));
 
       function submit(_x, _x2) {
