@@ -21,14 +21,14 @@
                     >
                         Nombre
                     </label>
-                    <input class="w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base"
-                           :class="form.errors.get('name') ? 'ring-red-600' : ''"
+                    <input class="w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base"
+                           :class="form.errors.get('name') ? 'ring-1 ring-red-500' : ''"
                            type="text"
                            id="name"
                            v-model="form.name"
                            required
                     >
-                    <span class="text-xs font-light text-red-800 absolute mt-2">{{ form.errors.get('name') }}</span>
+                    <span class="text-xs font-light text-red-500 absolute mt-2">{{ form.errors.get('name') }}</span>
                 </div>
 
                 <div class="mt-10 w-full">
@@ -37,21 +37,21 @@
                     >
                         Correo Electrónico
                     </label>
-                    <input class="w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base"
-                           :class="form.errors.get('email') ? 'ring-red-600' : ''"
+                    <input class="w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base"
+                           :class="form.errors.get('email') ? 'ring-1 ring-red-600' : ''"
                            type="email"
                            id="email"
                            v-model="form.email"
                            required
                     >
-                    <span class="text-xs font-light text-red-800 absolute mt-2">{{ form.errors.get('email') }}</span>
+                    <span class="text-xs font-light text-red-500 absolute mt-2">{{ form.errors.get('email') }}</span>
                 </div>
 
                 <span class="absolute bottom-16 text-green-800 text-xs font-light" v-if="form.successMessage">{{ form.successMessage }}</span>
 
                 <div class="mt-14">
                     <button class="text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                            :disabled="isSubmitable"
+                            :disabled="isNotSubmitable"
                     >
                         Guardar Cambios
                     </button>
@@ -97,7 +97,7 @@ export default {
             return this.form.name === ''
                 || this.form.email === '';
         },
-        isSubmitable() {
+        isNotSubmitable() {
             return !this.haveInputsChanged
                 || this.form.errors.any()
                 || this.areInputsEmpty;
