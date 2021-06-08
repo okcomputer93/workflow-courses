@@ -2271,7 +2271,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "UpdateImage.vue",
-  props: ['value', 'alt'],
+  props: ['value', 'alt', 'default'],
   data: function data() {
     return {
       newAvatar: null
@@ -2281,7 +2281,11 @@ __webpack_require__.r(__webpack_exports__);
     image: function image() {
       var _this$newAvatar;
 
-      return (_this$newAvatar = this.newAvatar) !== null && _this$newAvatar !== void 0 ? _this$newAvatar : this.value;
+      return (_this$newAvatar = this.newAvatar) !== null && _this$newAvatar !== void 0 ? _this$newAvatar : this.defaultImage;
+    },
+    defaultImage: function defaultImage() {
+      // default prop is received after component is mounted /undefined
+      return this["default"] ? "/".concat(this["default"]) : this["default"];
     }
   },
   methods: {
@@ -2393,6 +2397,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2405,13 +2413,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       newName: '',
       newEmail: '',
-      newAvatar: '',
+      isLoading: false,
+      successMessage: '',
       form: new _form__WEBPACK_IMPORTED_MODULE_1__.Form({
         name: '',
         email: '',
-        avatar: null,
-        isLoading: false,
-        successMessage: ''
+        avatar: null
       })
     };
   },
@@ -2419,15 +2426,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     user: function user(value) {
       this.form.name = value.name;
       this.form.email = value.email;
-      this.form.avatar = value.avatar;
       this.newName = value.name;
       this.newEmail = value.email;
-      this.newAvatar = value.avatar;
     }
   },
   computed: {
     haveInputsChanged: function haveInputsChanged() {
-      return this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail || this.form.avatar !== this.newAvatar;
+      return this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail || !!this.form.avatar;
     },
     areInputsEmpty: function areInputsEmpty() {
       return this.form.name === '' || this.form.email === '';
@@ -2445,35 +2450,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
+                if (!_this.isNotSubmitable) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 2:
                 _this.isLoading = true;
-                _context.next = 4;
+                _context.next = 5;
                 return _this.form.submit('put', '/user/profile-information');
 
-              case 4:
-                _this.form.successMessage = 'Se ha actualizado la información';
+              case 5:
+                _this.successMessage = 'Se ha actualizado la información';
                 _this.newName = _this.form.name.trim();
                 _this.newEmail = _this.form.email.trim();
                 setTimeout(function () {
-                  _this.form.successMessage = '';
+                  _this.successMessage = '';
                 }, 5000);
-                _context.next = 13;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
-
-              case 13:
                 _this.isLoading = false;
 
-              case 14:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee);
       }))();
     }
   }
@@ -2746,6 +2749,8 @@ var Errors = /*#__PURE__*/function () {
     key: "get",
     value: function get(field) {
       if (this.errors[field]) {
+        console.log(field);
+        console.log(this.errors[field]);
         return this.errors[field][0];
       }
     }
@@ -2802,18 +2807,36 @@ var Form = /*#__PURE__*/function () {
     value: function data() {
       var _this2 = this;
 
+      if (this.anyIsFile()) {
+        var formData = new FormData();
+        Object.keys(this.originalData).forEach(function (field) {
+          return formData.append(field.toString(), _this2[field]);
+        });
+        formData.append('_method', 'PUT');
+        return formData;
+      }
+
       return Object.keys(this.originalData).reduce(function (acc, field) {
         acc[field] = _this2[field];
         return acc;
       }, {});
     }
   }, {
-    key: "reset",
-    value: function reset() {
+    key: "anyIsFile",
+    value: function anyIsFile() {
       var _this3 = this;
 
+      return Object.keys(this.originalData).some(function (field) {
+        return _this3[field] instanceof File;
+      });
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      var _this4 = this;
+
       Object.keys(this.originalData).forEach(function (field) {
-        _this3[field] = "";
+        _this4[field] = "";
       });
       this.errors.clear();
     }
@@ -2821,32 +2844,45 @@ var Form = /*#__PURE__*/function () {
     key: "submit",
     value: function () {
       var _submit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(requestType, url) {
-        var response;
+        var request, data, config, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _context.next = 3;
-                return (axios__WEBPACK_IMPORTED_MODULE_1___default())[requestType](url, this.data());
+                // Handle multipart/form-data in php
+                // known bug: https://bugs.php.net/bug.php?id=55815
+                request = requestType;
+                data = this.data();
+                config = {};
 
-              case 3:
+                if (this.anyIsFile()) {
+                  config.headers = {
+                    'Content-Type': 'multipart/form-data'
+                  };
+                  request = 'post';
+                  data.append('_method', requestType.toUpperCase());
+                }
+
+                _context.next = 7;
+                return (axios__WEBPACK_IMPORTED_MODULE_1___default())[request](url, data, config);
+
+              case 7:
                 response = _context.sent;
                 this.onSuccess(response.data);
                 return _context.abrupt("return", response.data);
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](0);
-                this.onFail(_context.t0.response.data.errors);
-                throw new Error(_context.t0.response.data.errors);
-
               case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](0);
+                this.onFail(_context.t0);
+
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 8]]);
+        }, _callee, this, [[0, 12]]);
       }));
 
       function submit(_x, _x2) {
@@ -2862,7 +2898,7 @@ var Form = /*#__PURE__*/function () {
   }, {
     key: "onFail",
     value: function onFail(errors) {
-      this.errors.record(errors);
+      if (errors !== null && errors !== void 0 && errors.response) this.errors.record(errors.response.data.errors);
     }
   }]);
 
@@ -22214,7 +22250,7 @@ var render = function() {
       _vm._v(" "),
       _c("update-image", {
         staticClass: "self-center mt-5",
-        attrs: { alt: _vm.user.name + "'s avatar" },
+        attrs: { default: _vm.user.avatar, alt: _vm.user.name + "'s avatar" },
         model: {
           value: _vm.form.avatar,
           callback: function($$v) {
@@ -22312,14 +22348,14 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm.form.successMessage
+          _vm.successMessage
             ? _c(
                 "span",
                 {
                   staticClass:
                     "absolute bottom-16 text-green-800 text-xs font-light"
                 },
-                [_vm._v(_vm._s(_vm.form.successMessage))]
+                [_vm._v(_vm._s(_vm.successMessage))]
               )
             : _vm._e(),
           _vm._v(" "),

@@ -8,7 +8,11 @@
             <div class="h-0.5 flex-initial w-2/3 bg-gray-200"></div>
         </div>
 
-        <update-image class="self-center mt-5" v-model="form.avatar" :alt="`${user.name}'s avatar`" ></update-image>
+        <update-image class="self-center mt-5"
+                      :default="user.avatar"
+                      v-model="form.avatar"
+                      :alt="`${user.name}'s avatar`"
+        ></update-image>
 
         <div class="w-2/5 relative">
             <div class="flex flex-col justify-center items-start">
@@ -44,7 +48,7 @@
                     <span class="text-xs font-light text-red-500 absolute mt-2">{{ form.errors.get('email') }}</span>
                 </div>
 
-                <span class="absolute bottom-16 text-green-800 text-xs font-light" v-if="form.successMessage">{{ form.successMessage }}</span>
+                <span class="absolute bottom-16 text-green-800 text-xs font-light" v-if="successMessage">{{ successMessage }}</span>
 
                 <div class="mt-14">
                     <button class="text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -73,13 +77,12 @@ export default {
         return {
             newName: '',
             newEmail: '',
-            newAvatar: '',
+            isLoading: false,
+            successMessage: '',
             form: new Form({
                 name: '',
                 email: '',
                 avatar: null,
-                isLoading: false,
-                successMessage: '',
             })
         }
     },
@@ -87,17 +90,15 @@ export default {
         user(value) {
             this.form.name = value.name;
             this.form.email = value.email;
-            this.form.avatar = value.avatar;
             this.newName = value.name;
             this.newEmail = value.email;
-            this.newAvatar = value.avatar;
         }
     },
     computed: {
         haveInputsChanged() {
             return this.form.name.trim() !== this.newName
                 || this.form.email.trim() !== this.newEmail
-                || this.form.avatar !== this.newAvatar
+                || !!this.form.avatar;
         },
         areInputsEmpty() {
             return this.form.name === ''
@@ -111,22 +112,19 @@ export default {
     },
     methods: {
         async onSubmit() {
-            try {
-                this.isLoading = true;
+            if (this.isNotSubmitable) return
 
-                await this.form.submit('put', '/user/profile-information');
-                this.form.successMessage = 'Se ha actualizado la información';
+            this.isLoading = true;
 
-                this.newName = this.form.name.trim();
-                this.newEmail = this.form.email.trim();
+            await this.form.submit('put', '/user/profile-information');
+            this.successMessage = 'Se ha actualizado la información';
 
-                setTimeout(() => {
-                    this.form.successMessage = '';
-                }, 5000);
+            this.newName = this.form.name.trim();
+            this.newEmail = this.form.email.trim();
 
-            } catch (error) {
-                console.log(error);
-            }
+            setTimeout(() => {
+                this.successMessage = '';
+            }, 5000);
             this.isLoading = false;
         }
     }

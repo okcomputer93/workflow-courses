@@ -27,7 +27,7 @@
 <script>
 export default {
     name: "UpdateImage.vue",
-    props: ['value', 'alt'],
+    props: ['value', 'alt', 'default'],
     data() {
         return {
             newAvatar: null
@@ -35,7 +35,11 @@ export default {
     },
     computed: {
         image() {
-            return this.newAvatar ?? this.value;
+            return this.newAvatar ?? this.defaultImage;
+        },
+        defaultImage() {
+            // default prop is received after component is mounted /undefined
+            return this.default ? `/${this.default}` : this.default;
         }
     },
     methods: {
