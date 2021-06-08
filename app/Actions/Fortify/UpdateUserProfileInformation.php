@@ -73,7 +73,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
     protected function updateAvatarIfExists(array $input, User $user)
     {
-        if (key_exists('avatar', $input)) {
+        if ($input['avatar']) {
             $path = $input['avatar']->store('avatars', 'public');
 
             $user->forceFill([

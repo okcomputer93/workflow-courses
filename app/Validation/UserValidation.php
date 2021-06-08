@@ -108,7 +108,7 @@ class UserValidation implements UserValidateInput
     {
         $baseRules = [
             'name' => ['required', 'string', 'max:255'],
-            'avatar' => ['sometimes', 'required', 'image'],
+            'avatar' => ['nullable', 'image'],
             'email' => [
                 'required',
                 'string',
