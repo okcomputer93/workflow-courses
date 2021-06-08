@@ -8,10 +8,7 @@
             <div class="h-0.5 flex-initial w-2/3 bg-gray-200"></div>
         </div>
 
-        <img class="rounded-full h-44 w-44 self-center mt-5 ring-4 ring-indigo-500"
-             :src="user.avatar"
-             :alt="`${user.name}'s avatar`"
-        >
+        <update-image class="self-center mt-5" v-model="form.avatar" :alt="`${user.name}'s avatar`" ></update-image>
 
         <div class="w-2/5 relative">
             <div class="flex flex-col justify-center items-start">
@@ -65,16 +62,22 @@
 
 <script>
 import { Form } from '../form';
+import UpdateImage from "./UpdateImage";
 export default {
     name: "UpdateUserForm.vue",
+    components: {
+        UpdateImage
+    },
     props: ['user'],
     data() {
         return {
             newName: '',
             newEmail: '',
+            newAvatar: '',
             form: new Form({
                 name: '',
                 email: '',
+                avatar: null,
                 isLoading: false,
                 successMessage: '',
             })
@@ -84,14 +87,17 @@ export default {
         user(value) {
             this.form.name = value.name;
             this.form.email = value.email;
+            this.form.avatar = value.avatar;
             this.newName = value.name;
             this.newEmail = value.email;
+            this.newAvatar = value.avatar;
         }
     },
     computed: {
         haveInputsChanged() {
             return this.form.name.trim() !== this.newName
-                || this.form.email.trim() !== this.newEmail;
+                || this.form.email.trim() !== this.newEmail
+                || this.form.avatar !== this.newAvatar
         },
         areInputsEmpty() {
             return this.form.name === ''
