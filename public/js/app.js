@@ -2114,6 +2114,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PasswordInput.vue",
   props: ['id', 'value', 'required', 'classError', 'errorMessage'],
@@ -2571,6 +2572,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2598,34 +2610,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
+
+                if (!_this.isNotSubmitable) {
+                  _context.next = 3;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 3:
                 _this.isLoading = true;
-                _context.next = 4;
+                _context.next = 6;
                 return _this.form.submit('put', '/user/password');
 
-              case 4:
+              case 6:
                 _this.form.reset();
 
                 _this.successMessage = 'Contraseña actualizada.';
                 setTimeout(function () {
                   _this.successMessage = '';
                 }, 5000);
-                _context.next = 12;
+                _context.next = 14;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
-              case 12:
+              case 14:
                 _this.isLoading = false;
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 9]]);
+        }, _callee, null, [[0, 11]]);
       }))();
     }
   },
@@ -22043,7 +22064,8 @@ var render = function() {
     _c(
       "label",
       {
-        staticClass: "block text-sm font-bold text-gray-400 mb-2",
+        staticClass: "block text-sm font-bold mb-2",
+        class: _vm.classError ? "text-red-500" : "text-gray-400",
         attrs: { for: _vm.id }
       },
       [
@@ -22058,7 +22080,7 @@ var render = function() {
       _c("input", {
         staticClass:
           "w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base",
-        class: _vm.classError ? "ring-1 ring-red-600" : "",
+        class: _vm.classError ? "ring-1 ring-red-500" : "",
         attrs: { type: _vm.inputType, id: _vm.id, required: _vm.required },
         domProps: { value: _vm.value },
         on: {
@@ -22072,7 +22094,7 @@ var render = function() {
         "button",
         {
           staticClass:
-            "m-3 border-2 p-1 rounded-lg border-gray-200 bg-gray-100",
+            "m-3 w-8 h-8 p-1 rounded-full hover:bg-indigo-200 transition duration-500 focus:outline-none",
           attrs: { type: "button", tabindex: "-1" },
           on: { click: _vm.toggleType }
         },
@@ -22454,7 +22476,9 @@ var render = function() {
                   attrs: {
                     id: "current_password",
                     required: true,
-                    "class-error": _vm.form.errors.get("current_password"),
+                    "class-error":
+                      _vm.form.errors.get("current_password") ||
+                      _vm.passwordsDidntChange,
                     "error-message": _vm.form.errors.get("current_password")
                   },
                   model: {
@@ -22485,7 +22509,10 @@ var render = function() {
                   attrs: {
                     id: "password",
                     required: true,
-                    "class-error": _vm.form.errors.get("password"),
+                    "class-error":
+                      _vm.form.errors.get("password") ||
+                      _vm.passwordsDontMatch ||
+                      _vm.passwordsDidntChange,
                     "error-message": _vm.form.errors.get("password")
                   },
                   model: {
@@ -22516,7 +22543,10 @@ var render = function() {
                   attrs: {
                     id: "password_confirmation",
                     required: true,
-                    "class-error": _vm.form.errors.get("password_confirmation"),
+                    "class-error":
+                      _vm.form.errors.get("password_confirmation") ||
+                      _vm.passwordsDontMatch ||
+                      _vm.passwordsDidntChange,
                     "error-message": _vm.form.errors.get(
                       "password_confirmation"
                     )

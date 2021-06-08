@@ -14,7 +14,10 @@
                     <password-input id="current_password"
                                     v-model="form.current_password"
                                     :required="true"
-                                    :class-error="form.errors.get('current_password')"
+                                    :class-error="
+                                        form.errors.get('current_password')
+                                        || passwordsDidntChange
+                                    "
                                     :error-message="form.errors.get('current_password')"
                     >
                         Contraseña Actual
@@ -25,7 +28,11 @@
                     <password-input id="password"
                                     v-model="form.password"
                                     :required="true"
-                                    :class-error="form.errors.get('password')"
+                                    :class-error="
+                                        form.errors.get('password')
+                                        || passwordsDontMatch
+                                        || passwordsDidntChange
+                                    "
                                     :error-message="form.errors.get('password')"
                     >
                         Nueva Contraseña
@@ -36,7 +43,11 @@
                     <password-input id="password_confirmation"
                                     v-model="form.password_confirmation"
                                     :required="true"
-                                    :class-error="form.errors.get('password_confirmation')"
+                                    :class-error="
+                                        form.errors.get('password_confirmation')
+                                        || passwordsDontMatch
+                                        || passwordsDidntChange
+                                    "
                                     :error-message="form.errors.get('password_confirmation')"
                     >
                         Confirmar Contraseña
@@ -86,6 +97,7 @@ export default {
     methods: {
         async onSubmit() {
             try {
+                if (this.isNotSubmitable) return;
                 this.isLoading = true;
 
                 await this.form.submit('put', '/user/password');
