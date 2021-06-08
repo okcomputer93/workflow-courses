@@ -2232,6 +2232,84 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateImage.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateImage.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "UpdateImage.vue",
+  props: ['value', 'alt'],
+  data: function data() {
+    return {
+      newAvatar: null
+    };
+  },
+  computed: {
+    image: function image() {
+      var _this$newAvatar;
+
+      return (_this$newAvatar = this.newAvatar) !== null && _this$newAvatar !== void 0 ? _this$newAvatar : this.value;
+    }
+  },
+  methods: {
+    selectImage: function selectImage() {
+      this.$refs.fileInput.click();
+    },
+    showImage: function showImage() {
+      var _this = this;
+
+      var input = this.$refs.fileInput;
+      var file = input.files;
+
+      if (file && file[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          _this.newAvatar = e.target.result;
+        };
+
+        reader.readAsDataURL(file[0]);
+        this.$emit('input', file[0]);
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateUserForm.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateUserForm.vue?vue&type=script&lang=js& ***!
@@ -2246,6 +2324,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../form */ "./resources/js/form.js");
+/* harmony import */ var _UpdateImage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateImage */ "./resources/js/components/UpdateImage.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2314,20 +2393,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "UpdateUserForm.vue",
+  components: {
+    UpdateImage: _UpdateImage__WEBPACK_IMPORTED_MODULE_2__.default
+  },
   props: ['user'],
   data: function data() {
     return {
       newName: '',
       newEmail: '',
+      newAvatar: '',
       form: new _form__WEBPACK_IMPORTED_MODULE_1__.Form({
         name: '',
         email: '',
+        avatar: null,
         isLoading: false,
         successMessage: ''
       })
@@ -2337,13 +2419,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     user: function user(value) {
       this.form.name = value.name;
       this.form.email = value.email;
+      this.form.avatar = value.avatar;
       this.newName = value.name;
       this.newEmail = value.email;
+      this.newAvatar = value.avatar;
     }
   },
   computed: {
     haveInputsChanged: function haveInputsChanged() {
-      return this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail;
+      return this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail || this.form.avatar !== this.newAvatar;
     },
     areInputsEmpty: function areInputsEmpty() {
       return this.form.name === '' || this.form.email === '';
@@ -21226,6 +21310,45 @@ component.options.__file = "resources/js/components/Profile.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/UpdateImage.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/UpdateImage.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _UpdateImage_vue_vue_type_template_id_03c39012_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateImage.vue?vue&type=template&id=03c39012&scoped=true& */ "./resources/js/components/UpdateImage.vue?vue&type=template&id=03c39012&scoped=true&");
+/* harmony import */ var _UpdateImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateImage.vue?vue&type=script&lang=js& */ "./resources/js/components/UpdateImage.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _UpdateImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _UpdateImage_vue_vue_type_template_id_03c39012_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _UpdateImage_vue_vue_type_template_id_03c39012_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "03c39012",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/UpdateImage.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/UpdateUserForm.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/UpdateUserForm.vue ***!
@@ -21400,6 +21523,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/UpdateImage.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/UpdateImage.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateImage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateImage.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/UpdateUserForm.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/UpdateUserForm.vue?vue&type=script&lang=js& ***!
@@ -21530,6 +21669,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_3bd692e4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_3bd692e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Profile.vue?vue&type=template&id=3bd692e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Profile.vue?vue&type=template&id=3bd692e4&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/UpdateImage.vue?vue&type=template&id=03c39012&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/UpdateImage.vue?vue&type=template&id=03c39012&scoped=true& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateImage_vue_vue_type_template_id_03c39012_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateImage_vue_vue_type_template_id_03c39012_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateImage_vue_vue_type_template_id_03c39012_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateImage.vue?vue&type=template&id=03c39012&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateImage.vue?vue&type=template&id=03c39012&scoped=true&");
 
 
 /***/ }),
@@ -21887,7 +22043,7 @@ var render = function() {
         [
           _c("img", {
             staticClass: "h-6 w-6",
-            attrs: { src: _vm.eyeIcon, alt: "eye icon" }
+            attrs: { src: _vm.eyeIcon, alt: "show/hide password icon" }
           })
         ]
       )
@@ -21964,6 +22120,65 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateImage.vue?vue&type=template&id=03c39012&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateImage.vue?vue&type=template&id=03c39012&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "relative" }, [
+    _c("img", {
+      staticClass: "rounded-full h-44 w-44 ring-4 ring-indigo-500",
+      attrs: { src: _vm.image, alt: _vm.alt }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "absolute bottom-0 right-0" }, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "w-10 h-10 border-2 p-2 rounded-full bg-indigo-600 border-gray-200 ring-2 ring-indigo-500",
+          attrs: { type: "button" },
+          on: { click: _vm.selectImage }
+        },
+        [
+          _c("img", {
+            staticClass: "w-5 h-5",
+            attrs: { src: "/images/pencil.svg", alt: "edit icon" }
+          })
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      ref: "fileInput",
+      attrs: {
+        type: "file",
+        accept: "image/*",
+        "aria-hidden": "true",
+        hidden: ""
+      },
+      on: { input: _vm.showImage }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateUserForm.vue?vue&type=template&id=49a31b7a&scoped=true&":
 /*!**************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UpdateUserForm.vue?vue&type=template&id=49a31b7a&scoped=true& ***!
@@ -21997,10 +22212,16 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("img", {
-        staticClass:
-          "rounded-full h-44 w-44 self-center mt-5 ring-4 ring-indigo-500",
-        attrs: { src: _vm.user.avatar, alt: _vm.user.name + "'s avatar" }
+      _c("update-image", {
+        staticClass: "self-center mt-5",
+        attrs: { alt: _vm.user.name + "'s avatar" },
+        model: {
+          value: _vm.form.avatar,
+          callback: function($$v) {
+            _vm.$set(_vm.form, "avatar", $$v)
+          },
+          expression: "form.avatar"
+        }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "w-2/5 relative" }, [
@@ -22119,7 +22340,8 @@ var render = function() {
           ])
         ])
       ])
-    ]
+    ],
+    1
   )
 }
 var staticRenderFns = [

@@ -22,7 +22,7 @@
           >
               <img class="h-6 w-6"
                    :src="eyeIcon"
-                   alt="eye icon"
+                   alt="show/hide password icon"
               >
           </button>
       </div>
