@@ -1,6 +1,7 @@
 <template>
    <div>
-       <label class="block text-sm font-bold text-gray-400 mb-2"
+       <label class="block text-sm font-bold mb-2"
+              :class="classError ? 'text-red-500' : 'text-gray-400'"
               :for="id"
        >
            <slot>Label text here.</slot>
@@ -8,14 +9,14 @@
 
       <div class="flex justify-center items-center">
           <input class="w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base"
-                 :class="classError ? 'ring-1 ring-red-600' : ''"
+                 :class="classError ? 'ring-1 ring-red-500' : ''"
                  :type="inputType"
                  :id="id"
                  :required="required"
                  @input="updateInput($event)"
                  :value="value"
           >
-          <button class="m-3 border-2 p-1 rounded-lg border-gray-200 bg-gray-100"
+          <button class="m-3 w-8 h-8 p-1 rounded-full hover:bg-indigo-200 transition duration-500 focus:outline-none"
                   type="button"
                   @click="toggleType"
                   tabindex="-1"
