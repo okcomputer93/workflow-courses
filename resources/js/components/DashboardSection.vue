@@ -1,5 +1,8 @@
 <template>
-    <div class="px-20 py-8">
+    <div class="px-20 py-14 w-full">
+        <div class="pl-5">
+            <slot name="title"></slot>
+        </div>
         <div class="flex justify-between">
             <div class="flex-1 p-5">
               <slot name="left"></slot>

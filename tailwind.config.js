@@ -29,9 +29,12 @@ module.exports = {
                     3: '#07084B'
                 }
             },
+            transitionProperty: {
+                'width': 'width'
+            },
             backgroundImage: theme => ({
                 'bg-boost': "url('/images/bg-boost.svg')"
-            })
+            }),
         },
     },
     variants: {
