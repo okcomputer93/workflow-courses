@@ -3,7 +3,7 @@
           @submit.prevent="onSubmit"
           @keydown="form.errors.clear($event.target.id)"
     >
-        <div class="flex justify-start items-center w-full">
+        <div class="flex justify-start items-center w-full mt-5">
             <h2 class="flex-initial flex-shrink-0 text-2xl font-bold text-gray-800 pr-3">Información Básica</h2>
             <div class="h-0.5 flex-initial w-2/3 bg-gray-200"></div>
         </div>

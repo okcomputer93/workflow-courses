@@ -1,3 +1,4 @@
+import Settings from "./components/Settings";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 
@@ -6,11 +7,21 @@ export default {
     routes: [
         {
             path: '/user',
-            component: Dashboard
-        },
-        {
-            path: '/user/profile',
-            component: Profile,
-        },
+            redirect: '/user/dashboard',
+            name: 'home',
+            component: Settings,
+            children: [
+                {
+                    path: 'dashboard',
+                    name: 'home.dashboard',
+                    component: Dashboard
+                },
+                {
+                    path: 'profile',
+                    name: 'home.profile',
+                    component: Profile
+                }
+            ]
+        }
     ]
 }
