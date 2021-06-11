@@ -1,7 +1,7 @@
 <template>
-    <article class="bg-white rounded-sm shadow-lg rounded-md w-full hover:shadow-xl transition-shadow duration-300 z-10 overflow-hidden course-card w-5/6">
+    <article class="bg-white rounded-sm shadow-lg rounded-md hover:shadow-xl transition-shadow duration-300 z-10 overflow-hidden course-card" style="width: 32rem;">
         <div class="flex items-center">
-            <img class="w-44 h-44 shadow-lg hover:shadow-xl transition-shadow duration-300"
+            <img class="w-44 h-44 shadow-lg bg-gray-200 hover:shadow-xl transition-shadow duration-300"
                  :src="course.miniature"
                  :alt="`${course.title}' s miniature`"
             >
