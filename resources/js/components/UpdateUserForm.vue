@@ -97,9 +97,11 @@ export default {
     },
     computed: {
         haveInputsChanged() {
-            return this.form.name.trim() !== this.newName
+             const inputs = this.form.name.trim() !== this.newName
                 || this.form.email.trim() !== this.newEmail
                 || this.form.avatar !== this.newAvatar;
+             this.$emit('information-changed', inputs);
+             return inputs;
         },
         areInputsEmpty() {
             return this.form.name === ''
