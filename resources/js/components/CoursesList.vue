@@ -1,8 +1,8 @@
 <template>
-    <div class="space-y-5 mt-5 max-w-lg flex flex-col items-end">
-        <div v-for="course in courses">
+    <div class="space-y-5 mt-5">
+        <template v-for="course in courses">
             <course-card :course="course" :key="course.id"></course-card>
-        </div>
+        </template>
     </div>
 </template>
 

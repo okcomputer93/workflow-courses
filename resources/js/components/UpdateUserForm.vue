@@ -52,7 +52,7 @@
 
                 <div class="mt-14">
                     <button class="text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                            :disabled="isNotSubmitable"
+                            :disabled="isNotSubmitable || isLoading"
                     >
                         Guardar Cambios
                     </button>
@@ -77,6 +77,7 @@ export default {
         return {
             newName: '',
             newEmail: '',
+            newAvatar: null,
             isLoading: false,
             successMessage: '',
             form: new Form({
@@ -92,13 +93,13 @@ export default {
             this.form.email = value.email;
             this.newName = value.name;
             this.newEmail = value.email;
-        }
+        },
     },
     computed: {
         haveInputsChanged() {
             return this.form.name.trim() !== this.newName
                 || this.form.email.trim() !== this.newEmail
-                || !!this.form.avatar;
+                || this.form.avatar !== this.newAvatar;
         },
         areInputsEmpty() {
             return this.form.name === ''
@@ -119,14 +120,24 @@ export default {
             await this.form.submit('put', '/user/profile-information');
             this.successMessage = 'Se ha actualizado la información';
 
-            this.newName = this.form.name.trim();
-            this.newEmail = this.form.email.trim();
+            this.updateUserInfo();
 
             setTimeout(() => {
                 this.successMessage = '';
             }, 5000);
             this.isLoading = false;
+        },
+        updateUserInfo() {
+            this.newName = this.form.name.trim();
+            this.newEmail = this.form.email.trim();
+            this.newAvatar = this.form.avatar;
         }
+    },
+    mounted() {
+        this.form.name = this.user.name;
+        this.form.email = this.user.email;
+        this.newName = this.user.name;
+        this.newEmail = this.user.email;
     }
 }
 </script>
