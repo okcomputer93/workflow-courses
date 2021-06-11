@@ -2403,6 +2403,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isLoading: null
     };
   },
+  methods: {
+    informationChanged: function informationChanged(value) {
+      this.$emit('information-changed', value);
+    }
+  },
   created: function created() {
     var _this = this;
 
@@ -2479,7 +2484,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      navBarMinimized: null
+      navBarMinimized: null,
+      informationChanged: false
     };
   },
   computed: {
@@ -2490,7 +2496,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changeWidth: function changeWidth(value) {
       this.navBarMinimized = value;
+    },
+    informationState: function informationState(value) {
+      this.informationChanged = value;
     }
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    if (this.informationChanged) {
+      var answer = confirm('Hay cambios sin guardar, ¿deseas abandonar?');
+
+      if (!answer) {
+        return false;
+      }
+    }
+
+    this.informationChanged = false;
+    return next();
   }
 });
 
@@ -2697,7 +2718,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     haveInputsChanged: function haveInputsChanged() {
-      return this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail || this.form.avatar !== this.newAvatar;
+      var inputs = this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail || this.form.avatar !== this.newAvatar;
+      this.$emit('information-changed', inputs);
+      return inputs;
     },
     areInputsEmpty: function areInputsEmpty() {
       return this.form.name === '' || this.form.email === '';
@@ -23317,7 +23340,10 @@ var render = function() {
                             },
                             [
                               _c("update-user-form", {
-                                attrs: { user: _vm.user }
+                                attrs: { user: _vm.user },
+                                on: {
+                                  "information-changed": _vm.informationChanged
+                                }
                               }),
                               _vm._v(" "),
                               _c("update-user-password", {
@@ -23333,7 +23359,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  3894723381
+                  1573512435
                 )
               })
             : _vm._e()
@@ -23381,7 +23407,16 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "flex-1" }, [_c("router-view")], 1)
+      _c(
+        "div",
+        { staticClass: "flex-1" },
+        [
+          _c("router-view", {
+            on: { "information-changed": _vm.informationState }
+          })
+        ],
+        1
+      )
     ]
   )
 }

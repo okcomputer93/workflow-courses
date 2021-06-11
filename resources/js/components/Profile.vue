@@ -14,7 +14,7 @@
                </template>
                <template v-slot:left>
                    <div class="flex flex-col justify-start items-start">
-                       <update-user-form :user="user"></update-user-form>
+                       <update-user-form @information-changed="informationChanged" :user="user"></update-user-form>
                        <update-user-password class="mt-20"></update-user-password>
                    </div>
                </template>
@@ -42,6 +42,11 @@ export default {
         return {
             user: {},
             isLoading: null,
+        }
+    },
+    methods: {
+        informationChanged(value) {
+            this.$emit('information-changed', value);
         }
     },
     async created() {

@@ -8,7 +8,7 @@
         </div>
 
         <div class="flex-1">
-            <router-view></router-view>
+            <router-view @information-changed="informationState"></router-view>
         </div>
     </section>
 </template>
@@ -23,6 +23,7 @@ export default {
     data() {
         return {
             navBarMinimized: null,
+            informationChanged: false,
         }
     },
     computed: {
@@ -33,7 +34,20 @@ export default {
     methods: {
         changeWidth(value) {
             this.navBarMinimized = value;
+        },
+        informationState(value) {
+            this.informationChanged = value;
         }
+    },
+    beforeRouteUpdate(to, from, next) {
+        if (this.informationChanged) {
+            const answer = confirm('Hay cambios sin guardar, ¿deseas abandonar?');
+            if(!answer) {
+                return false;
+            }
+        }
+        this.informationChanged = false;
+        return next();
     }
 }
 </script>
