@@ -13,10 +13,11 @@
                  :type="inputType"
                  :id="id"
                  :required="required"
-                 @input="updateInput($event)"
+                 @input="updateInput"
                  :value="value"
           >
           <button class="m-3 w-8 h-8 p-1 rounded-full hover:bg-indigo-200 transition duration-500 focus:outline-none"
+                  :title="titleInput"
                   type="button"
                   @click="toggleType"
                   tabindex="-1"
@@ -41,12 +42,15 @@ export default {
       }
     },
     computed: {
-      eyeIcon() {
+        eyeIcon() {
           return this.isPasswordHidden ? '/images/eye-off.svg' : '/images/eye.svg';
       },
-      inputType() {
+        inputType() {
           return this.isPasswordHidden ? 'password' : 'text';
-      }
+      },
+        titleInput() {
+          return `${this.isPasswordHidden ? 'Mostrar' : 'Ocultar'} contraseña`;
+        }
     },
     methods: {
         toggleType() {

@@ -2305,6 +2305,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PasswordInput.vue",
   props: ['id', 'value', 'required', 'classError', 'errorMessage'],
@@ -2319,6 +2320,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     inputType: function inputType() {
       return this.isPasswordHidden ? 'password' : 'text';
+    },
+    titleInput: function titleInput() {
+      return "".concat(this.isPasswordHidden ? 'Mostrar' : 'Ocultar', " contrase\xF1a");
     }
   },
   methods: {
@@ -2384,6 +2388,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2403,9 +2411,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isLoading: null
     };
   },
-  methods: {
-    informationChanged: function informationChanged(value) {
-      this.$emit('information-changed', value);
+  computed: {
+    pendingInfo: function pendingInfo() {
+      return this.$refs.updateUser.haveInputsChanged || this.$refs.updatePassword.anyInputFilled;
     }
   },
   created: function created() {
@@ -2502,7 +2510,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
-    if (this.informationChanged) {
+    var _this$$refs$currentVi;
+
+    if ((_this$$refs$currentVi = this.$refs.currentView) !== null && _this$$refs$currentVi !== void 0 && _this$$refs$currentVi.pendingInfo) {
       var answer = confirm('Hay cambios sin guardar, ¿deseas abandonar?');
 
       if (!answer) {
@@ -2739,9 +2749,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     haveInputsChanged: function haveInputsChanged() {
-      var inputs = this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail || this.form.avatar !== this.newAvatar;
-      this.$emit('information-changed', inputs);
-      return inputs;
+      return this.form.name.trim() !== this.newName || this.form.email.trim() !== this.newEmail || this.form.avatar !== this.newAvatar;
     },
     areInputsEmpty: function areInputsEmpty() {
       return this.form.name === '' || this.form.email === '';
@@ -2979,6 +2987,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     areInputsEmpty: function areInputsEmpty() {
       return this.form.current_password === '' || this.form.password === '' || this.form.password_confirmation === '';
+    },
+    anyInputFilled: function anyInputFilled() {
+      return this.form.current_password !== '' || this.form.password !== '' || this.form.password_confirmation !== '';
     },
     isNotSubmitable: function isNotSubmitable() {
       return this.passwordsDontMatch || this.form.errors.any() || this.areInputsEmpty || this.passwordsDidntChange;
@@ -23301,11 +23312,7 @@ var render = function() {
         class: _vm.classError ? "ring-1 ring-red-500" : "",
         attrs: { type: _vm.inputType, id: _vm.id, required: _vm.required },
         domProps: { value: _vm.value },
-        on: {
-          input: function($event) {
-            return _vm.updateInput($event)
-          }
-        }
+        on: { input: _vm.updateInput }
       }),
       _vm._v(" "),
       _c(
@@ -23313,7 +23320,7 @@ var render = function() {
         {
           staticClass:
             "m-3 w-8 h-8 p-1 rounded-full hover:bg-indigo-200 transition duration-500 focus:outline-none",
-          attrs: { type: "button", tabindex: "-1" },
+          attrs: { title: _vm.titleInput, type: "button", tabindex: "-1" },
           on: { click: _vm.toggleType }
         },
         [
@@ -23404,13 +23411,12 @@ var render = function() {
                             },
                             [
                               _c("update-user-form", {
-                                attrs: { user: _vm.user },
-                                on: {
-                                  "information-changed": _vm.informationChanged
-                                }
+                                ref: "updateUser",
+                                attrs: { user: _vm.user }
                               }),
                               _vm._v(" "),
                               _c("update-user-password", {
+                                ref: "updatePassword",
                                 staticClass: "mt-20"
                               })
                             ],
@@ -23423,7 +23429,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  1573512435
+                  2510288251
                 )
               })
             : _vm._e()
@@ -23474,11 +23480,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "flex-1" },
-        [
-          _c("router-view", {
-            on: { "information-changed": _vm.informationState }
-          })
-        ],
+        [_c("router-view", { ref: "currentView" })],
         1
       )
     ]

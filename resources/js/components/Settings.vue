@@ -8,7 +8,7 @@
         </div>
 
         <div class="flex-1">
-            <router-view @information-changed="informationState"></router-view>
+            <router-view ref="currentView"></router-view>
         </div>
     </section>
 </template>
@@ -40,7 +40,7 @@ export default {
         }
     },
     beforeRouteUpdate(to, from, next) {
-        if (this.informationChanged) {
+        if (this.$refs.currentView?.pendingInfo) {
             const answer = confirm('Hay cambios sin guardar, ¿deseas abandonar?');
             if(!answer) {
                 return false;
