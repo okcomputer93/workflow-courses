@@ -118,7 +118,7 @@
 
 </div>
 
-    <script>
+    <script  type="application/javascript">
         function onScrolling() {
             return {
                 buttonVisible: false,
