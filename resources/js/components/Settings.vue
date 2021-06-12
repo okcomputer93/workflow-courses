@@ -4,7 +4,7 @@
         <div class="transition-width duration-1000"
              :class="navBarWidth"
         >
-            <nav-bar @minimize="changeWidth"></nav-bar>
+            <navigation-bar @minimize="changeWidth"></navigation-bar>
         </div>
 
         <div class="flex-1">
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import NavBar from "./NavBar";
+import NavigationBar from "./NavigationBar";
 export default {
     name: "Settings.vue",
     components: {
-        NavBar
+        NavigationBar
     },
     data() {
         return {
