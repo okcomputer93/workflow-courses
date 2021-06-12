@@ -129,7 +129,12 @@ export default {
         areInputsEmpty() {
             return this.form.current_password === ''
                 || this.form.password === ''
-                || this.form.password_confirmation === ''
+                || this.form.password_confirmation === '';
+        },
+        anyInputFilled() {
+            return this.form.current_password !== ''
+                || this.form.password !== ''
+                || this.form.password_confirmation !== '';
         },
         isNotSubmitable() {
             return this.passwordsDontMatch

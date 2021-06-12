@@ -14,8 +14,12 @@
                </template>
                <template v-slot:left>
                    <div class="flex flex-col justify-start items-start">
-                       <update-user-form @information-changed="informationChanged" :user="user"></update-user-form>
-                       <update-user-password class="mt-20"></update-user-password>
+                       <update-user-form ref="updateUser"
+                                         :user="user"
+                       ></update-user-form>
+                       <update-user-password ref="updatePassword"
+                                             class="mt-20"
+                       ></update-user-password>
                    </div>
                </template>
            </dashboard-section>
@@ -44,9 +48,10 @@ export default {
             isLoading: null,
         }
     },
-    methods: {
-        informationChanged(value) {
-            this.$emit('information-changed', value);
+    computed: {
+        pendingInfo() {
+            return this.$refs.updateUser.haveInputsChanged
+                || this.$refs.updatePassword.anyInputFilled;
         }
     },
     async created() {
