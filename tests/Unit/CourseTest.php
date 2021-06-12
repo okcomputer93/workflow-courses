@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Level;
 use App\Models\User;
@@ -68,6 +69,19 @@ class CourseTest extends TestCase
             ->create();
 
         $this->assertEquals($course->level->id, $level->id);
+    }
+
+    /** @test */
+    public function it_has_comments()
+    {
+        $course = CourseFactory::withStorage('public')
+            ->create();
+
+        $comment = Comment::factory()->create([
+            'course_id' => $course->id
+        ]);
+
+        $this->assertEquals($course->comments->first()->id, $comment->id);
     }
 
 }

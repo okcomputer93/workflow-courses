@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Comment;
 use App\Models\User;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,5 +21,18 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $user->courses);
     }
+
+    /** @test */
+    public function it_has_comments()
+    {
+        $user = UserFactory::create();
+
+        $comment = Comment::factory()->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->assertEquals($user->comments->first()->id, $comment->id);
+    }
+
 
 }
