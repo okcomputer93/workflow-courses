@@ -25,7 +25,7 @@
 </head>
 <body>
 
-  <div id="app">
+  <div>
       @props([
       'header' => 'true',
       'footer' => 'true'
