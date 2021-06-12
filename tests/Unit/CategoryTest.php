@@ -12,7 +12,7 @@ class CategoryTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_has_projects()
+    public function it_has_courses()
     {
         $category = Category::factory()
             ->create();
