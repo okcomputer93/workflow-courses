@@ -61,7 +61,7 @@ class CoursesController extends Controller
         return redirect($course->refresh()->path());
     }
 
-    public function validateRequest(String $type)
+    private function validateRequest(String $type)
     {
         $attributes = request()->validate([
             'title' => 'required',

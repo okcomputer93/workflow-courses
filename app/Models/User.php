@@ -70,6 +70,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class);
     }
 
+    public function saveAsView(Course $course)
+    {
+        if (!$this->views->contains($course)) {
+            $this->views()->save($course);
+        }
+    }
+
     public function addComment(array $attributes, Course $course)
     {
         $comment = new Comment();

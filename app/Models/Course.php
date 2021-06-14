@@ -26,6 +26,11 @@ class Course extends Model
         return route("courses.$route", $this);
     }
 
+    public function watchPath()
+    {
+        return route('courses.watch', $this);
+    }
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'professor_id');
