@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Level;
 use App\Models\User;
 use Facades\Tests\Setup\CourseFactory;
+use Facades\Tests\Setup\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -84,4 +85,19 @@ class CourseTest extends TestCase
         $this->assertEquals($course->comments->first()->id, $comment->id);
     }
 
+    /** @test */
+    public function it_has_viewers()
+    {
+        $user = UserFactory::create();
+
+        $course = CourseFactory::withStorage('public')
+            ->addViewers($user)
+            ->create();
+
+        $this->assertEquals(
+            $course->viewers
+                ->first()->id,
+            $user->id
+        );
+    }
 }

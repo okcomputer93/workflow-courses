@@ -45,4 +45,9 @@ class Course extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function viewers()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

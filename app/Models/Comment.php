@@ -9,13 +9,15 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['content', 'rate'];
+
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

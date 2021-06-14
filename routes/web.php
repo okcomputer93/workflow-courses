@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,7 @@ Route::patch('/courses/{course:slug}', [CoursesController::class, 'update'])->na
 Route::prefix('/api')->group(function () {
     Route::get('/user/information', [ApiController::class, 'userInformation'])->middleware('auth');
     Route::get('/courses/last', [ApiController::class, 'lastCourses']);
+
+    Route::get('/courses/{course}/comments', [CommentsController::class, 'index']);
+    Route::post('/courses/{course}/comments', [CommentsController::class, 'store'])->middleware('auth');
 });
