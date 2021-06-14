@@ -64,4 +64,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function views()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    public function addComment(array $attributes, Course $course)
+    {
+        $comment = new Comment();
+
+        foreach ($attributes as $key => $value) {
+            $comment->$key = $value;
+        }
+
+        $comment->course()->associate($course);
+
+        $comment->author()->associate($this);
+
+        $comment->save();
+    }
 }

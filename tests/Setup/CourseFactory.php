@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Level;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Facades\Tests\Setup\UserFactory;
@@ -18,6 +20,7 @@ class CourseFactory
     protected $faker;
     protected $category;
     protected $level;
+    protected $viewers;
 
     /**
      * CourseFactory constructor.
@@ -72,6 +75,35 @@ class CourseFactory
     }
 
     /**
+     * @param $viewers
+     * @return $this
+     */
+    public function addViewers($viewers): CourseFactory
+    {
+        $this->viewers = $viewers;
+        return $this;
+
+    }
+
+    /**
+     * @param Course $course
+     * @return void
+     */
+    public function saveViewers(Course $course)
+    {
+        if ($this->viewers) {
+            if ($this->viewers instanceof Collection) {
+                $course->viewers()
+                    ->saveMany($this->viewers);
+            }
+            elseif ($this->viewers instanceof Model) {
+                $course->viewers()
+                    ->save($this->viewers);
+            }
+        }
+    }
+
+    /**
      * Generates raw fake data for a course.
      * @return array
      */
@@ -92,11 +124,17 @@ class CourseFactory
      */
     public function create()
     {
-        return Course::factory()->create([
+        $course = Course::factory()->create([
             'category_id' => $this->category ?? Category::factory()->create(),
             'professor_id' => $this->professor ?? UserFactory::role('professor')->create(),
             'level_id' => $this->level ?? Level::factory()->create()
         ]);
+
+        $this->saveViewers($course);
+
+        $course->refresh();
+
+        return $course;
     }
 
 }

@@ -34,6 +34,8 @@ class CommentTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $this->assertEquals($comment->user->id, $user->id);
+        $this->assertEquals($comment->author->id, $user->id);
     }
 }
+
+// TODO: Create a more fluently API for adding comments

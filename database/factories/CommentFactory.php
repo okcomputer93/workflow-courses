@@ -33,7 +33,9 @@ class CommentFactory extends Factory
                 return Student::factory()->create()
                     ->user()
                     ->create(User::factory()->raw());
-            }
+            },
+            'content' => $this->faker->text,
+            'rate' => $this->faker->numberBetween(1, 5)
         ];
     }
 }

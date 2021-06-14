@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Comment;
 use App\Models\User;
+use Facades\Tests\Setup\CourseFactory;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,5 +35,18 @@ class UserTest extends TestCase
         $this->assertEquals($user->comments->first()->id, $comment->id);
     }
 
+    /** @test */
+    public function it_has_views_courses()
+    {
+        $user = UserFactory::create();
 
+        $course = CourseFactory::withStorage('public')
+            ->addViewers($user)
+            ->create();
+
+        $this->assertEquals(
+            $user->views->first()->id,
+            $course->id
+        );
+    }
 }
