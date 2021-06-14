@@ -11,17 +11,6 @@ class CoursesPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
@@ -30,7 +19,7 @@ class CoursesPolicy
      */
     public function view(User $user, Course $course)
     {
-        //
+        return $user->views->contains($course);
     }
 
     /**
@@ -54,41 +43,5 @@ class CoursesPolicy
     public function update(User $user, Course $course)
     {
         return $course->owner->id === $user->id;
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
-     * @return mixed
-     */
-    public function delete(User $user, Course $course)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
-     * @return mixed
-     */
-    public function restore(User $user, Course $course)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
-     * @return mixed
-     */
-    public function forceDelete(User $user, Course $course)
-    {
-        //
     }
 }

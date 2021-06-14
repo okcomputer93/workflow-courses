@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Course;
 use App\Policies\CommentsPolicy;
 use App\Policies\CoursesPolicy;
+use App\Policies\WatchCoursesPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 

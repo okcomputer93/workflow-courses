@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\WatchCoursesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,8 @@ Route::get('/courses/{course:slug}/edit', [CoursesController::class, 'edit'])->m
 Route::get('/courses/{course:slug}', [CoursesController::class, 'show'])->name('courses.show');
 Route::patch('/courses/{course:slug}', [CoursesController::class, 'update'])->name('courses.update');
 
+Route::post('/courses/{course:slug}/watch', [WatchCoursesController::class, 'save'])->middleware('auth')->name('courses.save');
+Route::get('/courses/{course:slug}/watch', [WatchCoursesController::class, 'watch'])->middleware('auth')->name('courses.watch');
 
 Route::prefix('/api')->group(function () {
     Route::get('/user/information', [ApiController::class, 'userInformation'])->middleware('auth');
