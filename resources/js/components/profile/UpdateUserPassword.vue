@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import {Form} from "../form";
+import {Form} from "../../form";
 import PasswordInput from "./PasswordInput";
 
 export default {

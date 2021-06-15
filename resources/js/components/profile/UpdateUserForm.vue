@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { Form } from '../form';
+import { Form } from '../../form';
 import UpdateImage from "./UpdateImage";
 export default {
     name: "UpdateUserForm.vue",
