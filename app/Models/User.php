@@ -67,13 +67,14 @@ class User extends Authenticatable
 
     public function views()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class)
+            ->withTimestamps();
     }
 
     public function saveAsView(Course $course)
     {
         if (!$this->views->contains($course)) {
-            $this->views()->save($course);
+            $this->views()->save($course)->usesTimestamps();
         }
     }
 

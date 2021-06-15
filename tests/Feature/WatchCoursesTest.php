@@ -99,5 +99,23 @@ class WatchCoursesTest extends TestCase
             ->assertSee('Continuar curso');
     }
 
+    /** @test */
+    public function an_authenticated_user_can_add_a_course_as_view_only_once()
+    {
+        $user = $this->signIn();
 
+        $course = CourseFactory::withStorage('public')
+            ->create();
+
+        $this->post(route('courses.save', $course));
+
+        $this->post(route('courses.save', $course));
+
+        $this->assertEquals(
+            1,
+            $user->refresh()
+                ->views
+                ->count()
+        );
+    }
 }
