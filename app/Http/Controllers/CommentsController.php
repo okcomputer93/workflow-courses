@@ -10,7 +10,9 @@ class CommentsController extends Controller
 {
     public function index(Course $course)
     {
-        return response()->json($course->comments->toArray());
+        return response()->json($course->comments->load(
+            ['author:id,name,email,avatar']
+        ));
     }
 
     public function store(Request $request, Course $course)

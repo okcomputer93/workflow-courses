@@ -44,7 +44,7 @@ class WatchCoursesTest extends TestCase
         $this->post(route('courses.save', $course))
             ->assertRedirect($course->watchPath());
 
-        $this->assertTrue($user->views->contains($course));
+        $this->assertTrue($user->refresh()->views->contains($course));
     }
 
     /** @test */
