@@ -74,5 +74,30 @@ class WatchCoursesTest extends TestCase
             ->assertSee($course->title);
     }
 
+    /** @test */
+    public function an_authenticated_user_has_the_option_of_taking_a_course()
+    {
+        $this->signIn();
+
+        $course = CourseFactory::withStorage('public')
+            ->create();
+
+        $this->get($course->path())
+            ->assertSee('Tomar este curso');
+    }
+
+    /** @test */
+    public function an_authenticated_user_has_the_option_of_continue_with_a_taken_course()
+    {
+        $user = $this->signIn();
+
+        $course = CourseFactory::withStorage('public')
+            ->addViewers($user)
+            ->create();
+
+        $this->get($course->path())
+            ->assertSee('Continuar curso');
+    }
+
 
 }

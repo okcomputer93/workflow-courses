@@ -37,13 +37,7 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
-                        @can('view', $course)
-                            <x-button class="text-sm px-8 rounded-full py-3 transition-colors duration-300" href="{{ $course->watchPath() }}">Continuar curso</x-button>
-                        @else
-                            <x-form-button action="{{ route('courses.save', $course) }}" method="POST" class="py-2 px-4 shadow-md rounded-md bg-indigo-500 hover:bg-indigo-700 inline-block text-white text-sm px-8 rounded-full py-3 transition-colors duration-300">
-                                Tomar este curso
-                            </x-form-button>
-                        @endcan
+                        <x-watch-course-auth :course="$course"></x-watch-course-auth>
                         @can('update', $course)
                             <x-button class="bg-white" href="{{ $course->path('edit')}}">Actualizar Información</x-button>
                         @endcan
@@ -124,7 +118,9 @@
                 </div>
                 <h3 class="text-3xl font-extrabold text-gray-900 max-w-xl text-center">Listo para comenzar a mejorar tus habilidades con este curso?</h3>
                 <span class="h-1 w-1/12 bg-indigo-500 my-1"></span>
-                <x-button class="text-sm px-8 rounded-full py-3 mt-5 transition-colors duration-300" href="#">Tomar este curso</x-button>
+               <div class="mt-5">
+                   <x-watch-course-auth :course="$course"></x-watch-course-auth>
+               </div>
             </div>
         </div>
     </section>
