@@ -82,7 +82,9 @@ class ApiTest extends TestCase
         ]);
 
         $this->get("/api/courses/$course->id/comments")
-            ->assertSimilarJson($course->comments->toArray());
+            ->assertSimilarJson($course->comments->load(
+                ['author:id,name,email,avatar']
+            )->toArray());
     }
 
     /** @test */
