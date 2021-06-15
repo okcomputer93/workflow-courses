@@ -11,11 +11,9 @@
     @if (! in_array($method, ['GET', 'POST']))
         @method($method)
     @endif
-    <div class="{{ $class }}">
-        <button
-            type="submit"
-        >
-            {{ $slot }}
-        </button>
-    </div>
+    <button class="{{ $class }}"
+        type="submit"
+    >
+        {{ $slot }}
+    </button>
 </form>
