@@ -50,7 +50,7 @@
             </div>
         </section>
 
-        <section class="bg-blue-dark rounded-t-3xl -mt-5 p-16 shadow-xl">
+        <section class="bg-blue-dark rounded-t-3xl -mt-5 p-16">
             <div class="flex flex-col justify-center items-center mx-auto max-w-7xl px-6">
                 <p class="text-sm font-light text-gray-200">Información adicional</p>
                 <h2 class="text-2xl font-extrabold text-white mb-10">Acerca de este profesor</h2>
