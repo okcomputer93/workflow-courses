@@ -39,7 +39,7 @@
 import axios from 'axios';
 import CoursesList from "./CoursesList";
 import DashboardSection from "./DashboardSection";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../core/LoadingSpinner";
 export default {
     name: 'Dashboard',
     components: {

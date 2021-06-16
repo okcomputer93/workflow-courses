@@ -5,10 +5,10 @@
                  :src="`/${comment.author.avatar}`"
                  :alt="`${comment.author.name}'s avatar`">
         </div>
-        <div class="col-span-3 border border-gray-300 p-8 rounded-lg">
+        <div class="col-span-3 border border-gray-300 p-8 rounded-lg bg-white">
             <h3 class="font-bold text-xl">{{ comment.author.name }}</h3>
-            <rating :rate="comment.rate" :read-only="true"></rating>
-            <p class="text-sm font-gray-400 mt-4">{{ comment.content }}</p>
+            <rating :max="5" :value="comment.rate" :read-only="true"></rating>
+            <p class="text-sm font-gray-400 mt-2">{{ comment.content }}</p>
         </div>
     </div>
 </template>

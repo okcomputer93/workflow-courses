@@ -33,7 +33,7 @@ import axios from 'axios';
 import DashboardSection from "./DashboardSection";
 import UpdateUserForm from "./UpdateUserForm";
 import UpdateUserPassword from "./UpdateUserPassword";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../core/LoadingSpinner";
 export default {
     name: 'Profile.vue',
     components: {
