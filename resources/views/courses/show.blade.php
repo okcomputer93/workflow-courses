@@ -132,8 +132,7 @@
 
 
         @auth
-{{--            TODO: Users cannot comment if they already commented a course --}}
-            <add-comment can-comment="{{ boolval(auth()->user()->can('view', $course)) }}"
+            <add-comment can-comment="{{ Auth::user()->can('create', [\App\Models\Comment::class, $course]) }}"
                          :course="{{ $course->id }}"
             ></add-comment>
         @endauth

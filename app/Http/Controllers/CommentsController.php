@@ -26,9 +26,7 @@ class CommentsController extends Controller
            'rate' => 'required|numeric|between:1,5'
         ]);
 
-        $comment = $user->addComment($attributes, $course);
-
-//        TODO: Test for this response
+        $comment = $course->addComment($attributes, $user);
 
         return response()->json($comment);
     }

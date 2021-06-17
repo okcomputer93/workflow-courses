@@ -22,4 +22,3 @@
         </div>
     </div>
 </footer>
-{{--TODO: Improve the footer look--}}
