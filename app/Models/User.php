@@ -77,22 +77,4 @@ class User extends Authenticatable
             $this->views()->save($course)->usesTimestamps();
         }
     }
-
-    public function addComment(array $attributes, Course $course)
-    {
-        $comment = new Comment();
-
-        foreach ($attributes as $key => $value) {
-            $comment->$key = $value;
-        }
-
-        $comment->course()->associate($course);
-
-        $comment->author()->associate($this);
-
-        $comment->save();
-
-        return Comment::with(['author:id,name,email,avatar'])
-            ->find($comment->id);
-    }
 }

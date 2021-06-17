@@ -48,12 +48,39 @@ class Course extends Model
 
     public function comments()
     {
-//        TODO: test for latest order
-        return $this->hasMany(Comment::class)->latest('updated_at');
+        return $this->hasMany(Comment::class)
+            ->latest('updated_at');
     }
 
     public function viewers()
     {
         return $this->belongsToMany(User::class);
+    }
+
+
+    public function addComment(array $attributes, User $user)
+    {
+        $comment = new Comment();
+
+        foreach ($attributes as $key => $value) {
+            $comment->$key = $value;
+        }
+
+        $comment->course()->associate($this);
+
+        $comment->author()->associate($user);
+
+        $comment->save();
+
+        return Comment::with(['author:id,name,email,avatar'])
+            ->find($comment->id);
+    }
+
+    public function isCommentedBy(User $user)
+    {
+        return $this->comments()
+            ->where('user_id', $user->id)
+            ->exists();
+
     }
 }
