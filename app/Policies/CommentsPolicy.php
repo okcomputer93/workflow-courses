@@ -20,6 +20,7 @@ class CommentsPolicy
      */
     public function create(User $user, Course $course)
     {
+//        TODO: Users cannot comment if they already commented!
         return $user->views->contains($course);
     }
 

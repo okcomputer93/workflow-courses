@@ -91,5 +91,8 @@ class User extends Authenticatable
         $comment->author()->associate($this);
 
         $comment->save();
+
+        return Comment::with(['author:id,name,email,avatar'])
+            ->find($comment->id);
     }
 }
