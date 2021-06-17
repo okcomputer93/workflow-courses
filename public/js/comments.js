@@ -2025,13 +2025,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CommentCard",
   components: {
     Rating: _Rating__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: ['comment']
+  props: ['comment'],
+  filters: {
+    toDate: function toDate(val) {
+      return new Date(val).toISOString().replace(/T/, ' a las ').replace(/\..+/, '');
+    }
+  }
 });
 
 /***/ }),
@@ -21616,6 +21622,10 @@ var render = function() {
         [
           _c("h3", { staticClass: "font-bold text-xl" }, [
             _vm._v(_vm._s(_vm.comment.author.name))
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-xs text-gray-400" }, [
+            _vm._v(_vm._s(_vm._f("toDate")(_vm.comment.created_at)))
           ]),
           _vm._v(" "),
           _c("rating", {
