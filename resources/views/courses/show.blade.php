@@ -28,7 +28,7 @@
                         <div class="mb-2">
                             <x-rate :rate="$course->rate" max="5"></x-rate>
                         </div>
-                        <p class="font-light text-sm text-gray-600 mb-3">{{ $course->description }}</p>
+                        <p class="font-light text-sm text-gray-600 mb-3 break-all">{{ $course->description }}</p>
                         <div>
                             <p class="text-xs font-bold">Tópicos a tratar</p>
                             <div class="mt-4 grid justify-items-start grid-flow-row grid-cols-4 gap-y-2 gap-x-4 text-xs font-light">
@@ -76,8 +76,7 @@
                         </div>
                         <div class="flex-1 p-4">
                             <hr>
-                            <p class="text-base font-light text-center text-gray-500 my-6">
-                            <p class="text-base font-light text-center text-gray-500 my-6">
+                            <p class="text-base font-light text-center text-gray-500 my-6 break-all">
                                 {{ $course->owner->role->about }}
                             </p>
                             <hr>

@@ -21461,7 +21461,7 @@ var render = function() {
                   rows: "5",
                   required: "",
                   placeholder: "Tu comentario.",
-                  maxlength: "200"
+                  maxlength: "120"
                 },
                 domProps: { value: _vm.form.content },
                 on: {
@@ -21594,7 +21594,7 @@ var render = function() {
     "div",
     {
       staticClass: "h-44 grid grid-cols-4 auto-rows-auto",
-      staticStyle: { "min-width": "640px" }
+      staticStyle: { width: "640px" }
     },
     [
       _c("div", { staticClass: "col-span-1 justify-self-center" }, [
@@ -21622,7 +21622,7 @@ var render = function() {
             attrs: { max: 5, value: _vm.comment.rate, "read-only": true }
           }),
           _vm._v(" "),
-          _c("p", { staticClass: "text-sm font-gray-400 mt-2" }, [
+          _c("p", { staticClass: "text-sm font-gray-400 mt-2 break-all" }, [
             _vm._v(_vm._s(_vm.comment.content))
           ])
         ],
