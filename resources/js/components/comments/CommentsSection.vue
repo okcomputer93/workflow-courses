@@ -7,7 +7,6 @@
            <h3 class="text-base font-bold text-red-400" v-else>{{ errors }}</h3>
            <loading-spinner></loading-spinner>
        </div>
-<!--       TODO: Move this button to a proper reusable component -->
        <div class="w-full flex flex-col bg-white justify-between items-center py-20"
             v-else
        >
