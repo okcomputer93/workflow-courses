@@ -20,7 +20,7 @@
                           rows="5"
                           required
                           placeholder="Tu comentario."
-                          maxlength="200"
+                          maxlength="120"
                           v-model="form.content"
                 ></textarea>
                 <div class="flex justify-between items-center w-full mt-6">
