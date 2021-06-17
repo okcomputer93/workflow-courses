@@ -7,6 +7,7 @@
            <h3 class="text-base font-bold text-red-400" v-else>{{ errors }}</h3>
            <loading-spinner></loading-spinner>
        </div>
+<!--       TODO: Move this button to a proper reusable component -->
        <div class="w-full flex flex-col bg-white justify-between items-center py-20"
             v-else
        >
@@ -28,6 +29,7 @@ import axios from 'axios';
 import CommentsList from "./CommentsList";
 import Rating from "./Rating";
 import LoadingSpinner from '../core/LoadingSpinner';
+import CommentsEventBus from '../../comments-event-bus';
 export default {
     name: "CommentsSection",
     props: ['course'],
@@ -73,6 +75,12 @@ export default {
         } catch (e) {
             this.errors =  'No se pudieron cargar los comentarios.'
         }
+    },
+    created() {
+        CommentsEventBus.listen('commented', (data) => {
+            this.comments.unshift(data);
+        })
+
     }
 }
 </script>

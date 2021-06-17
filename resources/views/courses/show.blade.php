@@ -129,12 +129,15 @@
                 </div>
             </div>
         </section>
-    </div>
-</x-layout>
 
-<script>
-    import CommentsSection from "../../js/components/comments/CommentsSection";
-    export default {
-        components: {CommentsSection}
-    }
-</script>
+
+        @auth
+{{--            TODO: Users cannot comment if they already commented a course --}}
+            <add-comment can-comment="{{ boolval(auth()->user()->can('view', $course)) }}"
+                         :course="{{ $course->id }}"
+            ></add-comment>
+        @endauth
+    </div>
+
+
+</x-layout>

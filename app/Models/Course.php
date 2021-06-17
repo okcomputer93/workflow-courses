@@ -48,7 +48,8 @@ class Course extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+//        TODO: test for latest order
+        return $this->hasMany(Comment::class)->latest('updated_at');
     }
 
     public function viewers()
