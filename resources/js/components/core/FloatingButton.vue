@@ -2,7 +2,7 @@
     <div class="fixed"
          :class="positionClass"
     >
-        <button class="bg-indigo-500 px-6 py-4 text-white flex justify-between items-center rounded-full hover:bg-indigo-600 transition-all duration-300 focus:outline-black transform hover:-translate-y-0.5"
+        <button class="bg-indigo-500 px-6 py-6 text-white flex justify-between items-center rounded-full hover:bg-indigo-600 transition-all duration-300 focus:outline-black transform hover:-translate-y-0.5"
                 @click="$emit('click')"
         >
             <slot></slot>

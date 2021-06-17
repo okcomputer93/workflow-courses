@@ -6,7 +6,7 @@
         <script src="{{ asset('js/comments.js') }}"></script>
     @endpush
     <div id="app">
-        <section class="course-presentation">
+        <section id="course-presentation" class="course-presentation">
             <div class="p-32 mx-auto max-w-7xl px-6">
                 <div class="flex justify-between items-center w-4/5 mx-auto">
                     <img class="w-72 h-72 transform translate-x-1/4 shadow-xl"
@@ -135,6 +135,7 @@
                          :course="{{ $course->id }}"
             ></add-comment>
         @endauth
+        <scroll-to id="course-presentation"></scroll-to>
     </div>
 
 
