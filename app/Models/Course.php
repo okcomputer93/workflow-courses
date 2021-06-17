@@ -49,7 +49,7 @@ class Course extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class)
-            ->latest('updated_at');
+            ->latest('created_at');
     }
 
     public function viewers()

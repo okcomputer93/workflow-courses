@@ -76,7 +76,7 @@
                         </div>
                         <div class="flex-1 p-4">
                             <hr>
-                            <p class="text-base font-light text-center text-gray-500 my-6 break-all">
+                            <p class="text-base font-light text-center text-gray-500 my-6 break-words">
                                 {{ $course->owner->role->about }}
                             </p>
                             <hr>

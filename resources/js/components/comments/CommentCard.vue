@@ -7,6 +7,7 @@
         </div>
         <div class="col-span-3 border border-gray-300 p-8 rounded-lg bg-white">
             <h3 class="font-bold text-xl">{{ comment.author.name }}</h3>
+            <span class="text-xs text-gray-400" >{{ comment.created_at | toDate }}</span>
             <rating :max="5" :value="comment.rate" :read-only="true"></rating>
             <p class="text-sm font-gray-400 mt-2 break-all">{{ comment.content }}</p>
         </div>
@@ -20,7 +21,12 @@ export default {
     components: {
         Rating
     },
-    props: ['comment']
+    props: ['comment'],
+    filters: {
+        toDate(val) {
+            return new Date(val).toISOString().replace(/T/, ' a las ').replace(/\..+/, '')
+        }
+    }
 }
 </script>
 
