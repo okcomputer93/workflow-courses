@@ -1,13 +1,10 @@
 <div>
-    <div class="mb-10 p-6 bg-white shadow-md rounded-lg"
-         x-data="onScrolling()"
-         x-ref="searchbar"
-         @scroll.window.passive="toggleButton()"
-    >
-        <div class="flex justify-between items-center">
-            <div class="flex justify-between items-center w-4/5">
+    <div class="mb-10 p-6 bg-white shadow-md rounded-lg" id="search-bar">
+        <div class="flex space-y-6 flex-col justify-between items-center md:flex-row md:space-y-0">
+            <div class="flex space-y-6 flex-col justify-between items-center w-full md:flex-row md:space-y-0 md:mr-10 md:space-x-2 xl:w-4/5">
+                <h2 class="text-3xl text-center font-bold md:hidden">Buscar entre cursos</h2>
                 <label class="sr-only" for="search">Buscar en los cursos</label>
-                <input class="w-1/2 appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base"
+                <input class="w-full appearance-none relative block px-3 py-2 border border-gray-300 placeholder-gray-300 text-gray-600 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:z-10 sm:text-base md:w-1/2"
                        wire:model.debounce.1s="search"
                        type="text" id="search"
                        name="search"
@@ -67,25 +64,9 @@
                 </div>
             </div>
         </div>
-
-        <div class="fixed right-6 bottom-6"
-             x-show="buttonVisible"
-             @click="top()"
-             x-transition:enter="transition duration-300 transform ease-out"
-             x-transition:enter-start="scale-50 opacity-0"
-             x-transition:leave="transition duration-300 transform ease-out"
-             x-transition:leave-end="scale-50 opacity-0"
-        >
-            <div class="w-6 h-6 flex justify-center items-center bg-indigo-500 p-10 rounded-full shadow-md cursor-pointer hover:bg-indigo-700">
-                <div class="text-white">
-                    <x-icon.arrow-up></x-icon.arrow-up>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <div class="grid justify-items-center grid-rows-1 grid-flow-row grid-cols-2 gap-y-12"
+    <div class="grid justify-items-center grid-rows-1 grid-flow-row grid-cols-1 gap-y-12 md:grid-cols-2 xl:gap-x-12"
          wire:loading.remove
     >
         @foreach ($courses as $course)
@@ -93,7 +74,7 @@
         @endforeach
     </div>
 
-    <div class="hidden grid justify-items-center grid-rows-1 grid-flow-row grid-cols-2 gap-y-12"
+    <div class="hidden grid justify-items-center grid-rows-1 grid-flow-row grid-cols-1 gap-y-12 md:grid-cols-2 xl:gap-x-12"
          wire:loading.class.remove="hidden"
     >
         @for ($i = 1; $i <= $resultsPerPage; $i++)
@@ -115,25 +96,7 @@
     >
         {{ $courses->links() }}
     </div>
-
+    <x-scroll to="search-bar"></x-scroll>
 </div>
-
-    <script  type="application/javascript">
-        function onScrolling() {
-            return {
-                buttonVisible: false,
-                toggleButton() {
-                    const searchbarHeight = this.$refs.searchbar.clientHeight;
-                    this.buttonVisible = this.$refs.searchbar.getBoundingClientRect().top <= searchbarHeight * -1;
-                },
-                top() {
-                    window.scroll({
-                        top: 0,
-                        behavior: "smooth"
-                    })
-                }
-            }
-        }
-    </script>
 
 
