@@ -1,5 +1,5 @@
 <template>
-   <div class="mt-5 w-auto md:w-2/5 md:mt-10">
+   <div class="mt-5 w-auto md:w-3/5 md:mt-10 xl:max-w-3xl">
        <transition-group name="fade">
            <div class="py-12 w-full md:py-6"
                 v-for="comment in comments"
