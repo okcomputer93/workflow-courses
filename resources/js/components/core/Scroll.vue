@@ -25,7 +25,7 @@
 import FloatingButton from "./FloatingButton";
 export default {
     name: "ScrollTo",
-    props: ['id'],
+    props: ['to'],
     components: {
         FloatingButton
     },
@@ -36,7 +36,6 @@ export default {
     },
     methods: {
         top() {
-            console.log('top');
             window.scroll({
                 top: 0,
                 behavior: 'smooth',
@@ -44,7 +43,7 @@ export default {
         }
     },
     mounted() {
-        const section = document.getElementById(this.id);
+        const section = document.getElementById(this.to);
         const sectionHeight = section.clientHeight;
         window.addEventListener('scroll', () => {
             this.isVisible = section.getBoundingClientRect().top <= sectionHeight * -1;

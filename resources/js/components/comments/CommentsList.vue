@@ -1,12 +1,14 @@
 <template>
-    <transition-group name="fade">
-        <div class="py-6"
-            v-for="comment in comments"
-            :key="comment.id"
-        >
-            <comment-card :comment="comment"></comment-card>
-        </div>
-    </transition-group>
+   <div class="mt-5 w-auto md:w-2/5 md:mt-10">
+       <transition-group name="fade">
+           <div class="py-12 w-full md:py-6"
+                v-for="comment in comments"
+                :key="comment.id"
+           >
+               <comment-card :comment="comment"></comment-card>
+           </div>
+       </transition-group>
+   </div>
 </template>
 
 <script>
