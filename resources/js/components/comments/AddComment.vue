@@ -7,23 +7,21 @@
                :adaptive="true"
         >
             <form class="flex flex-col justify-start items-center">
-                <h2 class="text-2xl font-bold">Cuéntanos sobre tu experiencia</h2>
+                <h2 class="text-2xl text-center font-bold">Cuéntanos sobre tu experiencia</h2>
                 <span class="mt-4 inline-block text-sm text-gray-400">Tu calificación:</span>
                 <rating :max="5"
                         :read-only="false"
                         v-model="form.rate"
                 ></rating>
-                <textarea class="border border-gray-400 text-sm focus:outline-black mt-4 p-2"
+                <textarea class="border border-gray-400 text-sm focus:outline-black mt-4 p-2 w-full h-32"
                           name="content"
                           id="content"
-                          cols="42"
-                          rows="5"
                           required
                           placeholder="Tu comentario."
                           maxlength="120"
                           v-model="form.content"
                 ></textarea>
-                <div class="flex justify-between items-center w-full mt-6">
+                <div class="flex justify-between items-center mt-6 w-3/5 md:w-full">
                     <button class="text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 focus-within:outline-black"
                             type="submit"
                             @click.prevent="submitForm()"
@@ -54,7 +52,7 @@
                       d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
                 />
             </svg>
-            <span class="ml-2 font-bold text-sm">
+            <span class="ml-2 font-bold text-sm hidden md:visible">
                     Deja un comentario
                 </span>
         </floating-button>
