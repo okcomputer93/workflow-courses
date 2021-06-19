@@ -7,7 +7,7 @@
            <h3 class="text-base font-bold text-red-400" v-else>{{ errors }}</h3>
            <loading-spinner></loading-spinner>
        </div>
-       <div class="w-full flex flex-col bg-white justify-between items-center py-20"
+       <div class="w-full flex flex-col bg-white justify-between items-center py-20 px-4 md:px-0"
             v-else
        >
            <h2 class="text-3xl text-center font-bold">{{ `Todos los comentarios (${comments.length})` }}</h2>

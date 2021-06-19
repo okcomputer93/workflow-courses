@@ -21906,7 +21906,8 @@ var render = function() {
         },
         [
           _c("img", {
-            staticClass: "rounded-full h-16 w-16",
+            staticClass:
+              "rounded-full h-16 w-16 transform translate-y-1/2 translate-x-1/2 md:translate-x-0 md:translate-y-0",
             attrs: {
               src: "/" + _vm.comment.author.avatar,
               alt: _vm.comment.author.name + "'s avatar"
@@ -21968,7 +21969,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "mt-5 w-auto md:w-2/5 md:mt-10" },
+    { staticClass: "mt-5 w-auto md:w-3/5 md:mt-10 xl:max-w-3xl" },
     [
       _c(
         "transition-group",
@@ -22035,7 +22036,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "w-full flex flex-col bg-white justify-between items-center py-20"
+              "w-full flex flex-col bg-white justify-between items-center py-20 px-4 md:px-0"
           },
           [
             _c("h2", { staticClass: "text-3xl text-center font-bold" }, [
