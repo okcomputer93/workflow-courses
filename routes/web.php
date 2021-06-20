@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WatchCoursesController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::patch('/courses/{course:slug}', [CoursesController::class, 'update'])->na
 
 Route::post('/courses/{course:slug}/watch', [WatchCoursesController::class, 'save'])->middleware('auth')->name('courses.save');
 Route::get('/courses/{course:slug}/watch', [WatchCoursesController::class, 'watch'])->middleware('auth')->name('courses.watch');
+
+Route::patch('/user/role-information', [RolesController::class, 'update'])->name('user-role-information.update');
 
 Route::prefix('/api')->group(function () {
     Route::get('/user/information', [ApiController::class, 'userInformation'])->middleware('auth');

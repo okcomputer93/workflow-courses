@@ -8,7 +8,7 @@ use App\Models\User;
 
 interface UserValidateInput
 {
-    public function validateRoleExists(array $input);
+    public function validateRole(array $input);
 
     public function getRole(array $input, User $user);
 

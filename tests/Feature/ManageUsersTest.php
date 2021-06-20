@@ -258,4 +258,49 @@ class ManageUsersTest extends TestCase
         $this->assertDatabaseMissing('users', $userAttributes);
         $this->assertDatabaseMissing('professors', $roleAttributes);
     }
+
+    /** @test */
+    public function a_registered_student_can_request_to_become_a_professor()
+    {
+        $user = $this->signIn();
+
+        $newRoleAttributes = $attributes = [
+            'career' => 'Programmer',
+            'about' => 'Im a student but I wanna become a professor.',
+            'twitter_user' => 'some_user',
+            'github_user' => 'some_user'
+        ];
+
+        $newRoleAttributes['role'] = 'professor';
+
+        $this->assertInstanceOf(Student::class, $user->role);
+
+        $this->patch(route('user-role-information.update'), $newRoleAttributes);
+
+        $this->assertDatabaseHas('professors', $attributes);
+
+        $this->assertInstanceOf(Professor::class, $user->refresh()->role);
+
+    }
+
+    /** @test */
+    public function a_registered_professor_cannot_request_to_become_a_student()
+    {
+        $user = $this->signIn('professor');
+
+        $newRoleAttributes = $attributes = [
+            'schooling' => 'Hacked.',
+        ];
+
+        $newRoleAttributes['role'] = 'student';
+
+        $this->assertInstanceOf(Professor::class, $user->role);
+
+        $this->patch(route('user-role-information.update'), $newRoleAttributes);
+
+        $this->assertDatabaseMissing('students', $attributes);
+
+        $this->assertNotInstanceOf(Student::class, $user->refresh()->role);
+    }
+
 }

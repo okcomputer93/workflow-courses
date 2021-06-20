@@ -31,7 +31,7 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         $this->userValidation
-            ->validateRoleExists($input);
+            ->validateRole($input);
 
         $this->userValidation
             ->validateInput($input);
