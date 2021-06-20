@@ -34,7 +34,9 @@
 <script>
 export default {
     name: "CourseCard.vue",
-    props: ['course'],
+    props: {
+        course: Object
+    },
     computed: {
       coursePath() {
           return `/courses/${this.course.slug}`

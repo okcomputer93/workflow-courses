@@ -1999,7 +1999,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CourseCard.vue",
-  props: ['course'],
+  props: {
+    course: Object
+  },
   computed: {
     coursePath: function coursePath() {
       return "/courses/".concat(this.course.slug);
@@ -2045,7 +2047,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CoursesList.vue",
-  props: ['courses'],
+  props: {
+    courses: Array
+  },
   components: {
     CourseCard: _CourseCard__WEBPACK_IMPORTED_MODULE_0__.default
   }
@@ -2349,6 +2353,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "NavigationBar.vue",
+  emit: ['minimize'],
   components: {
     NavigationLink: _NavigationLink__WEBPACK_IMPORTED_MODULE_0__.default,
     Logout: _Logout__WEBPACK_IMPORTED_MODULE_1__.default
@@ -2430,7 +2435,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "NavigationLink.vue",
-  props: ['isMinimized', 'title', 'link']
+  props: {
+    isMinimized: Boolean,
+    title: String,
+    link: String
+  }
 });
 
 /***/ }),
@@ -2482,7 +2491,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PasswordInput.vue",
-  props: ['id', 'value', 'required', 'classError', 'errorMessage'],
+  props: {
+    id: Number,
+    value: String,
+    required: Boolean,
+    classError: String,
+    errorMessage: String
+  },
+  emit: ['input'],
   data: function data() {
     return {
       isPasswordHidden: true
@@ -2687,7 +2703,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "UpdateImage.vue",
-  props: ['value', 'alt', 'default'],
+  props: {
+    alt: String,
+    "default": String
+  },
+  emit: ['input'],
   data: function data() {
     return {
       newAvatar: null
@@ -2828,7 +2848,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     UpdateImage: _UpdateImage__WEBPACK_IMPORTED_MODULE_2__.default
   },
-  props: ['user'],
+  props: {
+    user: Object
+  },
   data: function data() {
     return {
       newName: '',

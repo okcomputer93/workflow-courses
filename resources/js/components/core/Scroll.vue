@@ -25,7 +25,9 @@
 import FloatingButton from "./FloatingButton";
 export default {
     name: "ScrollTo",
-    props: ['to'],
+    props: {
+        to: String
+    },
     components: {
         FloatingButton
     },

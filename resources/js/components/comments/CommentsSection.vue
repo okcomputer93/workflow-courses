@@ -31,7 +31,9 @@ import LoadingSpinner from '../core/LoadingSpinner';
 import CommentsEventBus from '../../comments-event-bus';
 export default {
     name: "CommentsSection",
-    props: ['course'],
+    props: {
+        courseId: Number,
+    },
     components: {
         CommentsList,
         Rating,
@@ -68,7 +70,7 @@ export default {
     async mounted() {
         try {
             this.isLoading = true;
-            const response = await axios.get(`/api/courses/${this.course}/comments`);
+            const response = await axios.get(`/api/courses/${this.courseId}/comments`);
             this.comments = response.data;
             this.isLoading = false;
         } catch (e) {

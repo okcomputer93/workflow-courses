@@ -10,7 +10,9 @@
 import CourseCard from "./CourseCard";
 export default {
     name: "CoursesList.vue",
-    props: ['courses'],
+    props: {
+        courses: Array
+    },
     components: {
         CourseCard
     }

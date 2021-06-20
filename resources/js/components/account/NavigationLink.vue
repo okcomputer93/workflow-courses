@@ -18,7 +18,11 @@
 <script>
 export default {
     name: "NavigationLink.vue",
-    props: ['isMinimized', 'title', 'link']
+    props: {
+        isMinimized: Boolean,
+        title: String,
+        link: String
+    }
 }
 </script>
 

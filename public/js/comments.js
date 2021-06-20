@@ -1935,7 +1935,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddComment",
-  props: ['canComment', 'course'],
+  props: {
+    canComment: Boolean,
+    courseId: Number
+  },
   components: {
     Rating: _Rating__WEBPACK_IMPORTED_MODULE_1__.default,
     FloatingButton: _core_FloatingButton__WEBPACK_IMPORTED_MODULE_4__.default
@@ -1981,7 +1984,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.hideModal();
 
                 _context.next = 5;
-                return _this.form.submit('post', "/api/courses/".concat(_this.course, "/comments"));
+                return _this.form.submit('post', "/api/courses/".concat(_this.courseId, "/comments"));
 
               case 5:
                 response = _context.sent;
@@ -2038,7 +2041,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Rating: _Rating__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: ['comment'],
+  props: {
+    comment: Object
+  },
   filters: {
     toDate: function toDate(val) {
       return new Date(val).toISOString().replace(/T/, ' a las ').replace(/\..+/, '');
@@ -2076,7 +2081,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CommentsList",
-  props: ['comments'],
+  props: {
+    comments: Array
+  },
   components: {
     CommentCard: _CommentCard__WEBPACK_IMPORTED_MODULE_0__.default
   }
@@ -2141,7 +2148,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CommentsSection",
-  props: ['course'],
+  props: {
+    courseId: Number
+  },
   components: {
     CommentsList: _CommentsList__WEBPACK_IMPORTED_MODULE_2__.default,
     Rating: _Rating__WEBPACK_IMPORTED_MODULE_3__.default,
@@ -2190,7 +2199,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.prev = 0;
               _this2.isLoading = true;
               _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/courses/".concat(_this2.course, "/comments"));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/courses/".concat(_this2.courseId, "/comments"));
 
             case 4:
               response = _context.sent;
@@ -2252,7 +2261,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Rating",
-  props: ['readOnly', 'value', 'max'],
+  props: {
+    readOnly: Boolean,
+    value: Number,
+    max: Number
+  },
+  emits: ['input'],
   computed: {
     starsClasses: function starsClasses() {
       var _this = this;
@@ -2316,7 +2330,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "FloatingButton",
-  props: ['position'],
+  props: {
+    position: String
+  },
   computed: {
     positionClass: function positionClass() {
       var padding = 6;
@@ -2387,7 +2403,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ScrollTo",
-  props: ['to'],
+  props: {
+    to: String
+  },
   components: {
     FloatingButton: _FloatingButton__WEBPACK_IMPORTED_MODULE_0__.default
   },
