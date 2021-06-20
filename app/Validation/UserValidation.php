@@ -22,7 +22,6 @@ class UserValidation implements UserValidateInput
 
     private array $professorRules;
     private array $studentRules;
-    private array $roleRules;
     private string $defaultRole = 'student';
 
     /**
@@ -31,14 +30,6 @@ class UserValidation implements UserValidateInput
     public function __construct(string $action)
     {
         $this->action = $action;
-
-        $this->roleRules = [
-            'role' => [
-                'required',
-                'string',
-                Rule::in(['student', 'professor']),
-            ]
-        ];
 
         $this->professorRules = [
             'career' => ['sometimes', 'required', 'string', 'max:255'],
@@ -57,17 +48,25 @@ class UserValidation implements UserValidateInput
      * @param array $input
      * @throws ValidationException
      */
-    public function validateRoleExists(array $input)
+    public function validateRole(array $input, ?User $user = null)
     {
+        $roleRules = [
+            'role' => [
+                'required',
+                'string',
+                $user ? Rule::in(['professor']) : Rule::in(['student', 'professor'])
+            ]
+        ];
+
         Validator::make(
             $input,
-            $this->roleRules
+            $roleRules
         )->validate();
     }
 
     public function getRole(array $input, ?User $user = null)
     {
-        if ($user) {
+        if ($user && $this->action !== 'update-role') {
             return Str::lower((new ReflectionClass($user->role))->getShortName());
         }
         return $input['role'] ?? $this->defaultRole;
@@ -86,10 +85,16 @@ class UserValidation implements UserValidateInput
      */
     public function validateInput(array $input, ?User $user = null)
     {
-        $rules = array_merge(
-            $this->createUserRulesWithAction($user),
-            $this->specificRules($input, $user)
-        );
+        if ($this->action === 'update-role') {
+            $rules = $this->specificRules($input, $user);
+
+        } else {
+            $rules = array_merge(
+                $this->createUserRulesWithAction($user),
+                $this->specificRules($input, $user)
+            );
+        }
+
         Validator::make($input, $rules)->validate();
     }
 
@@ -117,7 +122,6 @@ class UserValidation implements UserValidateInput
                 $this->action === 'update'
                     ? Rule::unique('users')->ignore($user->id)
                     : Rule::unique('users'),
-
             ]
         ];
 
