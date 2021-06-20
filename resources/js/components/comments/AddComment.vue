@@ -66,7 +66,10 @@ import CommentsEventBus from '../../comments-event-bus';
 import FloatingButton from "../core/FloatingButton";
 export default {
     name: "AddComment",
-    props: ['canComment', 'course'],
+    props: {
+        canComment: Boolean,
+        courseId: Number,
+    },
     components: {
         Rating,
         FloatingButton
@@ -95,7 +98,7 @@ export default {
         async submitForm() {
             if (!this.canAddComments) return;
             this.hideModal()
-            const response = await this.form.submit('post', `/api/courses/${this.course}/comments`);
+            const response = await this.form.submit('post', `/api/courses/${this.courseId}/comments`);
             CommentsEventBus.fire('commented', response);
             this.form.reset();
             this.commented = true;

@@ -35,7 +35,14 @@
 <script>
 export default {
     name: "PasswordInput.vue",
-    props: ['id', 'value', 'required', 'classError', 'errorMessage'],
+    props: {
+        id: Number,
+        value: String,
+        required: Boolean,
+        classError: String,
+        errorMessage: String
+    },
+    emit: ['input'],
     data() {
       return {
           isPasswordHidden: true

@@ -72,7 +72,9 @@ export default {
     components: {
         UpdateImage
     },
-    props: ['user'],
+    props: {
+        user: Object
+    },
     data() {
         return {
             newName: '',

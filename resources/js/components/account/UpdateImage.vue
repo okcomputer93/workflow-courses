@@ -44,7 +44,11 @@
 <script>
 export default {
     name: "UpdateImage.vue",
-    props: ['value', 'alt', 'default'],
+    props: {
+        alt: String,
+        default: String
+    },
+    emit: ['input'],
     data() {
         return {
             newAvatar: null

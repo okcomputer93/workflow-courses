@@ -13,7 +13,9 @@
 <script>
 export default {
     name: "FloatingButton",
-    props: ['position'],
+    props: {
+        position: String,
+    },
     computed: {
         positionClass() {
             const padding = 6

@@ -73,6 +73,7 @@ import NavigationLink from "./NavigationLink";
 import Logout from "./Logout";
 export default {
     name: "NavigationBar.vue",
+    emit: ['minimize'],
     components: {
         NavigationLink,
         Logout

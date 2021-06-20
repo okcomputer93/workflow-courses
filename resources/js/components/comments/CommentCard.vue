@@ -21,7 +21,9 @@ export default {
     components: {
         Rating
     },
-    props: ['comment'],
+    props: {
+        comment: Object,
+    },
     filters: {
         toDate(val) {
             return new Date(val).toISOString().replace(/T/, ' a las ').replace(/\..+/, '')

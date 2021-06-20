@@ -114,7 +114,7 @@
             </div>
         </section>
 
-        <comments-section :course="{{ $course->id }}"></comments-section>
+        <comments-section :course-id="{{ $course->id }}"></comments-section>
 
         <section class="bg-gray-100 py-12">
             <div class="mx-auto max-w-7xl px-6">
@@ -134,7 +134,7 @@
 
         @auth
             <add-comment can-comment="{{ Auth::user()->can('create', [\App\Models\Comment::class, $course]) }}"
-                         :course="{{ $course->id }}"
+                         :course-id="{{ $course->id }}"
             ></add-comment>
         @endauth
         <scroll to="course-presentation"></scroll>

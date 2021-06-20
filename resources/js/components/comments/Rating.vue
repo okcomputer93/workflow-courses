@@ -16,38 +16,43 @@
 
 <script>
 export default {
-    name: "Rating",
-    props: ['readOnly', 'value', 'max'],
-    computed: {
-        starsClasses() {
-            return Array(this.max)
-                .fill('')
-                .map((_, index) => {
-                    if (index <= this.value - 1) return 'text-yellow-400';
-                    return '';
-                })
-                .reverse();
-        },
-        readOnlyClass() {
-            if (!this.readOnly) {
-                return 'star cursor-pointer';
-            }
-            return 'cursor-default';
-        }
-    },
-    methods: {
-        animateStar(event) {
-            const button = event.target.closest('.star');
-            button.animate([
-                { backgroundColor: 'transparent' },
-                { backgroundColor: 'rgba(238,203,120,0.37)' }
-            ], { easing: 'ease-in', duration: 500 });
-        },
-        newRating(event, value) {
-            this.animateStar(event);
-            this.$emit('input', value);
-        }
-    }
+  name: "Rating",
+  props: {
+    readOnly: Boolean,
+    value: Number,
+    max: Number,
+  },
+  emits: ['input'],
+  computed: {
+      starsClasses() {
+          return Array(this.max)
+              .fill('')
+              .map((_, index) => {
+                  if (index <= this.value - 1) return 'text-yellow-400';
+                  return '';
+              })
+              .reverse();
+      },
+      readOnlyClass() {
+          if (!this.readOnly) {
+              return 'star cursor-pointer';
+          }
+          return 'cursor-default';
+      }
+  },
+  methods: {
+      animateStar(event) {
+          const button = event.target.closest('.star');
+          button.animate([
+              { backgroundColor: 'transparent' },
+              { backgroundColor: 'rgba(238,203,120,0.37)' }
+          ], { easing: 'ease-in', duration: 500 });
+      },
+      newRating(event, value) {
+          this.animateStar(event);
+          this.$emit('input', value);
+      }
+  }
 }
 </script>
 

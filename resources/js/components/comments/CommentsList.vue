@@ -15,7 +15,9 @@
 import CommentCard from "./CommentCard";
 export default {
     name: "CommentsList",
-    props: ['comments'],
+    props: {
+      comments: Array
+    },
     components: {
         CommentCard
     }
