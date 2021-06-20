@@ -4,7 +4,7 @@
             v-if="isLoading"
        >
            <h4 class="font-bold text-xl" v-if="!errors">Cargando Comentarios</h4>
-           <h3 class="text-base font-bold text-red-400" v-else>{{ errors }}</h3>
+           <h3 class="text-sm font-bold text-red-400 md:text-base" v-else>{{ errors }}</h3>
            <loading-spinner></loading-spinner>
        </div>
        <div class="w-full flex flex-col bg-white justify-between items-center py-20 px-4 md:px-0"
