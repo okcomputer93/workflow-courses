@@ -21800,8 +21800,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass:
-                    "flex justify-between items-center mt-6 w-3/5 md:w-full"
+                  staticClass: "flex justify-between items-center mt-6 w-full"
                 },
                 [
                   _c(
@@ -21913,7 +21912,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "h-52 grid auto-rows-min auto-cols-auto w-full md:grid-cols-4 md:auto-rows-auto md:grid-cols-4 w-full"
+        "h-52 grid grid-flow-row auto-rows-auto auto-cols-auto w-full md:grid-cols-4 md:auto-rows-auto md:grid-cols-4 h-auto"
     },
     [
       _c(
@@ -21995,7 +21994,7 @@ var render = function() {
         _vm._l(_vm.comments, function(comment) {
           return _c(
             "div",
-            { key: comment.id, staticClass: "py-12 w-full md:py-6" },
+            { key: comment.id, staticClass: "py-2 w-full md:py-6" },
             [_c("comment-card", { attrs: { comment: comment } })],
             1
           )
@@ -22042,9 +22041,13 @@ var render = function() {
               ? _c("h4", { staticClass: "font-bold text-xl" }, [
                   _vm._v("Cargando Comentarios")
                 ])
-              : _c("h3", { staticClass: "text-base font-bold text-red-400" }, [
-                  _vm._v(_vm._s(_vm.errors))
-                ]),
+              : _c(
+                  "h3",
+                  {
+                    staticClass: "text-sm font-bold text-red-400 md:text-base"
+                  },
+                  [_vm._v(_vm._s(_vm.errors))]
+                ),
             _vm._v(" "),
             _c("loading-spinner")
           ],

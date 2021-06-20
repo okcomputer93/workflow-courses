@@ -1,5 +1,5 @@
 <template>
-    <div class="h-52 grid auto-rows-min auto-cols-auto w-full md:grid-cols-4 md:auto-rows-auto md:grid-cols-4 w-full">
+    <div class="h-52 grid grid-flow-row auto-rows-auto auto-cols-auto w-full md:grid-cols-4 md:auto-rows-auto md:grid-cols-4 h-auto">
         <div class="row-span-1 justify-self-start place-self-end md:place-self-start md:col-span-1 md:justify-self-center">
             <img class="rounded-full h-16 w-16 transform translate-y-1/2 translate-x-1/2 md:translate-x-0 md:translate-y-0"
                  :src="`/${comment.author.avatar}`"

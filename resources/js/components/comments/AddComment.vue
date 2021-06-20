@@ -21,7 +21,7 @@
                           maxlength="120"
                           v-model="form.content"
                 ></textarea>
-                <div class="flex justify-between items-center mt-6 w-3/5 md:w-full">
+                <div class="flex justify-between items-center mt-6 w-full">
                     <button class="text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 focus-within:outline-black"
                             type="submit"
                             @click.prevent="submitForm()"
