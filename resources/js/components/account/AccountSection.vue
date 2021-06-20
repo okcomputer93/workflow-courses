@@ -1,13 +1,13 @@
 <template>
-    <div class="px-20 py-14 w-full">
-        <div class="pl-5">
+    <div class="px-1 pt-10 w-full md:pl-20 sm:p-5 md:pr-30 md:py-14">
+        <div class="md:pl-5">
             <slot name="title"></slot>
         </div>
-        <div class="flex justify-between">
-            <div class="flex-1 p-5">
+        <div class="flex flex-col justify-center items-center md:items-start md:justify-between md:flex-row">
+            <div class="flex-1 md:p-5">
               <slot name="left"></slot>
             </div>
-            <div v-if="rightSlotExists" class="flex-1 p-5 mt-2">
+            <div v-if="rightSlotExists" class="flex-1 p-2 mt-2 md:p-5">
               <slot name="right"></slot>
             </div>
         </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: "DashboardSection.vue",
+    name: "AccountSection.vue",
     computed: {
         rightSlotExists() {
             return this.$slots.right;

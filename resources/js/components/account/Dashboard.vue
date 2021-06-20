@@ -6,30 +6,30 @@
             <loading-spinner></loading-spinner>
         </div>
         <transition name="fade">
-            <dashboard-section v-if="!isLoading">
+            <account-section v-if="!isLoading">
                 <template v-slot:title>
-                    <h1 class="text-5xl font-bold text-gray-800">
+                    <h1 class="text-2xl text-center font-bold text-gray-800 md:text-4xl xl:text-5xl md:text-left">
                         Hola de nuevo,
                         <span class="text-indigo-500">{{ user.name }}</span>
                     </h1>
                 </template>
                 <template v-slot:left>
-                    <p class="text-xl font-light text-gray-600 pt-4">Parece un buen día para aprender algo nuevo.</p>
+                    <p class="text-sm text-center font-bold text-gray-600 pt-4 md:text-xl md:text-left xl:font-light">Parece un buen día para aprender algo nuevo.</p>
                     <img class="mt-4 h-auto w-full" src="/images/learning-person.svg" alt="Illustration learning person">
                 </template>
                 <template v-slot:right>
                     <div class="w-full relative">
-                        <div class="bg-gray-200 absolute w-full h-full top-0 transform -rotate-3 rounded-lg z-10"></div>
-                        <div class="bg-white rounded-lg shadow-lg z-20 relative">
+                        <div class="bg-gray-200 absolute w-full h-full top-0 transform -rotate-3 rounded-lg z-10 hidden md:block"></div>
+                        <div class="bg-white rounded-lg shadow-lg z-20 relative p-5">
                             <div class="flex flex-col justify-center items-center py-5">
-                                <h2 class="text-xl font-bold text-gray-600">Algunas recomiendaciones para tí</h2>
+                                <h2 class="text-xl font-bold text-gray-600 text-center">Algunas recomiendaciones para tí</h2>
                                 <h3 class="text-sm font-bold text-gray-400">Cursos creados recientemente</h3>
                                 <courses-list :courses="courses"></courses-list>
                             </div>
                         </div>
                     </div>
                 </template>
-            </dashboard-section>
+            </account-section>
         </transition>
     </div>
 </template>
@@ -38,13 +38,13 @@
 <script>
 import axios from 'axios';
 import CoursesList from "./CoursesList";
-import DashboardSection from "./DashboardSection";
+import AccountSection from "./AccountSection";
 import LoadingSpinner from "../core/LoadingSpinner";
 export default {
     name: 'Dashboard',
     components: {
         CoursesList,
-        DashboardSection,
+        AccountSection,
         LoadingSpinner
     },
     data() {

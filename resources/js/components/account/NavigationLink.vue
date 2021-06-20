@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-1/3 md:w-full">
         <router-link class="block p-4 hover:bg-gray-100 text-gray-400 hover:text-gray-500 cursor-pointer rounded-lg focus:outline-black"
                      :to="link"
                      active-class="is-dashboard-active"

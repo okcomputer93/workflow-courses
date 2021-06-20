@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full relative">
+    <div class="w-1/3 relative md:w-full">
         <span class="absolute text-xs font-light text-red-400 -top-24 text-center" v-if="errors">{{ errors}}</span>
        <div class="flex justify-center items-center">
            <button class="w-12 h-12 p-3 bg-gray-100 hover:bg-red-100 text-gray-400 hover:text-gray-500 rounded-full focus:outline-black"

@@ -1,6 +1,6 @@
-import Settings from "./components/profile/Settings";
-import Dashboard from "./components/profile/Dashboard";
-import Profile from "./components/profile/Profile";
+import Settings from "./components/account/Settings";
+import Dashboard from "./components/account/Dashboard";
+import Account from "./components/account/Account";
 
 export default {
     mode: 'history',
@@ -9,7 +9,7 @@ export default {
             path: '/user',
             redirect: '/user/dashboard',
             name: 'home',
-            component: Settings,
+            component: Account,
             children: [
                 {
                     path: 'dashboard',
@@ -18,8 +18,8 @@ export default {
                 },
                 {
                     path: 'profile',
-                    name: 'home.profile',
-                    component: Profile
+                    name: 'home.settings',
+                    component: Settings
                 }
             ]
         }
