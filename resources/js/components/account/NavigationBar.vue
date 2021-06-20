@@ -1,12 +1,12 @@
 <template>
-    <aside class="bg-white shadow-md rounded-r-md fixed left-0 top-0 h-screen transition-width duration-1000 p-6"
+    <aside class="bg-white shadow-md rounded-r-md fixed z-40 left-0 bottom-0 h-auto transition-width duration-1000 p-0 w-screen md:h-screen md:p-6 md:fixed md:top-0 md:bottom-auto"
            :class="asideWidth"
     >
-        <nav class="flex flex-col justify-between items-center h-full">
-            <div class="flex flex-col justify-start items-start space-y-6 w-full">
+        <nav class="flex flex-row justify-between items-center h-auto py-2 px-1 w-full sm:px-4 md:flex-col md:h-full md:w-auto md:p-0">
+            <div class="flex flex-row justify-center items-center space-y-0 space-x-0.5  w-full sm:space-x-2 md:flex-col md:justify-start md:items-start md:space-y-12 md:space-x-0">
                 <button @click="minimize"
                         type="button"
-                        class="self-end text-gray-400 hover:text-gray-500 cursor-pointer focus:outline-black"
+                        class="self-end text-gray-400 hover:text-gray-500 cursor-pointer hidden focus:outline-black md:block"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="h-6 w-6 transform transition-transform duration-500"
@@ -19,13 +19,13 @@
                     </svg>
                 </button>
 
-                <div class="relative self-center w-full h-12 mt-8 mb-2">
+                <div class="relative self-center w-1/4 h-10 mt-8 mb-2 md:w-full">
                     <a href="/courses" class="focus:outline-black">
                         <transition name="wait-fade-main">
-                            <img v-show="!isMinimized" class="absolute h-10 w-auto top-0 right-1/2 transform translate-x-1/2" src="/images/workflow-logo-inverse.svg" alt="Workflow Logo">
+                            <img v-show="!isMinimized" class="absolute w-auto h-full top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2" src="/images/workflow-logo-inverse.svg" alt="Workflow Logo">
                         </transition>
                         <transition name="wait-out">
-                            <img v-show="isMinimized" class="absolute h-10 w-auto top-0 right-1/2 transform translate-x-1/2" src="/images/workflow-mark.svg" alt="Workflow Logo">
+                            <img v-show="isMinimized" class="absolute h-full w-auto top-0 right-1/2 transform translate-x-1/2" src="/images/workflow-mark.svg" alt="Workflow Logo">
                         </transition>
                     </a>
                 </div>
@@ -84,7 +84,7 @@ export default {
     },
     computed: {
       asideWidth() {
-          return this.isMinimized ? 'w-28' : 'w-1/6';
+          return this.isMinimized ? 'md:w-28' : 'md:w-3/12 xl:w-1/6';
       },
       arrowOrientation() {
           return this.isMinimized ? '-rotate-180' : ''
@@ -99,9 +99,21 @@ export default {
     },
     created() {
         const minimized = localStorage.getItem('workflow-navbar-minimized');
+        const widthMediaQuery = window.matchMedia("(max-width: 768px)");
         if (minimized) {
             this.isMinimized = minimized === "true";
         }
+        if (widthMediaQuery.matches) {
+            this.isMinimized = "true";
+        }
+
+        widthMediaQuery.addEventListener('change', (e) => {
+            if (e.matches) {
+                this.isMinimized = true;
+                this.$emit('minimize', this.isMinimized);
+            }
+        })
+
         this.$emit('minimize', this.isMinimized);
     }
 }

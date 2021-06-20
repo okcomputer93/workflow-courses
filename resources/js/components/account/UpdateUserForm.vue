@@ -3,9 +3,9 @@
           @submit.prevent="onSubmit"
           @keydown="form.errors.clear($event.target.id)"
     >
-        <div class="flex justify-start items-center w-full mt-5">
-            <h2 class="flex-initial flex-shrink-0 text-2xl font-bold text-gray-800 pr-3">Información Básica</h2>
-            <div class="h-0.5 flex-initial w-2/3 bg-gray-200"></div>
+        <div class="flex justify-center items-center w-full mt-5 md:justify-start">
+            <h2 class="flex-initial flex-shrink-0 text-base text-center font-bold text-gray-800 pr-3 sm:text-xl md:text-left md:text-2xl">Información Básica</h2>
+            <span class="h-0.5 flex-initial w-2/3 bg-gray-200 hidden md:inline-block"></span>
         </div>
 
         <update-image class="self-center mt-5"
@@ -14,8 +14,8 @@
                       :alt="`${user.name}'s avatar`"
         ></update-image>
 
-        <div class="w-2/5 relative">
-            <div class="flex flex-col justify-center items-start">
+        <div class="w-full relative sm:w-4/5 md:w-3/5 xl:w-2/5">
+            <div class="flex flex-col justify-center items-center md:items-start mt-5 md:mt-3 w-full">
                 <div class="w-full">
                     <label class="block text-sm font-bold text-gray-400 mb-2"
                            for="name"
@@ -50,7 +50,7 @@
 
                 <span class="absolute bottom-16 text-green-800 text-xs font-light" v-if="successMessage">{{ successMessage }}</span>
 
-                <div class="mt-14">
+                <div class="mt-8 md:mt-14 pb-4">
                     <button class="text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                             :disabled="isNotSubmitable || isLoading"
                     >

@@ -3,13 +3,13 @@
           @submit.prevent="onSubmit"
           @keydown="form.errors.clear($event.target.id)"
     >
-        <div class="flex justify-start items-center w-full">
-            <h2 class="flex-initial flex-shrink-0 text-2xl font-bold text-gray-800 pr-3">Actualizar Contraseña</h2>
-            <div class="h-0.5 flex-initial w-1/3 bg-gray-200"></div>
+        <div class="flex justify-center items-center w-full mt-5 md:justify-start">
+            <h2 class="flex-initial flex-shrink-0 text-base text-center font-bold text-gray-800 pr-3 sm:text-xl md:text-left md:text-2xl">Actualizar Contraseña</h2>
+            <div class="h-0.5 flex-initial w-1/3 bg-gray-200 hidden md:inline-block"></div>
         </div>
 
-        <div class="w-2/5 relative">
-            <div class="flex flex-col justify-center items-start">
+        <div class="w-full relative sm:w-4/5 md:w-3/5 xl:w-2/5">
+            <div class="flex flex-col justify-center items-center md:items-start mt-5 md:mt-3">
                 <div class="mt-10 w-full">
                     <password-input id="current_password"
                                     v-model="form.current_password"
@@ -62,7 +62,7 @@
                     {{ passwordsDontMatchError || passwordsDidntChangeError }}
                 </span>
 
-                <div class="mt-14">
+                <div class="mt-5 md:mt-14 pb-4">
                     <button class="text-center text-sm px-8 rounded-full py-3 bg-indigo-500 text-white hover:bg-indigo-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                             :disabled="isNotSubmitable"
                     >

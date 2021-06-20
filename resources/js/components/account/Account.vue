@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full bg-gray-100 h-full flex items-stretch">
+    <section class="w-full bg-gray-100 pb-20 h-full flex items-stretch md:pb-0">
 
         <div class="transition-width duration-1000"
              :class="navBarWidth"
@@ -16,7 +16,7 @@
 <script>
 import NavigationBar from "./NavigationBar";
 export default {
-    name: "Settings.vue",
+    name: "Account.vue",
     components: {
         NavigationBar
     },
@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         navBarWidth() {
-            return this.navBarMinimized ? 'w-1/12' : 'w-1/6';
+            return this.navBarMinimized ? 'md:w-1/12' : 'md:w-1/6';
         }
     },
     methods: {

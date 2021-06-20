@@ -6,14 +6,14 @@
             <loading-spinner></loading-spinner>
         </div>
        <transition name="fade">
-           <dashboard-section v-if="!isLoading">
+           <account-section v-if="!isLoading">
                <template v-slot:title>
-                   <h1 class="text-5xl font-bold text-gray-800">
+                   <h1 class="text-2xl text-center font-bold text-gray-800 sm:text-3xl md:text-5xl md:text-left">
                        Editar tu perfil
                    </h1>
                </template>
                <template v-slot:left>
-                   <div class="flex flex-col justify-start items-start">
+                   <div class="flex flex-col justify-start items-start px-3 md:px-0">
                        <update-user-form ref="updateUser"
                                          :user="user"
                        ></update-user-form>
@@ -22,7 +22,7 @@
                        ></update-user-password>
                    </div>
                </template>
-           </dashboard-section>
+           </account-section>
        </transition>
     </div>
 </template>
@@ -30,14 +30,14 @@
 
 <script>
 import axios from 'axios';
-import DashboardSection from "./DashboardSection";
+import AccountSection from "./AccountSection";
 import UpdateUserForm from "./UpdateUserForm";
 import UpdateUserPassword from "./UpdateUserPassword";
 import LoadingSpinner from "../core/LoadingSpinner";
 export default {
-    name: 'Profile.vue',
+    name: 'Settings.vue',
     components: {
-        DashboardSection,
+        AccountSection,
         UpdateUserForm,
         UpdateUserPassword,
         LoadingSpinner
