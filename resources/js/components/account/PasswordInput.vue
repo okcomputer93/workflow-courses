@@ -36,10 +36,10 @@
 export default {
     name: "PasswordInput.vue",
     props: {
-        id: Number,
+        id: String,
         value: String,
         required: Boolean,
-        classError: String,
+        classError: Boolean,
         errorMessage: String
     },
     emit: ['input'],
