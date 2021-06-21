@@ -29,6 +29,10 @@ class RoleRulesCreate implements RoleRules
     }
 
 
+    /**
+     * Modify the role rules when creating a role.
+     * @return array
+     */
     public function rules(): array
     {
         return array_replace($this->roleRules->rules(), $this->rules);

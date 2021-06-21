@@ -22,6 +22,10 @@ class StudentRules implements RoleRules
     }
 
 
+    /**
+     * Add the student rules to the role rules stack.
+     * @return array
+     */
     public function rules(): array
     {
         return array_replace($this->roleRules->rules(), $this->rules);
