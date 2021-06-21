@@ -3,18 +3,25 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use App\Validation\UserValidateInput;
+use App\Rules\BaseRoleRules;
+use App\Rules\BaseUserRules;
+use App\Rules\ProfessorRules;
+use App\Rules\RoleRulesUpdate;
+use App\Rules\StudentRules;
+use App\Rules\UserRulesUpdate;
 use App\Validation\UserValidation;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
-    protected UserValidateInput $userValidation;
+    private UserValidation $userUpdateValidation;
 
     public function __construct()
     {
-        $this->userValidation = new UserValidation('update');
+        $userUpdateRules = new UserRulesUpdate(new BaseUserRules());
+        $roleUpdateRules = new ProfessorRules(new StudentRules(new RoleRulesUpdate(new BaseRoleRules())));
+        $this->userUpdateValidation = new UserValidation($userUpdateRules, $roleUpdateRules);
     }
 
     /**
@@ -27,8 +34,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update($user, array $input)
     {
-        $this->userValidation
-            ->validateInput($input, $user);
+        $this->userUpdateValidation
+            ->validateAll($input);
 
         $this->updateAvatarIfExists($input, $user);
 
@@ -65,8 +72,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
     protected function updateRoleInformation(array $input, $user)
     {
-        $attributes = $this->userValidation
-            ->getAttributesBasedOnRole($input, $user);
+        $attributes = $this->userUpdateValidation
+            ->roleAttributes($input);
 
         $user->role()->update($attributes);
     }

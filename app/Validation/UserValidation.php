@@ -3,136 +3,67 @@
 
 namespace App\Validation;
 
-
-use App\Actions\Fortify\PasswordValidationRules;
-use App\Models\User;
+use App\Rules\RoleRules;
+use App\Rules\UserRules;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
-use ReflectionClass;
 
-class UserValidation implements UserValidateInput
+class UserValidation
 {
-    use PasswordValidationRules;
 
-    private string $action;
-    private array $input;
-    private User $user;
-
-    private array $professorRules;
-    private array $studentRules;
-    private string $defaultRole = 'student';
+    private UserRules $userRules;
+    private RoleRules $roleRules;
 
     /**
      * UserValidation constructor.
      */
-    public function __construct(string $action)
+    public function __construct(?UserRules $userRules, ?RoleRules $roleRules)
     {
-        $this->action = $action;
 
-        $this->professorRules = [
-            'career' => ['sometimes', 'required', 'string', 'max:255'],
-            'about' => ['sometimes', 'required', 'string'],
-            'github_user' => ['sometimes', 'required', 'string', 'max:255'],
-            'twitter_user' => ['sometimes', 'required', 'string', 'max:255'],
-        ];
+        if (isset($userRules)) {
+            $this->userRules = $userRules;
+        }
 
-        $this->studentRules = [
-            'schooling' => ['sometimes', 'required', 'string', 'max:255']
-        ];
+        if (isset($roleRules)) {
+            $this->roleRules = $roleRules;
+        }
     }
 
-    /**
-     * Validate that the role
-     * @param array $input
-     * @throws ValidationException
-     */
-    public function validateRole(array $input, ?User $user = null)
+    public function validateAll(array $input)
     {
-        $roleRules = [
-            'role' => [
-                'required',
-                'string',
-                $user ? Rule::in(['professor']) : Rule::in(['student', 'professor'])
-            ]
-        ];
+        $this->validateUser($input);
 
+        $this->validateRole($input);
+    }
+
+    public function validateUser(array $input)
+    {
         Validator::make(
             $input,
-            $roleRules
+            $this->userRules->rules()
         )->validate();
     }
 
-    public function getRole(array $input, ?User $user = null)
+    public function validateRole(array $input)
     {
-        if ($user && $this->action !== 'update-role') {
-            return Str::lower((new ReflectionClass($user->role))->getShortName());
-        }
-        return $input['role'] ?? $this->defaultRole;
+        Validator::make(
+            $input,
+            $this->roleRules->rules()
+        )->validate();
     }
 
-    public function getAttributesBasedOnRole(array $input, ?User $user = null): array
+    public function userAttributes(array $input)
     {
         return array_intersect_key(
             $input,
-            $this->specificRules($input, $user)
+            $this->userRules->rules()
         );
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function validateInput(array $input, ?User $user = null)
+    public function roleAttributes(array $input)
     {
-        if ($this->action === 'update-role') {
-            $rules = $this->specificRules($input, $user);
-
-        } else {
-            $rules = array_merge(
-                $this->createUserRulesWithAction($user),
-                $this->specificRules($input, $user)
-            );
-        }
-
-        Validator::make($input, $rules)->validate();
-    }
-
-    /**
-     */
-    private function specificRules(array $input, ?User $user = null): array
-    {
-        $role = $this->getRole($input, $user);
-
-        $rules = $role . 'Rules';
-
-        return $this->$rules;
-    }
-
-    private function createUserRulesWithAction(?User $user): array
-    {
-        $baseRules = [
-            'name' => ['required', 'string', 'max:255'],
-            'avatar' => ['nullable', 'image'],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                $this->action === 'update'
-                    ? Rule::unique('users')->ignore($user->id)
-                    : Rule::unique('users'),
-            ]
-        ];
-
-        if ($this->action === 'create') {
-            $baseRules +=
-                [
-                    'password' => $this->passwordRules(),
-                    'avatar' => ['sometimes', 'required', 'image'],
-                ];
-        }
-
-        return $baseRules;
+        return array_intersect_key(
+            $input,
+            $this->roleRules->rules()
+        );
     }
 }

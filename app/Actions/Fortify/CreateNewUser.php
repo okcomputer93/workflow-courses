@@ -3,7 +3,12 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use App\Validation\UserValidateInput;
+use App\Rules\BaseRoleRules;
+use App\Rules\BaseUserRules;
+use App\Rules\ProfessorRules;
+use App\Rules\RoleRulesCreate;
+use App\Rules\StudentRules;
+use App\Rules\UserRulesCreate;
 use App\Validation\UserValidation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -11,7 +16,7 @@ use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
 {
-    private UserValidateInput $userValidation;
+    private UserValidation $userCreateValidation;
     private string $defaultAvatar = 'avatars/default-avatar.png';
 
     /**
@@ -19,7 +24,9 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function __construct()
     {
-        $this->userValidation = new UserValidation('create');
+        $userCreateRules = new UserRulesCreate(new BaseUserRules());
+        $roleCreateRules = new RoleRulesCreate(new StudentRules(new ProfessorRules(new BaseRoleRules())));
+        $this->userCreateValidation = new UserValidation($userCreateRules, $roleCreateRules);
     }
 
     /**
@@ -30,11 +37,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        $this->userValidation
-            ->validateRole($input);
-
-        $this->userValidation
-            ->validateInput($input);
+       $this->userCreateValidation->validateAll($input);
 
         $role = $this->createRole($input);
 
@@ -53,14 +56,13 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createRole(array $input)
     {
+        $attributes = $this->userCreateValidation
+            ->roleAttributes($input);
+
         $className = ucwords(
-            $this->userValidation
-                ->getRole($input)
+           $attributes['role']
         );
         $classPath = "App\\Models\\$className";
-
-        $attributes = $this->userValidation
-            ->getAttributesBasedOnRole($input);
 
         return $classPath::create($attributes);
     }

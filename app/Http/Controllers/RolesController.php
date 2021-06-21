@@ -2,51 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Validation\UserValidateInput;
+use App\Rules\BaseRoleRules;
+use App\Rules\ProfessorRules;
+use App\Rules\ProfessorUpgradeRules;
 use App\Validation\UserValidation;
 use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {
-    protected UserValidateInput $userValidation;
+    protected UserValidation $roleUpdateValidation;
 
     public function __construct()
     {
-        $this->userValidation = new UserValidation('update-role');
+        $roleUpdateRules = (new ProfessorRules(new ProfessorUpgradeRules(new BaseRoleRules())));
+
+        $this->roleUpdateValidation = new UserValidation(null, $roleUpdateRules);
     }
 
+    /**
+     * Upgrade user role.
+     * @param Request $request
+     */
     public function update(Request $request)
     {
         $input = $request->all();
-        $user = $request->user();
 
-        $this->userValidation
-            ->validateRole($input, $user);
+        $this->roleUpdateValidation
+            ->validateRole($input);
 
-        $this->userValidation
-            ->validateInput($input, $user);
-
-        $role = $this->createRole($input, $user);
+        $role = $this->createRole($input);
 
         $role->user()->save($request->user());
     }
 
     /**
-     * Create a new model in DB for specific role.
+     * Create a new model for a specific role.
      * @param array $input
      * @return mixed
      */
-    protected function createRole(array $input, User $user)
+    protected function createRole(array $input)
     {
-        $className = ucwords(
-            $this->userValidation
-                ->getRole($input)
-        );
-        $classPath = "App\\Models\\$className";
+        $attributes = $this->roleUpdateValidation
+            ->roleAttributes($input);
 
-        $attributes = $this->userValidation
-            ->getAttributesBasedOnRole($input);
+        $className = ucwords($attributes['role']);
+        $classPath = "App\\Models\\$className";
 
         return $classPath::create($attributes);
     }
