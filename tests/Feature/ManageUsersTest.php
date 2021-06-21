@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Student;
 use App\Models\User;
+use App\Validation\BaseUserRules;
+use App\Validation\ProfessorRules;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -20,8 +22,6 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_student_can_be_registered_without_role_info()
     {
-        $this->withoutExceptionHandling();
-
         $user = User::factory()->raw([
             'password' => 'password',
             'password_confirmation' => 'password',
@@ -41,6 +41,7 @@ class ManageUsersTest extends TestCase
             $this->assertEquals($lastUser->$column, $user[$column]);
         }
         $this->assertTrue(Hash::check($user['password'], $lastUser->password));
+
     }
 
     /** @test */
@@ -262,6 +263,7 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_registered_student_can_request_to_become_a_professor()
     {
+        $this->withoutExceptionHandling();
         $user = $this->signIn();
 
         $newRoleAttributes = $attributes = [
