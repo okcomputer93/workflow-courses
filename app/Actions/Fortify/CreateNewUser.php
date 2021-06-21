@@ -9,6 +9,7 @@ use App\Rules\ProfessorRules;
 use App\Rules\RoleRulesCreate;
 use App\Rules\StudentRules;
 use App\Rules\UserRulesCreate;
+use App\Validation\HasRoleCreation;
 use App\Validation\UserValidation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -16,6 +17,8 @@ use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
 {
+    use HasRoleCreation;
+
     private UserValidation $userCreateValidation;
     private string $defaultAvatar = 'avatars/default-avatar.png';
 
@@ -33,13 +36,12 @@ class CreateNewUser implements CreatesNewUsers
      * Validate and create a newly registered user.
      * @param array $input
      * @return User
-     * @throws ValidationException
      */
     public function create(array $input): User
     {
        $this->userCreateValidation->validateAll($input);
 
-        $role = $this->createRole($input);
+        $role = $this->createRole($this->userCreateValidation, $input);
 
         return $role->user()->create([
             'name' => $input['name'],
@@ -47,24 +49,6 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
             'avatar' => $this->userAvatar($input)
         ]);
-    }
-
-    /**
-     * Create a new model in DB for specific role.
-     * @param array $input
-     * @return mixed
-     */
-    protected function createRole(array $input)
-    {
-        $attributes = $this->userCreateValidation
-            ->roleAttributes($input);
-
-        $className = ucwords(
-           $attributes['role']
-        );
-        $classPath = "App\\Models\\$className";
-
-        return $classPath::create($attributes);
     }
 
     /**
