@@ -16,7 +16,6 @@ class ProfessorUpgradeRules implements RoleRules
      */
     public function __construct(RoleRules $roleRules)
     {
-
         $this->roleRules = $roleRules;
 
         $this->rules = [
@@ -28,7 +27,10 @@ class ProfessorUpgradeRules implements RoleRules
         ];
     }
 
-
+    /**
+     * Modify role rules for a professor when upgrading.
+     * @return array
+     */
     public function rules(): array
     {
         return array_replace($this->roleRules->rules(), $this->rules);

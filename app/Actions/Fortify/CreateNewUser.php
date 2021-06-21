@@ -12,7 +12,6 @@ use App\Rules\UserRulesCreate;
 use App\Validation\HasRoleCreation;
 use App\Validation\UserValidation;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -52,6 +51,7 @@ class CreateNewUser implements CreatesNewUsers
     }
 
     /**
+     * Stores user avatar if exists of assign the default.
      * @param array $input
      * @return mixed|string
      */

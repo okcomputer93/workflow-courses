@@ -16,6 +16,7 @@ class ProfessorRules implements RoleRules
     public function __construct(RoleRules $roleRules)
     {
         $this->roleRules = $roleRules;
+
         $this->rules  = [
             'career' => ['sometimes', 'required', 'string', 'max:255'],
             'about' => ['sometimes', 'required', 'string'],
@@ -25,6 +26,10 @@ class ProfessorRules implements RoleRules
     }
 
 
+    /**
+     * Add the professor rules to the role rules stack.
+     * @return array
+     */
     public function rules(): array
     {
         return array_replace($this->roleRules->rules(), $this->rules);

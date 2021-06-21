@@ -30,6 +30,10 @@ class RoleRulesUpdate implements RoleRules
     }
 
 
+    /**
+     * Modify the role rules when updating a role.
+     * @return array
+     */
     public function rules(): array
     {
         return array_replace($this->roleRules->rules(), $this->rules);

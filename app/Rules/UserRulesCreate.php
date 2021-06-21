@@ -35,6 +35,10 @@ class UserRulesCreate implements UserRules
         ];
     }
 
+    /**
+     * Modify the user rules when creating a user.
+     * @return array
+     */
     public function rules(): array
     {
         return array_replace($this->userRules->rules(), $this->rules, $this->modifier);

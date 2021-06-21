@@ -17,6 +17,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
     private UserValidation $userUpdateValidation;
 
+    /**
+     * UpdateUserProfileInformation constructor.
+     */
     public function __construct()
     {
         $userUpdateRules = new UserRulesUpdate(new BaseUserRules());
@@ -30,7 +33,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      * @param mixed $user
      * @param array $input
      * @return void
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function update($user, array $input)
     {
@@ -70,6 +72,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->sendEmailVerificationNotification();
     }
 
+    /**
+     * Update the related role information for a user.
+     * @param array $input
+     * @param $user
+     */
     protected function updateRoleInformation(array $input, $user)
     {
         $attributes = $this->userUpdateValidation
@@ -78,6 +85,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->role()->update($attributes);
     }
 
+    /**
+     * Store the new avatar if exists a new one.
+     * @param array $input
+     * @param User $user
+     */
     protected function updateAvatarIfExists(array $input, User $user)
     {
         if ($input['avatar']) {

@@ -29,6 +29,10 @@ class UserRulesUpdate implements UserRules
         ];
     }
 
+    /**
+     * Modify the user rules when updating a user.
+     * @return array
+     */
     public function rules(): array
     {
         return array_replace($this->userRules->rules(), $this->rules, $this->modifier);
