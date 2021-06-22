@@ -37,6 +37,13 @@ export default {
         },
         informationState(value) {
             this.informationChanged = value;
+        },
+        preventLoseData(event) {
+            if (!this.$refs.currentView?.pendingInfo) return
+            event.preventDefault()
+            // Chrome requires returnValue to be set.
+            event.returnValue = ""
+            this.informationChanged = false;
         }
     },
     beforeRouteUpdate(to, from, next) {
@@ -48,7 +55,15 @@ export default {
         }
         this.informationChanged = false;
         return next();
-    }
+    },
+    beforeMount() {
+        window.addEventListener("beforeunload", event => {
+            this.preventLoseData(event);
+        })
+    },
+    beforeDestroy() {
+        window.removeEventListener("beforeunload", this.preventLoseData);
+    },
 }
 </script>
 

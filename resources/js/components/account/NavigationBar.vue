@@ -105,7 +105,7 @@ export default {
             this.isMinimized = minimized === "true";
         }
         if (widthMediaQuery.matches) {
-            this.isMinimized = "true";
+            this.isMinimized = true;
         }
 
         widthMediaQuery.addEventListener('change', (e) => {

@@ -10,7 +10,7 @@
             <x-form.input type="text" name="name">Nombre</x-form.input>
             <x-form.input type="email" name="email">Correo Electrónico</x-form.input>
             <x-form.input type="password" name="password">Contraseña</x-form.input>
-            <x-form.input type="password" name="password_confirmation">Confirma tu contraseñ</x-form.input>
+            <x-form.input type="password" name="password_confirmation">Confirma tu contraseña</x-form.input>
             <x-form.button>
                 Registrarme
                 <x-slot name="icon">

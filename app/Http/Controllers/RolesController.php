@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Professor;
 use App\Rules\BaseRoleRules;
 use App\Rules\ProfessorRules;
 use App\Rules\ProfessorUpgradeRules;
@@ -28,6 +29,8 @@ class RolesController extends Controller
      */
     public function update(Request $request)
     {
+        $this->authorize('update', Professor::class);
+
         $input = $request->all();
 
         $this->roleUpdateValidation
@@ -36,5 +39,13 @@ class RolesController extends Controller
         $role = $this->createRole($this->roleUpdateValidation, $input);
 
         $role->user()->save($request->user());
+
+        return redirect(route('profile.show'));
+    }
+
+    public function create()
+    {
+        $this->authorize('create', Professor::class);
+        return view('auth.register-professor');
     }
 }

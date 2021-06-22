@@ -21,6 +21,7 @@ class RoleRulesCreate implements RoleRules
 
         $this->rules = [
             'role' => [
+                'sometimes',
                 'required',
                 'string',
                 Rule::in(['student', 'professor'])

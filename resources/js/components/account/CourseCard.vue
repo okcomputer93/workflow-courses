@@ -1,5 +1,5 @@
 <template>
-    <article class="bg-white rounded-sm rounded-md border border-gray-200 transition-shadow duration-300 z-10 overflow-hidden course-card w-60 h-96 xl:h-64 xl:w-full">
+    <article class="bg-white rounded-sm rounded-md border border-gray-200 transition-shadow duration-300 overflow-hidden course-card w-60 h-96 xl:h-64 xl:w-full">
         <div class="flex items-center h-full w-full flex-col xl:flex-row">
             <img class="w-32 h-32 shadow-lg bg-gray-200 hover:shadow-xl transition-shadow duration-300 xl:w-44 xl:h-44"
                  :src="`/${course.miniature}`"
