@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Comment;
 use App\Models\Course;
 use Facades\Tests\Setup\CourseFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +14,7 @@ class ApiTest extends TestCase
     /** @test */
     public function a_unauthenticated_user_cannot_do_requests()
     {
-        $this->get('/api/user/information')
+        $this->getAjax('/api/user/information')
             ->assertRedirect(route('login'));
     }
 
@@ -24,7 +23,7 @@ class ApiTest extends TestCase
     {
         $this->signIn();
 
-        $this->get('/api/user/information')
+        $this->getAjax('/api/user/information')
             ->assertStatus(200);
     }
 
@@ -33,7 +32,7 @@ class ApiTest extends TestCase
     {
         $user = $this->signIn();
 
-        $this->get('/api/user/information')
+        $this->getAjax('/api/user/information')
             ->assertExactJson([
                 'name' => $user->name,
                 'email' => $user->email,
@@ -45,12 +44,12 @@ class ApiTest extends TestCase
     /** @test */
     public function anybody_can_request_last_uploaded_courses()
     {
-        $this->get('/api/courses/last')
+        $this->getAjax('/api/courses/last')
             ->assertStatus(200);
 
         $this->signIn();
 
-        $this->get('/api/courses/last')
+        $this->getAjax('/api/courses/last')
             ->assertStatus(200);
     }
 
@@ -67,7 +66,7 @@ class ApiTest extends TestCase
             ])
             ->get();
 
-        $this->get('/api/courses/last')
+        $this->getAjax('/api/courses/last')
             ->assertSimilarJson($courses->toArray());
     }
 }
