@@ -22,7 +22,7 @@ class ManageCommentsTest extends TestCase
             'course_id' => $course->id
         ]);
 
-        $this->get("/api/courses/$course->id/comments")
+        $this->getAjax("/api/courses/$course->id/comments")
             ->assertSimilarJson($course->comments->load(
                 ['author:id,name,email,avatar']
             )->toArray());
@@ -34,7 +34,7 @@ class ManageCommentsTest extends TestCase
         $course = CourseFactory::withStorage('public')
             ->create();
 
-        $this->post("/api/courses/$course->id/comments")
+        $this->postAjax("/api/courses/$course->id/comments", [])
             ->assertRedirect(route('login'));
     }
 
@@ -51,7 +51,7 @@ class ManageCommentsTest extends TestCase
             'rate' => 1
         ];
 
-        $this->post("/api/courses/$course->id/comments", $attributes)
+        $this->postAjax("/api/courses/$course->id/comments", $attributes)
             ->assertStatus(403);
     }
 
@@ -70,7 +70,7 @@ class ManageCommentsTest extends TestCase
             'rate' => 5
         ];
 
-        $this->post("/api/courses/$course->id/comments", $attributes)
+        $this->postAjax("/api/courses/$course->id/comments", $attributes)
             ->assertStatus(200);
 
         $this->assertDatabaseHas('comments', $attributes);
@@ -96,7 +96,7 @@ class ManageCommentsTest extends TestCase
 
         $this->travel(5)->hours();
 
-        $this->post("/api/courses/$course->id/comments", $attributes)
+        $this->postAjax("/api/courses/$course->id/comments", $attributes)
             ->assertExactJson(
                 Comment::with(['author:id,name,email,avatar'])
                     ->orderBy('updated_at', 'desc')
@@ -104,7 +104,6 @@ class ManageCommentsTest extends TestCase
                     ->toArray()
             );
     }
-
 
     /** @test */
     public function an_authenticated_user_can_not_post_a_comment_in_a_taken_course_already_commented()
@@ -120,14 +119,14 @@ class ManageCommentsTest extends TestCase
             'rate' => 5
         ];
 
-        $this->post("/api/courses/$course->id/comments", $attributes);
+        $this->postAjax("/api/courses/$course->id/comments", $attributes);
 
         $secondAttributes = [
             'content' => 'This is my second comment on this course!',
             'rate' => 1
         ];
 
-        $this->post("/api/courses/$course->id/comments", $secondAttributes)
+        $this->postajax("/api/courses/$course->id/comments", $secondAttributes)
             ->assertStatus(403);
     }
 
@@ -156,8 +155,8 @@ class ManageCommentsTest extends TestCase
             'rate' => 1
         ];
 
-        $this->actingAs($jhon)->post("/api/courses/$course->id/comments", $jhonComment);
-        $this->actingAs($sally)->post("/api/courses/$course->id/comments", $sallyComment);
+        $this->actingAs($jhon)->postAjax("/api/courses/$course->id/comments", $jhonComment);
+        $this->actingAs($sally)->postAjax("/api/courses/$course->id/comments", $sallyComment);
 
         $average =  $course->refresh()->comments()->pluck('rate')->avg();
 

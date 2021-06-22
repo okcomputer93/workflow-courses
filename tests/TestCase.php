@@ -20,4 +20,25 @@ abstract class TestCase extends BaseTestCase
         );
         return $user;
     }
+
+    /**
+     * Fake XMLHttpRequest for post requests.
+     * @param string $url
+     * @param array $data
+     * @return \Illuminate\Testing\TestResponse
+     */
+    public function postAjax(string $url, array $data): \Illuminate\Testing\TestResponse
+    {
+        return $this->post($url, $data, ['HTTP_X-Requested-With' => 'XMLHttpRequest']);
+    }
+
+    /**
+     * Fake XMLHttpRequest for get requests.
+     * @param string $url
+     * @return \Illuminate\Testing\TestResponse
+     */
+    public function getAjax(string $url): \Illuminate\Testing\TestResponse
+    {
+        return $this->get($url, ['HTTP_X-Requested-With' => 'XMLHttpRequest']);
+    }
 }
