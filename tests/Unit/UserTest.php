@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Models\Comment;
-use App\Models\User;
 use Facades\Tests\Setup\CourseFactory;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Database\Eloquent\Collection;
