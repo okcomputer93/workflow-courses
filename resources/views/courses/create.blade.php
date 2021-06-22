@@ -4,9 +4,9 @@
     </x-slot>
     <x-section type="base">
         <div class="flex items-center justify-center">
-            <x-form.form method="post" enctype="true" action="/courses" logo="false" class="max-w-lg">
+            <x-form.form method="post" enctype="true" action="/courses" logo="true" class="max-w-lg">
                 <x-slot name="title">
-                    Upload a new video course
+                    Publicar un nuevo curso
                 </x-slot>
                 <x-form.input type="text" name="title">Title</x-form.input>
                 <x-form.input type="url" name="video_url">Video Url</x-form.input>

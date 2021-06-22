@@ -4,11 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Student;
 use App\Models\User;
-use App\Validation\BaseUserRules;
-use App\Validation\ProfessorRules;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\Professor;
@@ -22,10 +19,10 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function a_student_can_be_registered_without_role_info()
     {
+        $this->withoutExceptionHandling();
         $user = User::factory()->raw([
             'password' => 'password',
             'password_confirmation' => 'password',
-            'role' => 'student'
         ]);
 
         unset($user['avatar']);
@@ -303,6 +300,47 @@ class ManageUsersTest extends TestCase
         $this->assertDatabaseMissing('students', $attributes);
 
         $this->assertNotInstanceOf(Student::class, $user->refresh()->role);
+    }
+
+    /** @test */
+    public function unauthenticated_users_cannot_request_to_become_a_professor()
+    {
+        $newRoleAttributes = [
+            'career' => 'Programmer',
+            'about' => 'Im a student but I wanna become a professor.',
+            'twitter_user' => 'some_user',
+            'github_user' => 'some_user'
+        ];
+
+        $newRoleAttributes['role'] = 'professor';
+
+        $this->patch(route('user-role-information.update'), $newRoleAttributes)
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function a_student_can_access_a_form_to_become_a_professor()
+    {
+        $student = $this->signIn();
+
+        $this->get('user/register-professor')
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    public function unauthenticated_users_can_not_access_a_form_to_become_a_professor()
+    {
+        $this->get('user/register-professor')
+            ->assertRedirect('login');
+    }
+
+    /** @test */
+    public function professors_can_not_access_a_form_to_become_a_professor()
+    {
+        $this->signIn('professor');
+
+        $this->get('user/register-professor')
+            ->assertStatus(403);
     }
 
 }

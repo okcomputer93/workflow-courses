@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Comment;
 use App\Models\Course;
+use App\Models\Professor;
 use App\Policies\CommentsPolicy;
 use App\Policies\CoursesPolicy;
+use App\Policies\ProfessorPolicy;
 use App\Policies\WatchCoursesPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -19,7 +21,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Course::class => CoursesPolicy::class,
-        Comment::class => CommentsPolicy::class
+        Comment::class => CommentsPolicy::class,
+        Professor::class => ProfessorPolicy::class
     ];
 
     /**

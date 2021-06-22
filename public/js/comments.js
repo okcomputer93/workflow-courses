@@ -2328,16 +2328,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "FloatingButton",
+  emits: ['click'],
   props: {
     position: String
   },
   computed: {
     positionClass: function positionClass() {
       var padding = 6;
+      var mobilePadding = 1;
       var positions = this.position.split('-');
-      return "".concat(positions[0], "-").concat(padding, " ").concat(positions[1], "-").concat(padding);
+      return "".concat(positions[0], "-").concat(mobilePadding, " md:").concat(positions[0], "-").concat(padding, " ").concat(positions[1], "-").concat(mobilePadding, " md:").concat(positions[1], "-").concat(padding);
     }
   }
 });
@@ -21875,7 +21878,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "span",
-                { staticClass: "ml-2 font-bold text-sm hidden md:visible" },
+                { staticClass: "ml-2 font-bold text-sm hidden md:block" },
                 [_vm._v("\n                Deja un comentario\n            ")]
               )
             ]
@@ -22188,7 +22191,7 @@ var render = function() {
       "button",
       {
         staticClass:
-          "bg-indigo-500 p-4 text-white flex justify-between items-center rounded-full hover:bg-indigo-600 transition-all duration-300 focus:outline-black transform hover:-translate-y-0.5 md:p-6",
+          "bg-indigo-500 z-50 p-4 text-white flex justify-between items-center rounded-full hover:bg-indigo-600 transition-all duration-300 focus:outline-black transform hover:-translate-y-0.5 md:p-6",
         on: {
           click: function($event) {
             return _vm.$emit("click")
