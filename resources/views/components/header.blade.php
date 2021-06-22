@@ -1,9 +1,10 @@
-@props([
-'auth' => 'false'
-])
 @push('scripts')
     <script src="{{ asset('js/header-menu.js') }}" defer></script>
 @endpush
+
+@props([
+'auth' => 'false'
+])
 <nav class="bg-blue-dark font-sans">
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between px-2 md:px-6">
@@ -43,7 +44,11 @@
                             </a>
                         @endif
                         @if (Route::has('register'))
-                            <x-button class="m-5" href="/register">Regístrate</x-button>
+                                <a class="py-1 px-2 my-6 mx-2 shadow-md rounded-md text-xs bg-indigo-500 hover:bg-indigo-700 inline-block text-white text-center md:py-2 md:px-4 md:text-base md:m-5 sm:my-7 md:my-5 md:mx-5"
+                                   href="/register"
+                                >
+                                    Regístrate
+                                </a>
                         @endif
                     @else
                         <a class="inline-block inline-block px-1 sm:px-4 py-6 cursor-pointer text-xs sm:text-base text-gray-300 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4"

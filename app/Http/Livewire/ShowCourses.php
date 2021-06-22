@@ -72,6 +72,7 @@ class ShowCourses extends Component
                 $query->whereName($this->level);
             });
         })->with('owner')
+            ->latest()
             ->paginate($this->resultsPerPage);
     }
 }

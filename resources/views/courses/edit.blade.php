@@ -55,6 +55,7 @@
                 <div>
                     <x-form.input type="file"
                                   name="miniature"
+                                  :required="false"
                     >
                         Miniature
                     </x-form.input>

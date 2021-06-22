@@ -4,7 +4,7 @@
     </x-slot>
     <x-section type="base">
         <div class="flex items-center justify-center">
-            <x-form.form method="post" enctype="true" action="/courses" logo="true" class="max-w-lg">
+            <x-form.form method="post" :enctype="true" action="/courses" :logo="true" class="max-w-lg">
                 <x-slot name="title">
                     Publicar un nuevo curso
                 </x-slot>

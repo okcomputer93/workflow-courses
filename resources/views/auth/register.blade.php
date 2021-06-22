@@ -3,11 +3,11 @@
         <title>Workflow | Registro</title>
     </x-slot>
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
-        <x-form.form class="h-screen" method="post" action="/register" >
+        <x-form.form :back="true" method="post" action="/register" >
             <x-slot name="title">
                 Bienvenido a Workflow
             </x-slot>
-            <x-form.input type="text" name="name">Nombre</x-form.input>
+            <x-form.input type="text" name="name" :focus="true">Nombre</x-form.input>
             <x-form.input type="email" name="email">Correo Electrónico</x-form.input>
             <x-form.input type="password" name="password">Contraseña</x-form.input>
             <x-form.input type="password" name="password_confirmation">Confirma tu contraseña</x-form.input>
