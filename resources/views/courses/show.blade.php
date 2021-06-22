@@ -39,10 +39,10 @@
                                 <p>Sit Amet</p>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center">
+                        <div class="flex flex-col space-y-3 justify-center items-center md:justify-between md:space-y-0 md:space-x-3 md:flex-row">
                             <x-watch-course-auth :course="$course"></x-watch-course-auth>
                             @can('update', $course)
-                                <x-button class="bg-white" href="{{ $course->path('edit')}}">Actualizar Información</x-button>
+                                <x-button class="bg-white text-sm" href="{{ $course->path('edit')}}">Actualizar Información</x-button>
                             @endcan
                         </div>
                     </div>
@@ -98,11 +98,11 @@
                     <h2 class="text-2xl font-extrabold text-white text-center">Estadísticas actuales</h2>
                     <div class="flex flex-col justify-center items-center pt-4 space-y-6 md:space-y-0 md:pt-12 md:flex-row md:justify-evenly">
                         <div class="text-center">
-                            <p class="text-4xl text-white font-bold">20</p>
+                            <p class="text-4xl text-white font-bold">{{ $course->owner->courses()->count() }}</p>
                             <h3 class="text-xs text-gray-50 font-light">Cursos en total</h3>
                         </div>
                         <div class="text-center">
-                            <p class="text-4xl text-white font-bold">120</p>
+                            <p class="text-4xl text-white font-bold">{{ $course->viewers()->count() }}</p>
                             <h3 class="text-xs text-gray-50 font-light">Alumnos han tomado este curso</h3>
                         </div>
                         <div class="text-center">

@@ -3,7 +3,10 @@
         <title>Workflow | Login</title>
     </x-slot>
         <div class="min-h-screen flex items-center justify-center bg-gray-100">
-            <x-form.form class="h-screen" method="post" action="/login" >
+            <x-form.form :back="true"
+                         method="post"
+                         action="/login"
+            >
                 <x-slot name="title">
                     Entrar a tu cuenta
                 </x-slot>
@@ -23,7 +26,11 @@
                     </x-slot>
                 </x-form.button>
                 <div class="flex items-center justify-center w-full">
-                    <a class="text-sm font-medium text-indigo-600 hover:text-indigo-500" href="/register">¿No tienes una cuenta?</a>
+                    <a class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                       href="/register"
+                    >
+                        ¿No tienes una cuenta?
+                    </a>
                 </div>
             </x-form.form>
         </div>

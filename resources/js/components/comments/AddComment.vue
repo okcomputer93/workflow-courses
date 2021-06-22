@@ -67,7 +67,7 @@ import FloatingButton from "../core/FloatingButton";
 export default {
     name: "AddComment",
     props: {
-        canComment: Boolean,
+        canComment: String,
         courseId: Number,
     },
     components: {
