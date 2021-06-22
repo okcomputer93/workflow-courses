@@ -9,7 +9,6 @@ use Facades\Tests\Setup\CourseFactory;
 use Facades\Tests\Setup\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -20,6 +19,8 @@ class ManageCoursesTest extends TestCase
     /** @test */
     public function a_course_can_be_created()
     {
+        $this->withoutExceptionHandling();
+
         $professor = $this->signIn($role = 'professor');
 
         $category = Category::factory()->create();
@@ -55,8 +56,6 @@ class ManageCoursesTest extends TestCase
             ->category($firstCategory)
             ->level($firstLevel)
             ->create();
-
-//        dd($course->path());
 
         $this->get($course->path('edit'))
             ->assertStatus(200)
