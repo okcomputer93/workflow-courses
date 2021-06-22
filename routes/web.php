@@ -45,7 +45,7 @@ Route::get('/courses/{course:slug}/watch', [WatchCoursesController::class, 'watc
 Route::patch('/user/role-information', [RolesController::class, 'update'])->name('user-role-information.update');
 Route::get('/user/register-professor', [RolesController::class, 'create'])->middleware('auth')->name('user-role-information.create');
 
-Route::prefix('/api')->group(function () {
+Route::middleware('only.ajax')->prefix('/api')->group(function () {
     Route::get('/user/information', [ApiController::class, 'userInformation'])->middleware('auth');
     Route::get('/courses/last', [ApiController::class, 'lastCourses']);
 
