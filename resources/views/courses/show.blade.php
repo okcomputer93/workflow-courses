@@ -106,7 +106,7 @@
                             <h3 class="text-xs text-gray-50 font-light">Alumnos han tomado este curso</h3>
                         </div>
                         <div class="text-center">
-                            <p class="text-4xl text-white font-bold">80%</p>
+                            <p class="text-4xl text-white font-bold">{{ $course->ratePercentage() }}%</p>
                             <h3 class="text-xs text-gray-50 font-light">Valoraciones positivas</h3>
                         </div>
                     </div>

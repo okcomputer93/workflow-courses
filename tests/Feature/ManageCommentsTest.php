@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Comment;
 use Facades\Tests\Setup\CourseFactory;
+use Facades\Tests\Setup\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -108,7 +109,7 @@ class ManageCommentsTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_not_post_a_comment_in_a_taken_course_already_commented()
     {
-       $user = $this->signIn();
+        $user = $this->signIn();
 
         $course = CourseFactory::withStorage('public')
             ->addViewers($user)
@@ -123,10 +124,46 @@ class ManageCommentsTest extends TestCase
 
         $secondAttributes = [
             'content' => 'This is my second comment on this course!',
-            'rate' => '1'
+            'rate' => 1
         ];
 
         $this->post("/api/courses/$course->id/comments", $secondAttributes)
             ->assertStatus(403);
+    }
+
+    /** @test */
+    public function everytime_a_comment_is_posted_the_course_rate_is_updated()
+    {
+        $jhon = UserFactory::role('student')
+            ->create();
+
+        $sally = UserFactory::role('student')
+            ->create();
+
+        $viewers = collect([$jhon, $sally]);
+
+        $course = CourseFactory::withStorage('public')
+            ->addViewers($viewers)
+            ->create();
+
+        $jhonComment = [
+            'content' => 'I have taken this course and I enjoy it!',
+            'rate' => 5
+        ];
+
+        $sallyComment = [
+            'content' => 'Didnt like at all.',
+            'rate' => 1
+        ];
+
+        $this->actingAs($jhon)->post("/api/courses/$course->id/comments", $jhonComment);
+        $this->actingAs($sally)->post("/api/courses/$course->id/comments", $sallyComment);
+
+        $average =  $course->refresh()->comments()->pluck('rate')->avg();
+
+        $this->assertEquals(
+            $average,
+            $course->rate
+        );
     }
 }
