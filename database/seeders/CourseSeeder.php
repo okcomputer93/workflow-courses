@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Level;
+use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -33,7 +35,12 @@ class CourseSeeder extends Seeder
                 )
             )->create([
                 'miniature' => 'miniatures/dpaQHbDNqnENarEsD00gXjuaCkdraSLk4Aq5AgvT.jpg',
-            ]);
+            ])->each(function ($course) {
+                Comment::factory()->count(3)->create([
+                    'course_id' => $course->id
+                ]);
+                $course->refreshRate();
+            });
     }
 }
 

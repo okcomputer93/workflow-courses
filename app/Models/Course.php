@@ -9,6 +9,8 @@ class Course extends Model
 {
     use HasFactory;
 
+    protected int $maxRate = 5;
+
     protected $fillable = [
         'title',
         'description',
@@ -72,6 +74,8 @@ class Course extends Model
 
         $comment->save();
 
+        $this->refreshRate();
+
         return Comment::with(['author:id,name,email,avatar'])
             ->find($comment->id);
     }
@@ -82,5 +86,15 @@ class Course extends Model
             ->where('user_id', $user->id)
             ->exists();
 
+    }
+
+    public function refreshRate() {
+        $this->rate = $this->comments()->pluck('rate')->avg();
+        $this->save();
+    }
+
+    public function ratePercentage()
+    {
+        return $this->rate * 100 / $this->maxRate;
     }
 }

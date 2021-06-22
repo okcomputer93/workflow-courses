@@ -103,9 +103,22 @@ class CourseTest extends TestCase
             ->create();
 
         $this->assertEquals(
-            $course->viewers
-                ->first()->id,
+            $course->viewers->first()->id,
             $user->id
         );
     }
+
+    /** @test */
+    public function it_has_a_percentage_of_rate()
+    {
+        $course = CourseFactory::withStorage('public')
+            ->create();
+        $rate = 3;
+        $maxRate = 5;
+        $course->rate = $rate;
+        $course->save();
+
+        $this->assertEquals($rate * 100 / $maxRate, $course->ratePercentage());
+    }
+
 }
