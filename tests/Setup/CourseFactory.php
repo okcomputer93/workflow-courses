@@ -15,11 +15,11 @@ use Faker\Generator as Faker;
 
 class CourseFactory
 {
-    protected $professor;
-    protected $storage;
-    protected $faker;
-    protected $category;
-    protected $level;
+    protected User $professor;
+    protected string $storage;
+    protected Faker $faker;
+    protected Category $category;
+    protected Level $level;
     protected $viewers;
 
     /**
