@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Rules;
+namespace App\Rules\Role;
 
 
 class BaseRoleRules implements RoleRules

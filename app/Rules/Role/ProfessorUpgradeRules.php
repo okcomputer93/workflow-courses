@@ -1,35 +1,37 @@
 <?php
 
 
-namespace App\Rules;
+namespace App\Rules\Role;
 
+use Illuminate\Validation\Rule;
 
-class StudentRules implements RoleRules
+class ProfessorUpgradeRules implements RoleRules
 {
     protected array $rules;
     protected RoleRules $roleRules;
 
     /**
-     * ProfessorRules constructor.
-     * @param RoleRules $roleRules
+     * RoleRulesCreate constructor.
      */
     public function __construct(RoleRules $roleRules)
     {
         $this->roleRules = $roleRules;
+
         $this->rules = [
-            'schooling' => ['sometimes', 'required', 'string', 'max:255']
+            'role' => [
+                'required',
+                'string',
+                Rule::in(['professor'])
+            ]
         ];
     }
 
-
     /**
-     * Add the student rules to the role rules stack.
+     * Modify role rules for a professor when upgrading.
      * @return array
      */
     public function rules(): array
     {
         return array_replace($this->roleRules->rules(), $this->rules);
-
     }
 }
-

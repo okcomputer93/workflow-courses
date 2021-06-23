@@ -32,7 +32,7 @@ class CourseFactory extends Factory
             'description' => $this->faker->text,
             'video_url' => $this->faker->url,
             'miniature' => 'path/to/file.jpg',
-            'rate' => $this->faker->numberBetween(0, 5),
+            'rate' => $this->faker->numberBetween(1, 5),
             'category_id' => function() {
                 return Category::factory()->create()->id;
             },

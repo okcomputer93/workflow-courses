@@ -1,12 +1,13 @@
 <?php
 
 
-namespace App\Rules;
+namespace App\Rules\User;
 
 
 use Illuminate\Validation\Rule;
+use Laravel\Fortify\Rules\Password;
 
-class UserRulesUpdate implements UserRules
+class UserRulesCreate implements UserRules
 {
     protected UserRules $userRules;
     protected array $rules;
@@ -16,7 +17,14 @@ class UserRulesUpdate implements UserRules
     {
         $this->userRules = $userRules;
 
-        $this->rules = [];
+        $this->rules = [
+            'password' =>  [
+                'required',
+                'string',
+                new Password,
+                'confirmed'
+            ]
+        ];
 
         $this->modifier = [
             'email' => [
@@ -24,13 +32,18 @@ class UserRulesUpdate implements UserRules
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users', 'id')
+                Rule::unique('users'),
             ],
+            'avatar' => [
+                'sometimes',
+                'required',
+                'image',
+            ]
         ];
     }
 
     /**
-     * Modify the user rules when updating a user.
+     * Modify the user rules when creating a user.
      * @return array
      */
     public function rules(): array

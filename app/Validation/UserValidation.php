@@ -3,11 +3,11 @@
 
 namespace App\Validation;
 
-use App\Rules\RoleRules;
-use App\Rules\UserRules;
+use App\Rules\Role\RoleRules;
+use App\Rules\User\UserRules;
 use Illuminate\Support\Facades\Validator;
 
-class UserValidation
+class UserValidation implements Validation
 {
 
     private UserRules $userRules;
@@ -32,7 +32,7 @@ class UserValidation
      * Validate all fields on the given input.
      * @param array $input
      */
-    public function validateAll(array $input)
+    public function validate(array $input)
     {
         $this->validateUser($input);
 

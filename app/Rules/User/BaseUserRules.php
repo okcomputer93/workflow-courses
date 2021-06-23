@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\User;
 
 
 class BaseUserRules implements UserRules
@@ -14,8 +14,15 @@ class BaseUserRules implements UserRules
     public function __construct()
     {
         $this->rules = [
-            'name' => ['required', 'string', 'max:255'],
-            'avatar' => ['nullable', 'image'],
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'avatar' => [
+                'nullable',
+                'image'
+            ],
             'email' => [
                 'required',
                 'string',

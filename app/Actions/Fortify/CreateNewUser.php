@@ -3,12 +3,12 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use App\Rules\BaseRoleRules;
-use App\Rules\BaseUserRules;
-use App\Rules\ProfessorRules;
-use App\Rules\RoleRulesCreate;
-use App\Rules\StudentRules;
-use App\Rules\UserRulesCreate;
+use App\Rules\User\UserRulesCreate;
+use App\Rules\User\BaseUserRules;
+use App\Rules\Role\BaseRoleRules;
+use App\Rules\Role\ProfessorRules;
+use App\Rules\Role\RoleRulesCreate;
+use App\Rules\Role\StudentRules;
 use App\Validation\HasRoleCreation;
 use App\Validation\UserValidation;
 use Illuminate\Support\Facades\Hash;
@@ -38,7 +38,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-       $this->userCreateValidation->validateAll($input);
+       $this->userCreateValidation->validate($input);
 
         $role = $this->createRole($this->userCreateValidation, $input);
 
