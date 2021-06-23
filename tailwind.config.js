@@ -1,10 +1,27 @@
 // tailwind.config.js
 module.exports = {
-    purge: [
-        './resources/**/*.blade.php',
-        './resources/**/*.js',
-        './resources/**/*.vue',
-    ],
+    purge: {
+        content: [
+            './resources/**/*.blade.php',
+            './resources/**/*.js',
+            './resources/**/*.vue',
+        ],
+        safelist: [
+            'border-category-1',
+            'border-category-2',
+            'border-category-3',
+            'bg-category-1',
+            'bg-category-2',
+            'bg-category-3',
+            'text-category-1',
+            'text-category-2',
+            'text-category-3'
+        ],
+        options: {
+            keyframes: true,
+            fontFace: true
+        },
+    },
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
