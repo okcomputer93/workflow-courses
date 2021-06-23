@@ -19,8 +19,6 @@ class ManageCoursesTest extends TestCase
     /** @test */
     public function a_course_can_be_created()
     {
-        $this->withoutExceptionHandling();
-
         $professor = $this->signIn($role = 'professor');
 
         $category = Category::factory()->create();
@@ -243,10 +241,6 @@ class ManageCoursesTest extends TestCase
         $this->post('/courses', $attributes)
             ->assertRedirect('/courses');
 
-        $attributes['level_id'] = '';
-
-        $this->post('/courses', $attributes)
-            ->assertSessionHasErrors('level_id');
     }
 
 

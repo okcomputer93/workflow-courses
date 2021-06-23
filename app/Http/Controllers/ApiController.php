@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 
 class ApiController extends Controller
 {
     /**
-     * @return JsonResponse
+     * Return specific user information as a json.
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function userInformation(): JsonResponse
+    public function userInformation(): \Illuminate\Http\JsonResponse
     {
 
         $user = Arr::only(
@@ -26,7 +26,11 @@ class ApiController extends Controller
         return response()->json($user);
     }
 
-    public function lastCourses(): JsonResponse
+    /**
+     * Return the last uploaded courses with owner, category and level relationship.
+     * @return Illuminate\Http\JsonResponse
+     */
+    public function lastCourses(): \Illuminate\Http\JsonResponse
     {
         $courses = Course::latest()->take(3)
             ->with([

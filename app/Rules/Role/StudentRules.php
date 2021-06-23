@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Rules;
+namespace App\Rules\Role;
 
 
-class ProfessorRules implements RoleRules
+class StudentRules implements RoleRules
 {
     protected array $rules;
     protected RoleRules $roleRules;
@@ -16,22 +16,25 @@ class ProfessorRules implements RoleRules
     public function __construct(RoleRules $roleRules)
     {
         $this->roleRules = $roleRules;
-
-        $this->rules  = [
-            'career' => ['sometimes', 'required', 'string', 'max:255'],
-            'about' => ['sometimes', 'required', 'string'],
-            'github_user' => ['sometimes', 'required', 'string', 'max:255'],
-            'twitter_user' => ['sometimes', 'required', 'string', 'max:255'],
+        $this->rules = [
+            'schooling' => [
+                'sometimes',
+                'required',
+                'string',
+                'max:255'
+            ]
         ];
     }
 
 
     /**
-     * Add the professor rules to the role rules stack.
+     * Add the student rules to the role rules stack.
      * @return array
      */
     public function rules(): array
     {
         return array_replace($this->roleRules->rules(), $this->rules);
+
     }
 }
+

@@ -21,6 +21,7 @@ class ApiTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_do_requests()
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->getAjax('/api/user/information')

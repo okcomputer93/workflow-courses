@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Rules;
+namespace App\Rules\Role;
 
 
 use Illuminate\Validation\Rule;
 
-class RoleRulesUpdate implements RoleRules
+class RoleRulesCreate implements RoleRules
 {
     protected array $rules;
     protected RoleRules $roleRules;
@@ -24,14 +24,14 @@ class RoleRulesUpdate implements RoleRules
                 'sometimes',
                 'required',
                 'string',
-                Rule::in(['professor', 'student'])
+                Rule::in(['student', 'professor'])
             ]
         ];
     }
 
 
     /**
-     * Modify the role rules when updating a role.
+     * Modify the role rules when creating a role.
      * @return array
      */
     public function rules(): array
