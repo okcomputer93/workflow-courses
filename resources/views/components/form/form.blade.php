@@ -19,7 +19,9 @@
                </a>
            @endif
            @if($logo)
-               <img class="mx-auto h-12 w-auto" src="/images/workflow-mark.svg" alt="Workflow">
+               <a href="/" title="Home">
+                   <img class="mx-auto h-12 w-auto" src="/images/workflow-mark.svg" alt="Workflow">
+               </a>
            @endif
 
            <h2 class="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-gray-900">
