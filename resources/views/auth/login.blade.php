@@ -4,6 +4,7 @@
     </x-slot>
         <div class="min-h-screen flex items-center justify-center bg-gray-100">
             <x-form.form :back="true"
+                         backUrl="{{ route('home') }}"
                          method="post"
                          action="/login"
             >

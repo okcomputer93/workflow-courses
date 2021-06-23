@@ -128,7 +128,6 @@
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 }
 
-
 .is-dashboard-active {
     @apply bg-gray-100 text-gray-500;
 }
