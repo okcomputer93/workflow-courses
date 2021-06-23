@@ -20,7 +20,7 @@
            @if ($required)
                required
            @endif
-           @if ($focus)
+           @if ($focus && !$errors)
                autofocus
            @endif
     >

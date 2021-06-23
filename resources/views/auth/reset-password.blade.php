@@ -3,7 +3,9 @@
         <title>Workflow | Restaurar Contraseña</title>
     </x-slot>
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
-        <x-form.form method="post"
+        <x-form.form :back="true"
+                     backUrl="{{ route('login') }}"
+                     method="post"
                      action="/reset-password"
         >
             <x-slot name="title">
