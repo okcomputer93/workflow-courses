@@ -1,9 +1,10 @@
 <x-layout header="false" footer="false">
     <x-slot name="head">
-        <title>Workflow | Contraseña Olvidada</title>
+        <title>Workflow | Olvidé Mi Contraseña</title>
     </x-slot>
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
         <x-form.form :back="true"
+                     backUrl="{{ route('login') }}"
                      method="post"
                      action="/forgot-password"
         >
