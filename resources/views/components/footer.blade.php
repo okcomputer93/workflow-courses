@@ -20,5 +20,10 @@
         <div>
             <p class="mt-3 text-sm sm:text-base sm:mt-6 text-gray-400 font-normal">&copy; Workflow, Inc, All rights reserved</p>
         </div>
+        <div>
+            <p class="mt-3 text-sm sm:text-base sm:mt-6 text-gray-400 font-normal">
+                Made with ♡ by
+                <a class="transition-colors hover:text-indigo-500 duration-300" href="https://github.com/okcomputer93">okcomputer93</a></p>
+        </div>
     </div>
 </footer>
