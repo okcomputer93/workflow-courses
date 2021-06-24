@@ -11,7 +11,7 @@
                 <x-slot name="title">
                     Entrar a tu cuenta
                 </x-slot>
-                <x-form.input focus="true" type="email" name="email">Correo Electrónico</x-form.input>
+                <x-form.input :focus="true" type="email" name="email">Correo Electrónico</x-form.input>
                 <x-form.input type="password" name="password">Contraseña</x-form.input>
                 <div class="flex flex-col sm:flex-row items-center justify-between w-full">
                     <div class="flex items-center pb-4 sm:pb-0">
