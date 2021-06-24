@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage
 /vendor
 .env
 .env.backup
@@ -14,4 +15,6 @@ yarn-error.log
 .idea/
 Dockerfile
 /docker-compose
+/data
+init-letsencrypt.sh
 
