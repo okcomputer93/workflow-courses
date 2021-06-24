@@ -16,7 +16,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <x-form.input focus="true" type="email" name="email">Correo Electrónico</x-form.input>
+            <x-form.input :focus="true" type="email" name="email">Correo Electrónico</x-form.input>
             <x-form.input type="password" name="password">Nueva Contraseña</x-form.input>
             <x-form.input type="password" name="password_confirmation">Confirma tu contraseña</x-form.input>
             <input type="hidden" name="token" value="{{ request()->route('token') }}">
