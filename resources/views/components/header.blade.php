@@ -8,10 +8,8 @@
 <nav class="bg-blue-dark font-sans">
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between px-2 md:px-6">
-            <div class="flex-1 visible sm:hidden text-gray-300 hover:text-white"
-                 id="menu-open"
-            >
-                <x-icon.menu></x-icon.menu>
+            <div class="flex-1 visible sm:hidden text-gray-300 hover:text-white">
+                <x-icon.menu id="menu-open"></x-icon.menu>
             </div>
             <div class="flex-shrink-0 flex justify-between items-center">
                 <h1 class="pr-2">
@@ -40,7 +38,7 @@
                         @if (Route::has('login'))
                             <a href="{{ route('login') }}"
                                class="inline-block inline-block px-1 sm:px-4 py-7 cursor-pointer text-xs sm:text-base text-gray-400 font-medium border-b-4 border-transparent hover:text-gray-100 hover:border-indigo-500 hover:border-b-4">
-                                {{ __('Login') }}
+                                Acceder
                             </a>
                         @endif
                         @if (Route::has('register'))
