@@ -13,16 +13,20 @@
    <div>
        <div>
            @if($back)
-               <a href="{{ $backUrl ?? url()->previous() }}" class="w-auto inline fixed text-gray-400 transform transition-all duration-300 hover:text-gray-500 hover:scale-110"
-                  title="Regresar"
-               >
-                   <x-icon.arrow-narrow-left></x-icon.arrow-narrow-left>
-               </a>
+               <div class="w-full flex justify-start items-center">
+                   <a href="{{ $backUrl ?? url()->previous() }}" class="text-gray-400 transform transition-all duration-300 hover:text-gray-500 hover:scale-110"
+                      title="Regresar"
+                   >
+                       <x-icon.arrow-narrow-left></x-icon.arrow-narrow-left>
+                   </a>
+               </div>
            @endif
            @if($logo)
-               <a href="/" title="Home">
-                   <img class="mx-auto h-12 w-auto" src="/images/workflow-mark.svg" alt="Workflow">
-               </a>
+              <div class="flex justify-center items-center w-full">
+                  <a href="/" title="Home">
+                      <img class="h-12 w-auto" src="/images/workflow-mark.svg" alt="Workflow">
+                  </a>
+              </div>
            @endif
 
            <h2 class="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-gray-900">
