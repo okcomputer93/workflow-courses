@@ -1,7 +1,7 @@
 <x-layout header="false" footer="false">
 
     <x-social-media-meta-tags title="Regístrate en Workflow"
-                              description="Regístrate para acceder a nuestros cursos en líne"
+                              description="Regístrate para acceder a nuestros cursos en línea"
                               image="/images/header-person.png"
     ></x-social-media-meta-tags>
 
