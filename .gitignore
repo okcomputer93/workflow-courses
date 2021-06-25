@@ -18,3 +18,6 @@ Dockerfile
 /data
 init-letsencrypt.sh
 
+public/storage
+public/miniatures
+public/avatars
