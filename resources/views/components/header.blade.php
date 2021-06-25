@@ -8,8 +8,10 @@
 <nav class="bg-blue-dark font-sans">
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between px-2 md:px-6">
-            <div class="flex-1 visible sm:hidden text-gray-300 hover:text-white">
-                <x-icon.menu id="menu-open"></x-icon.menu>
+            <div class="flex-1 flex justify-start items-center visible sm:hidden text-gray-300 hover:text-white">
+                <div id="menu-open" class="w-auto">
+                    <x-icon.menu></x-icon.menu>
+                </div>
             </div>
             <div class="flex-shrink-0 flex justify-between items-center">
                 <h1 class="pr-2">
