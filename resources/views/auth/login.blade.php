@@ -1,4 +1,9 @@
 <x-layout header="false" footer="false">
+    <x-social-media-meta-tags title="Workflow inicio de sesión"
+                              description="Inicia sesión en Workflow para acceder a tu perfil"
+                              image="/images/header-person.png"
+    ></x-social-media-meta-tags>
+
     <x-slot name="head">
         <title>Workflow | Login</title>
     </x-slot>

@@ -1,7 +1,13 @@
 <x-layout>
+    <x-social-media-meta-tags title="Workflow - ¿Quiénes somos?"
+                              description="Nuestra visión y misión"
+                              image="/images/header-person.png"
+    ></x-social-media-meta-tags>
+
     <x-slot name="head">
-        <title>Workflow | WIP</title>
+        <title>Workflow | Nosotros</title>
     </x-slot>
+
     <x-section type="base">
         <main class="flex flex-col justify-center items-center">
             <div class="max-w-2xl">

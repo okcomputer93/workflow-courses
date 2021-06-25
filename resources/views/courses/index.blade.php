@@ -1,4 +1,8 @@
 <x-layout>
+    <x-social-media-meta-tags title="Workflow - Índice de cursos"
+                             description="Busca entre todos los cursos creados por profesionistas"
+                             image="/images/header-person.png"
+    ></x-social-media-meta-tags>
     @push('styles')
         <livewire:styles />
     @endpush

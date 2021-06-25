@@ -1,6 +1,11 @@
 <x-layout>
+    <x-social-media-meta-tags title="Workflow - Página principal"
+                             description="Complementa tu carrera en Workflow con nuestros cursos online"
+                             image="/images/header-person.png"
+    ></x-social-media-meta-tags>
+
     <x-slot name="head">
-        <title>Workflow | Home</title>
+        <title>Workflow | Inicio</title>
     </x-slot>
     <x-section type="clean">
         <main class="flex flex-col justify-center items-center md:flex-row md:justify-between md:items-center py-5">

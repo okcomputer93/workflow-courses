@@ -1,4 +1,8 @@
 <x-layout>
+    <x-social-media-meta-tags title="{{ $course->title }}"
+                              description="{{ $course->description }}"
+                              image="{{ asset($course->miniature) }}"
+    ></x-social-media-meta-tags>
     <x-slot name="head">
         <title>Workflow | {{ $course->title }}</title>
     </x-slot>
